@@ -539,10 +539,10 @@ GamHistosFill::GamHistosFill(TTree *tree, int itype, string datasetname, string 
   //is22v10 = (ds=="2022F" || ds=="2022G" ||
   is22v10 = false;//(ds=="2022G");
   is23 = (ds=="2023B" || ds=="2023Cv123" || ds=="2023Cv4" || ds=="2023D" ||
-	  ds=="2023P8" || ds=="2023QCD");
+	  ds=="2023P8" || ds=="2023QCD" || ds=="2023P8_BPix"|| ds=="2023QCD" || ds=="2023QCD_BPix"); //added 2023P8_BPix
   isQCD = (ds=="2016QCD" || ds=="2016QCDAPV" || ds=="2017QCD" ||
 	   ds=="2018QCD" || ds=="2022QCD" || ds=="2022EEQCD");
-  isMG = (ds=="2022P8" || ds=="2022EEP8" || ds=="2022QCD" || ds=="2022EEQCD");
+  isMG = (ds=="2022P8" || ds=="2022EEP8" || ds=="2022QCD" || ds=="2022EEQCD"); //should 2023P8 and 2023P8_BPix be added here, too? (for correct weight in HT bins)
   isRun3 = (is22 || is23);
   isRun2 = (is16  || is17 || is18);
   assert(is16 || is17 || is18 || is22 || is23);

@@ -479,6 +479,11 @@ void GamHistosFill::Loop()
     jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", "");
     assert(false); // not yet available
   }
+  //MC2023 --> added for running 2023MC with and without BPix stuff
+  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8_BPix") {
+    jec = getFJC("", "ENTER CORRECT FILE NAME","");
+    assert(false); // not yet available
+  }
   //2023
   if (ds=="2023B" || ds=="2023Cv123") {
     jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI",
@@ -504,7 +509,7 @@ void GamHistosFill::Loop()
   if (ds=="2018P8" || ds=="2018QCD") sera = "2018";
   if (ds=="2022P8" || ds=="2022QCD") sera = "2022";
   if (ds=="2022EEP8" || ds=="2022EEQCD") sera = "2022EE";
-  if (ds=="2023P8" || ds=="2023QCD") sera = "2023";
+  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8_BPix") sera = "2023"; //added 2023P8_BPix
   //
   if (ds=="2016B"||ds=="2016C"||ds=="2016D"||ds=="2016BCD"||
       ds=="2016E"||ds=="2016F"||ds=="2016EF"||ds=="2016BCDEF") sera = "2016APV";
@@ -517,6 +522,7 @@ void GamHistosFill::Loop()
   //
   if (ds=="2022P8" || ds=="2022QCD") sera = "2022";
   if (ds=="2022EEP8" || ds=="2022EEQCD") sera = "2022EE";
+  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8_BPix") sera = "2023"; //added 2023P8_BPix
   if (ds=="2022C" || ds=="2022D") sera ="2022";
   if (ds=="2022E" || ds=="2022F" || ds=="2022G") sera = "2022EE";
   if (ds=="2023B" || ds=="2023Cv123" || ds=="2023Cv4" || ds=="2023D")

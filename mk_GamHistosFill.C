@@ -71,7 +71,8 @@ void mk_GamHistosFill(string dataset = "X", string version = "vX") {
 		dataset=="2016APVP8" ||
 		dataset=="2022P8" || //dataset=="2022QCD" ||
 		dataset=="2022EEP8" || //dataset=="2022EEQCD" ||
-		dataset=="2023P8");// || dataset=="2023QCD");
+		dataset=="2023P8" || //);// || dataset=="2023QCD");
+  		dataset=="2023P8_BPix"); //added the BPix MC files
 
   bool addQCD = (dataset=="2016QCD" || dataset=="2016APVQCD" || 
 		 dataset=="2017QCD" || dataset=="2018QCD" ||
@@ -110,7 +111,8 @@ void mk_GamHistosFill(string dataset = "X", string version = "vX") {
   //c->AddFile("files/data-2018a.root");
   
   // Automatically figure out where we are running the job
-  bool runGPU = (path=="/media/storage/gamjet");
+  bool runGPU = (path=="/media/storage/gamjet" ||
+		  path=="/home/bschilli/Cern/gamjet-analysis"); //on Vulcan, I have this home directory (should fix this code, as i have same directory also locally...)
   bool runLocal = (path=="/Users/voutila/Dropbox/Cern/gamjet" ||
 		   path=="/Users/voutila/Library/CloudStorage/Dropbox/Cern/gamjet" ||
 		   path=="/Users/manvouti/Dropbox/Cern/gamjet" ||
