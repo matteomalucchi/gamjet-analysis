@@ -46,7 +46,7 @@ R__LOAD_LIBRARY(GamHistosFill_C.so)
 #endif
 
 
-void mk_GamHistosFill(string dataset = "X", string version = "vX") {
+void mk_GamHistosFill(string dataset = "X", string version = "w1") { //using w-version names for my code (Bettina).
 
   // Settings
   bool addData = (dataset=="2016B"  || dataset=="2016C" || dataset=="2016D" || 
@@ -72,7 +72,7 @@ void mk_GamHistosFill(string dataset = "X", string version = "vX") {
 		dataset=="2022P8" || //dataset=="2022QCD" ||
 		dataset=="2022EEP8" || //dataset=="2022EEQCD" ||
 		dataset=="2023P8" || //);// || dataset=="2023QCD");
-  		dataset=="2023P8_BPix"); //added the BPix MC files
+  		dataset=="2023P8-BPix"); //added the BPix MC files
 
   bool addQCD = (dataset=="2016QCD" || dataset=="2016APVQCD" || 
 		 dataset=="2017QCD" || dataset=="2018QCD" ||
@@ -120,8 +120,8 @@ void mk_GamHistosFill(string dataset = "X", string version = "vX") {
 		   path=="/home/bschilli/Cern/gamjet");
   if (!runLocal) assert(runGPU);
 
-  if (runGPU) cout << "Running on Hefaistos (runGPU)" << endl;
-  if (runLocal) cout << "Running on iMac (runLocal)" << endl;
+  if (runGPU) cout << "Running on Hefaistos or Vulcan (runGPU)" << endl;
+  if (runLocal) cout << "Running on locally (runLocal)" << endl;
   
   if (addData) {
     ifstream fin(runLocal ? Form("input_files/dataFiles_local_Run%s.txt",dataset.c_str()) : 
