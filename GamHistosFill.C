@@ -476,7 +476,7 @@ void GamHistosFill::Loop()
     jec = getFJC("", "Summer22EEVetoRun3_V1_MC_L2Relative_AK4PUPPI", "");
   }
   if (dataset=="Summer23") {
-    jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", "");
+    jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", "");// use this for Summer23 MC (get this from github)
     assert(false); // not yet available
   }
   //MC2023 --> added for running 2023MC with and without BPix stuff
@@ -486,19 +486,20 @@ void GamHistosFill::Loop()
   }
   //2023
   if (ds=="2023B" || ds=="2023Cv123") {
-    jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI",
-		 //"Run23C123-Prompt_DATA_L2L3Residual_AK4PFPuppi");
-		 "Summer22Prompt23_Run2023Cv123_V3_DATA_L2L3Residual_AK4PFPUPPI");
+	//got corrections from here: https://github.com/cms-jet/JECDatabase/tree/master/textFiles/Winter23Prompt23_V2_MC
+    jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //only using MC L2Rel
+		 //"Summer22Run3_V1_MC_L2Relative_AK4PUPPI", //old
+		 //"Summer22Prompt23_Run2023Cv123_V3_DATA_L2L3Residual_AK4PFPUPPI"); //old
   }
   if (ds=="2023Cv4") {
-    jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI",
-		 //"Run23C4-Prompt_DATA_L2L3Residual_AK4PFPuppi");
-		 "Summer22Prompt23_Run2023Cv4_V3_DATA_L2L3Residual_AK4PFPUPPI");
+    jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //only using MC L2Rel
+		 //"Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "");
+		 //"Summer22Prompt23_Run2023Cv4_V3_DATA_L2L3Residual_AK4PFPUPPI"); //old
   }
   if (ds=="2023D") {
-    jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI",
-		 //"Run23D-Prompt_DATA_L2L3Residual_AK4PFPuppi");
-		 "Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI");
+    jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //only using MC L2Rel
+		 //"Summer22Run3_V1_MC_L2Relative_AK4PUPPI", //old
+		 //"Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI"); //old
   }
   assert(jec);
   
@@ -576,6 +577,7 @@ void GamHistosFill::Loop()
     if (TString(ds.c_str()).Contains("2023B") || 
 	TString(ds.c_str()).Contains("2023C")) 
       fjv = new TFile("files/jetveto2023BC.root","READ");
+ // ADD MONTE CARLO SETS HERE - ALSO NEED JETVETOMAPS	(below: BPix, above: no bpix)
     if (TString(ds.c_str()).Contains("2023D"))
       fjv = new TFile("files/jetveto2023D.root","READ");
   }
