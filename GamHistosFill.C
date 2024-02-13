@@ -475,14 +475,17 @@ void GamHistosFill::Loop()
   if (ds=="2022EEP8" || ds=="2022EEQCD") {
     jec = getFJC("", "Summer22EEVetoRun3_V1_MC_L2Relative_AK4PUPPI", "");
   }
-  if (dataset=="Summer23") {
+ /*
+  if (dataset=="Summer23") { //includes thus both BPix corrected ones and the ones without it
+    //got corrections from here: https://github.com/cms-jet/JECDatabase/tree/master/textFiles/Winter23Prompt23_V2_MC
     jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", "");// use this for Summer23 MC (get this from github)
-    assert(false); // not yet available
+    //assert(false); // not yet available --> use the Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi, which is available.
   }
+ */
   //MC2023 --> added for running 2023MC with and without BPix stuff
-  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8_BPix") {
-    jec = getFJC("", "ENTER CORRECT FILE NAME","");
-    assert(false); // not yet available
+  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix") { //earlier called: Summer2023
+    jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi","");
+    //assert(false); // not yet available --> use the Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi, which is available.
   }
   //2023
   if (ds=="2023B" || ds=="2023Cv123") {
@@ -510,7 +513,7 @@ void GamHistosFill::Loop()
   if (ds=="2018P8" || ds=="2018QCD") sera = "2018";
   if (ds=="2022P8" || ds=="2022QCD") sera = "2022";
   if (ds=="2022EEP8" || ds=="2022EEQCD") sera = "2022EE";
-  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8_BPix") sera = "2023"; //added 2023P8_BPix
+  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix") sera = "2023"; //added 2023P8-BPix
   //
   if (ds=="2016B"||ds=="2016C"||ds=="2016D"||ds=="2016BCD"||
       ds=="2016E"||ds=="2016F"||ds=="2016EF"||ds=="2016BCDEF") sera = "2016APV";
@@ -523,7 +526,7 @@ void GamHistosFill::Loop()
   //
   if (ds=="2022P8" || ds=="2022QCD") sera = "2022";
   if (ds=="2022EEP8" || ds=="2022EEQCD") sera = "2022EE";
-  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8_BPix") sera = "2023"; //added 2023P8_BPix
+  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix") sera = "2023"; //added 2023P8-BPix
   if (ds=="2022C" || ds=="2022D") sera ="2022";
   if (ds=="2022E" || ds=="2022F" || ds=="2022G") sera = "2022EE";
   if (ds=="2023B" || ds=="2023Cv123" || ds=="2023Cv4" || ds=="2023D")
@@ -575,10 +578,12 @@ void GamHistosFill::Loop()
   }
   if (TString(ds.c_str()).Contains("2023")) {
     if (TString(ds.c_str()).Contains("2023B") || 
-	TString(ds.c_str()).Contains("2023C")) 
+	TString(ds.c_str()).Contains("2023C") ||
+	TString(ds.c_str()).Contains("2023P8"))  //but need to make sure that it does not use this for the BPix stuff
       fjv = new TFile("files/jetveto2023BC.root","READ");
  // ADD MONTE CARLO SETS HERE - ALSO NEED JETVETOMAPS	(below: BPix, above: no bpix)
-    if (TString(ds.c_str()).Contains("2023D"))
+    if (TString(ds.c_str()).Contains("2023D") ||
+	TString(ds.c_str()).Contains("2023P8-BPix")) //overwrites the previous choice of fjv (in case of BPix it first sets the wrong one, as both strings contain 22023P8
       fjv = new TFile("files/jetveto2023D.root","READ");
   }
   if (!fjv) cout << "Jetvetomap file not found for " << ds << endl << flush;
