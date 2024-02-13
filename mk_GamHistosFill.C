@@ -112,7 +112,8 @@ void mk_GamHistosFill(string dataset = "X", string version = "vX") {
   
   // Automatically figure out where we are running the job
   bool runGPU = (path=="/media/storage/gamjet" ||
-		  path=="/home/bschilli/Cern/gamjet-analysis"); //on Vulcan, I have this home directory (should fix this code, as i have same directory also locally...)
+		  path=="/home/bschilli/Cern/gamjet-analysis" || //); //on Vulcan, I have this home directory (should fix this code, as i have same directory also locally...)
+	  	  path=="/media/storage/bschilli/gamjet-analysis"); //hefaistos
   bool runLocal = (path=="/Users/voutila/Dropbox/Cern/gamjet" ||
 		   path=="/Users/voutila/Library/CloudStorage/Dropbox/Cern/gamjet" ||
 		   path=="/Users/manvouti/Dropbox/Cern/gamjet" ||
@@ -123,7 +124,7 @@ void mk_GamHistosFill(string dataset = "X", string version = "vX") {
   if (runLocal) cout << "Running on iMac (runLocal)" << endl;
   
   if (addData) {
-    ifstream fin(runLocal ? Form("input_files/dataFiles_local_%s.txt",dataset.c_str()) : 
+    ifstream fin(runLocal ? Form("input_files/dataFiles_local_Run%s.txt",dataset.c_str()) : 
 		 Form("input_files/dataFiles_Run%s.txt",dataset.c_str()), ios::in);
     string filename;
     cout << "Chaining data files:" << endl << flush;
