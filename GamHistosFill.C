@@ -2030,6 +2030,7 @@ void GamHistosFill::Loop()
 	double rawJetMass = Jet_mass[i] * (1.0 - Jet_rawFactor[i]);
 	jec->setJetPt(rawJetPt);
 	jec->setJetEta(Jet_eta[i]);
+	jec->setJetPhi(Jet_phi[i]); //added this line to make BPix work (should be marked as w3)
 	if (isRun2) {
 	  jec->setJetA(Jet_area[i]);
 	  jec->setRho(fixedGridRhoFastjetAll);
