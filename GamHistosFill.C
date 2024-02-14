@@ -483,26 +483,31 @@ void GamHistosFill::Loop()
   }
  */
   //MC2023 --> added for running 2023MC with and without BPix stuff
-  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023QCD-BPix" || ds=="2023P8-BPix") { //earlier called: Summer2023
-    jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi","");
+  if (ds=="2023P8" || ds=="2023QCD") { //earlier called: Summer2023
+    jec = getFJC("",  "Summer23Run3_V1_MC_L2Relative_AK4PUPPI.txt", "")//only using MC L2Rel for w2
+		    //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi","");
     //assert(false); // not yet available --> use the Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi, which is available.
   }
-  //2023
-  if (ds=="2023B" || ds=="2023Cv123") {
-	//got corrections from here: https://github.com/cms-jet/JECDatabase/tree/master/textFiles/Winter23Prompt23_V2_MC
-    jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //only using MC L2Rel
-		 //"Summer22Run3_V1_MC_L2Relative_AK4PUPPI", //old
-		 //"Summer22Prompt23_Run2023Cv123_V3_DATA_L2L3Residual_AK4PFPUPPI"); //old
+  if (ds=="2023QCD-BPix" || ds=="2023P8-BPix") { //earlier called: Summer2023, BPix separately!!
+    jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI.txt", "")//only using MC L2Rel for w2
+		    //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi",""); //old
   }
-  if (ds=="2023Cv4") {
-    jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //only using MC L2Rel
-		 //"Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "");
-		 //"Summer22Prompt23_Run2023Cv4_V3_DATA_L2L3Residual_AK4PFPUPPI"); //old
+  //data2023
+  if (ds=="2023B" || ds=="2023Cv123") {//2023C --> no bpix issue
+	//got Winter23 corrections from here: https://github.com/cms-jet/JECDatabase/tree/master/textFiles/Winter23Prompt23_V2_MC
+    jec = getFJC("", "Summer23Run3_V1_MC_L2Relative_AK4PUPPI.txt", "")//only using MC L2Rel for w2
+		 //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //old
+		 //"Summer22Prompt23_Run2023Cv123_V3_DATA_L2L3Residual_AK4PFPUPPI"); //even older
   }
-  if (ds=="2023D") {
-    jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //only using MC L2Rel
-		 //"Summer22Run3_V1_MC_L2Relative_AK4PUPPI", //old
-		 //"Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI"); //old
+  if (ds=="2023Cv4") {//2023C --> no bpix issue
+    jec = getFJC("", "Summer23Run3_V1_MC_L2Relative_AK4PUPPI.txt", "")//only using MC L2Rel for w2
+		 //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //old
+		 //"Summer22Prompt23_Run2023Cv4_V3_DATA_L2L3Residual_AK4PFPUPPI"); //even older
+  }
+  if (ds=="2023D") { //2023D needs BPix stuff!
+    jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI.txt", "")//only using MC L2Rel for w2
+		 //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //old 
+		 //"Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI"); //even older
   }
   assert(jec);
   
