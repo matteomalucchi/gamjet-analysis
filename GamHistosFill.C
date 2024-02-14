@@ -483,7 +483,7 @@ void GamHistosFill::Loop()
   }
  */
   //MC2023 --> added for running 2023MC with and without BPix stuff
-  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix") { //earlier called: Summer2023
+  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023QCD-BPix" || ds=="2023P8-BPix") { //earlier called: Summer2023
     jec = getFJC("", "Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi","");
     //assert(false); // not yet available --> use the Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi, which is available.
   }
