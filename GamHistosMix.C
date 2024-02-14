@@ -43,9 +43,15 @@ void GamHistosMix() {
   */
 
   // v27->v29->v30->v31
+  /*
   GamHistosMixEra("2022","v32");
   GamHistosMixEra("2022EE","v32");
   GamHistosMixEra("Run3","v32");
+  */
+
+  //w1
+  GamHistosMixEra("2023","w1"); //make this contain MC without BPix issue
+  GamHistosMixEra("2023-BPix","w1"); //MC accounted for BPix issue
 }
 
 TF1 *_f1p(0);
