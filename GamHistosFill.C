@@ -595,11 +595,13 @@ void GamHistosFill::Loop()
   if (TString(ds.c_str()).Contains("2023")) {
     if (TString(ds.c_str()).Contains("2023B") || 
 	TString(ds.c_str()).Contains("2023C") ||
-	TString(ds.c_str()).Contains("2023P8"))  //but need to make sure that it does not use this for the BPix stuff
+	(TString(ds.c_str()).Contains("2023P8") && TString(ds.c_str()).Contains("BPix")==false) ||  //need to make sure that it does not use this for BPix stuff
+	(TString(ds.c_str()).Contains("2023QCD") && TString(ds.c_str()).Contains("BPix")==false) )
       fjv = new TFile("files/jetveto2023BC.root","READ");
  // ADD MONTE CARLO SETS HERE - ALSO NEED JETVETOMAPS	(below: BPix, above: no bpix)
     if (TString(ds.c_str()).Contains("2023D") ||
-	TString(ds.c_str()).Contains("2023P8-BPix")) //overwrites the previous choice of fjv (in case of BPix it first sets the wrong one, as both strings contain 22023P8
+	TString(ds.c_str()).Contains("2023P8-BPix") || //overwrites the previous choice of fjv (in case of BPix it first sets the wrong one, as both strings contain 22023P8
+	TString(ds.c_str()).Contains("2023QCD-BPix"))
       fjv = new TFile("files/jetveto2023D.root","READ");
   }
   if (!fjv) cout << "Jetvetomap file not found for " << ds << endl << flush;
