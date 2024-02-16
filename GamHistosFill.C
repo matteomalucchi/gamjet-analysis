@@ -529,7 +529,7 @@ void GamHistosFill::Loop()
   if (ds=="2018P8" || ds=="2018QCD") sera = "2018";
   if (ds=="2022P8" || ds=="2022QCD") sera = "2022";
   if (ds=="2022EEP8" || ds=="2022EEQCD") sera = "2022EE";
-  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix") sera = "2023"; //added 2023P8-BPix
+  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix") sera = "2023"; //added 2023P8-BPix
   //
   if (ds=="2016B"||ds=="2016C"||ds=="2016D"||ds=="2016BCD"||
       ds=="2016E"||ds=="2016F"||ds=="2016EF"||ds=="2016BCDEF") sera = "2016APV";
@@ -542,7 +542,7 @@ void GamHistosFill::Loop()
   //
   if (ds=="2022P8" || ds=="2022QCD") sera = "2022";
   if (ds=="2022EEP8" || ds=="2022EEQCD") sera = "2022EE";
-  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix") sera = "2023"; //added 2023P8-BPix
+  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix") sera = "2023"; //added 2023P8-BPix
   if (ds=="2022C" || ds=="2022D") sera ="2022";
   if (ds=="2022E" || ds=="2022F" || ds=="2022G") sera = "2022EE";
   if (ds=="2023B" || ds=="2023Cv123" || ds=="2023Cv4" || ds=="2023D")
