@@ -47,7 +47,7 @@ void replacePt(TGraphErrors *g, TH1 *h) {
 void GamHistosRatios(string ver, string iov);
 
 // v27->v29->v30->v31(L2L3Res_V2)->v32(L2L3Res_V3)
-void GamHistosRatio(string ver = "v32") {
+void GamHistosRatio(string ver = "w3") {
   //GamHistosRatios(ver,"2016BCDEF");
   //GamHistosRatios(ver,"2016FGH");
   //GamHistosRatios(ver,"2017BCDEF");
@@ -64,14 +64,14 @@ void GamHistosRatio(string ver = "v32") {
   //GamHistosRatios(ver,"2023Cv123");
   //GamHistosRatios(ver,"2023Cv4");
 
-  GamHistosRatios(ver,"2022CD");
-  GamHistosRatios(ver,"2022E");
-  GamHistosRatios(ver,"2022FG");
+  //GamHistosRatios(ver,"2022CD");
+  //GamHistosRatios(ver,"2022E");
+  //GamHistosRatios(ver,"2022FG");
   GamHistosRatios(ver,"2023Cv123");
   GamHistosRatios(ver,"2023Cv4");
   GamHistosRatios(ver,"2023D");
-  GamHistosRatios(ver,"2023Cv4D");
-  GamHistosRatios(ver,"Run3");
+  //GamHistosRatios(ver,"2023Cv4D");
+  //GamHistosRatios(ver,"Run3");
   
 }
 
@@ -182,13 +182,32 @@ void GamHistosRatios(string ver, string iov) {
     fm = new TFile(Form("rootfiles/GamHistosMix_mc_2022EEP8QCD_%s.root",cv),"READ");
     fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE");
   }
+  /*
   if (iov=="2023Cv123" || iov=="2023Cv4" || iov=="2023Cv4D" ||
       iov=="2023D") {
     fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
     //fm = new TFile(Form("rootfiles/GamHistosFill_mc_2022P8_%s.root",cv),"READ");
     //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8_%s.root",ci,cv),"RECREATE");
-    fm = new TFile(Form("rootfiles/GamHistosMix_mc_2022P8QCD_%s.root",cv),"READ");
-    fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE");
+    
+    //fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023P8QCD_%s.root",cv),"READ"); //gam+qcd MC
+    //fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023P8-BPixQCD_%s.root",cv),"READ"); //gam+qcd MC (BPix)
+    //fm = new TFile(Form("rootfiles/GamHistosMix_mc_2022P8-BPix_%s.root",cv),"READ"); //gam MC (BPix)
+    fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023P8_%s.root",cv),"READ"); //gam MC: have no gamma+qcd mix yet for these, so need to do this now without qcd --> use one of the two lines above once we have it. (needed to hardcode version in this case... )
+    //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE"); //switch back to this when we have QCD
+    fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8-noQCD_%s.root",ci,cv),"RECREATE");
+  }
+  */
+  //SHOULD RETURN TO THE ABOVE HANDLING AFTER THIS ONE, WHEN EVERYTHING HAS GONE TO VERSION W4
+  //THE TWO IF CONDITIONS BELOW ARE ONLY FOR 16.02.2024 WHEN RUNNING WITHOUT QCD AND WITHOUT L2L3RES
+  if (iov=="2023Cv123" || iov=="2023Cv4") {
+    fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_w2.root",ci),"READ");
+    fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8_w2.root"),"READ"); 
+    fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8-noQCD_%s.root",ci,cv),"RECREATE");
+  }
+  if (iov=="2023D") { //BPix issue
+    fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
+    fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8-BPix_%s.root",cv),"READ"); 
+    fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8-noQCD_%s.root",ci,cv),"RECREATE");
   }
   if (iov=="Run3") {
 
