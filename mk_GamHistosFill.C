@@ -46,7 +46,7 @@ R__LOAD_LIBRARY(GamHistosFill_C.so)
 #endif
 
 
-void mk_GamHistosFill(string dataset = "X", string version = "w3") { //using w-version names for my code (Bettina).
+void mk_GamHistosFill(string dataset = "X", string version = "w4") { //using w-version names for my code (Bettina).
 
   // Settings
   bool addData = (dataset=="2016B"  || dataset=="2016C" || dataset=="2016D" || 
@@ -77,7 +77,7 @@ void mk_GamHistosFill(string dataset = "X", string version = "w3") { //using w-v
   bool addQCD = (dataset=="2016QCD" || dataset=="2016APVQCD" || 
 		 dataset=="2017QCD" || dataset=="2018QCD" ||
 		 dataset=="2022QCD" || dataset=="2022EEQCD" ||
-		 dataset=="2023QCD");
+		 dataset=="2023QCD" || dataset=="2023QCD-BPix"); //added BPix QCD MC
 
   //cout << "Clean old shared objects and link files" << endl << flush;
   //gSystem->Exec("rm *.d");
