@@ -24,7 +24,7 @@ MC_list_of_lists = [
     ['Run3Summer23', '2023P8', '2023P8-BPix']
     ]
 
-version = 'w3'
+version = 'w4'
 
 os.system("ls rootfiles/GamHistosFill_data_*_"+version+".root")
 for IOV_list in IOV_list_of_lists:
