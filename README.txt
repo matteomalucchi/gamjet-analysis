@@ -49,8 +49,10 @@ CHANGELOG (latest first):
 To-do later: 
 - update h2r9vspt r9 binning. Check if r9 cut makes sense at pT>230 GeV for Photon200 trigger, and if efficiency drops too much
 
-w32: changed JEC to Summer23Run3_V1_MC_L2Relative_AK4PUPPI.txt and for BPix samples Summer23BPixRun3_V1_MC_L2Relative_AK4PUPPI.txt respectively.
-w31: first version including my updates - used to run on 2023 DATA (Cv123, Cv4, D) and 2023 MC (GJ-4Jets_HT* Summer23, and the same with BPix fix) (blehtela)
+w4: for running with L2Rel + L2Res (16.02.2024)
+w3: used for running the bpix samples. Added line for setting jet phi, so that FactorizedJetCorrector does not complain. 
+w2: changed JEC to Summer23Run3_V1_MC_L2Relative_AK4PUPPI.txt and for BPix samples Summer23BPixRun3_V1_MC_L2Relative_AK4PUPPI.txt respectively.
+w1: first version including my updates - used to run on 2023 DATA (Cv123, Cv4, D) and 2023 MC (GJ-4Jets_HT* Summer23, and the same with BPix fix) (blehtela)
 
 
 v32b: rerun QCD adter filtering more bad files.
