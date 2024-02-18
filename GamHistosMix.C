@@ -67,20 +67,25 @@ void GamHistosMixEra(string sepoch, string sver) {
   TFile *fout = new TFile(Form("rootfiles/GamHistosMix_mc_%sP8QCD_%s.root",
 			       epoch,ver),"RECREATE");
 
+  TFile *fgam(0);
+  TFile *fqcd(0);
+
     //loading input files, needed if-condition due to different naming of BPix files. (TO DO: adjust this in GamHistosFill, so the if gets obsolete)
     if(TString(sepoch.c_str()).Contains("2023-BPix")){
-        TFile *fgam = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8-BPix_%s.root", //needed to change this to different naming due to BPix samples.
-                                        ver),"READ");			           //e.g. GamHistosFill_mc_2023P8-BPix_w4.root
+        fgam = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8-BPix_%s.root", //needed to change this to different naming due to BPix samples.
+                                ver),"READ");			                //e.g. GamHistosFill_mc_2023P8-BPix_w4.root
         assert(fgam && !fgam->IsZombie());
-        TFile *fqcd = new TFile(Form("rootfiles/GamHistosFill_mc_2023QCD-BPix_%s.root", //GamHistosFill_mc_2023QCD-BPix_w4.root
-                                        ver),"READ");
+        fqcd = new TFile(Form("rootfiles/GamHistosFill_mc_2023QCD-BPix_%s.root", //GamHistosFill_mc_2023QCD-BPix_w4.root
+                                ver),"READ");
         assert(fqcd && !fqcd->IsZombie());
     }
     else{ //the usual way of loading the files (i.e. no BPix era)
-        TFile *fgam = new TFile(Form("rootfiles/GamHistosFill_mc_%sP8_%s.root", //this is how it usually is (GamHistosFill_mc_2023P8_w4.root)
+        //TFile *fgam = new TFile(Form("rootfiles/GamHistosFill_mc_%sP8_%s.root", //this is how it usually is (GamHistosFill_mc_2023P8_w4.root)
+        fgam = new TFile(Form("rootfiles/GamHistosFill_mc_%sP8_%s.root",
 				       epoch,ver),"READ");
 	assert(fgam && !fgam->IsZombie());
-	TFile *fqcd = new TFile(Form("rootfiles/GamHistosFill_mc_%sQCD_%s.root", //GamHistosFill_mc_2023QCD_w4.root
+	//TFile *fqcd = new TFile(Form("rootfiles/GamHistosFill_mc_%sQCD_%s.root", //GamHistosFill_mc_2023QCD_w4.root
+        fqcd = new TFile(Form("rootfiles/GamHistosFill_mc_%sQCD_%s.root",
 				       qepoch,ver),"READ");
 	assert(fqcd && !fqcd->IsZombie());
     }
