@@ -68,7 +68,7 @@ void GamHistosMixEra(string sepoch, string sver) {
 			       epoch,ver),"RECREATE");
 
     //loading input files, needed if-condition due to different naming of BPix files. (TO DO: adjust this in GamHistosFill, so the if gets obsolete)
-    if(sepoch.c_str().Contains("2023-BPix")){
+    if(TString(sepoch.c_str()).Contains("2023-BPix")){
         TFile *fgam = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8-BPix_%s.root", //needed to change this to different naming due to BPix samples.
                                         ver),"READ");			           //e.g. GamHistosFill_mc_2023P8-BPix_w4.root
         assert(fgam && !fgam->IsZombie());
