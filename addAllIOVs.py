@@ -21,7 +21,7 @@ MC_list_of_lists = [
 #    ['Run2P8','2016P8','2016APVP8','2017P8','2018P8'],
 #    ['Run2QCD','2016QCD','2016QCDAPV','2017QCD','2018QCD'],
 #    ['Run3P8','2022P8','2022EEP8']
-    ['Run3Summer23', '2023P8', '2023P8-BPix']
+    ['Run3Summer23', '2023P8', '2023P8-BPix'] # !! does not make sense to merge these together - double check!!
     ]
 
 version = 'w4'
