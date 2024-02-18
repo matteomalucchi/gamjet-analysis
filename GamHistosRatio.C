@@ -47,7 +47,7 @@ void replacePt(TGraphErrors *g, TH1 *h) {
 void GamHistosRatios(string ver, string iov);
 
 // v27->v29->v30->v31(L2L3Res_V2)->v32(L2L3Res_V3)
-void GamHistosRatio(string ver = "w3") {
+void GamHistosRatio(string ver = "w4") {
   //GamHistosRatios(ver,"2016BCDEF");
   //GamHistosRatios(ver,"2016FGH");
   //GamHistosRatios(ver,"2017BCDEF");
@@ -197,18 +197,19 @@ void GamHistosRatios(string ver, string iov) {
     fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8-noQCD_%s.root",ci,cv),"RECREATE");
   }
   */
-  //SHOULD RETURN TO THE ABOVE HANDLING AFTER THIS ONE, WHEN EVERYTHING HAS GONE TO VERSION W4
+  //SHOULD RETURN TO THE ABOVE HANDLING AFTER THIS ONE, WHEN EVERYTHING HAS GONE TO VERSION W4 -- cannot because of BPIX issue
   //THE TWO IF CONDITIONS BELOW ARE ONLY FOR 16.02.2024 WHEN RUNNING WITHOUT QCD AND WITHOUT L2L3RES - TODO: update this.
-  if (iov=="2023Cv123" || iov=="2023Cv4") {
-    fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_w2.root",ci),"READ");
-    fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8_w2.root"),"READ"); 
-    fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8-noQCD_%s.root",ci,cv),"RECREATE");
-  }
-  if (iov=="2023D") { //BPix issue
-    fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
-    fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8-BPix_%s.root",cv),"READ"); 
-    fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8-noQCD_%s.root",ci,cv),"RECREATE");
-  }
+      if (iov=="2023Cv123" || iov=="2023Cv4") {
+        fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
+        fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023P8QCD_%s.root",cv),"READ"); 
+        fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE");
+        //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8-noQCD_%s.root",ci,cv),"RECREATE"); //when no QCD in the mix (can remove it)
+      }
+      if (iov=="2023D") { //BPix issue (GamHistosMix_mc_2023-BPixP8QCD_w4.root) //should adjust the naming in the other programs!
+        fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
+        fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023-BPixP8QCD_%s.root",cv),"READ"); 
+        fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE");
+      }
   if (iov=="Run3") {
 
     // Merge files, if not already done (delete combination file to redo)
