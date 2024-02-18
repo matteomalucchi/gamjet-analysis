@@ -50,8 +50,8 @@ void GamHistosMix() {
   */
 
   //w1
-  GamHistosMixEra("2023","w4"); //make this contain MC without BPix issue
-  GamHistosMixEra("2023-BPix","w4"); //MC accounted for BPix issue
+  GamHistosMixEra("2023","w5"); //make this contain MC without BPix issue
+  GamHistosMixEra("2023-BPix","w5"); //MC accounted for BPix issue
 }
 
 TF1 *_f1p(0);

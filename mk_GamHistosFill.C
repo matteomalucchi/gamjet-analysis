@@ -46,7 +46,7 @@ R__LOAD_LIBRARY(GamHistosFill_C.so)
 #endif
 
 
-void mk_GamHistosFill(string dataset = "X", string version = "w4") { //using w-version names for my code (Bettina).
+void mk_GamHistosFill(string dataset = "X", string version = "w5") { //using w-version names for my code (Bettina).
 
   // Settings
   bool addData = (dataset=="2016B"  || dataset=="2016C" || dataset=="2016D" || 
