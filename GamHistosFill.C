@@ -513,7 +513,7 @@ void GamHistosFill::Loop()
 		 //"Summer22Prompt23_Run2023Cv4_V3_DATA_L2L3Residual_AK4PFPUPPI"); //even older
   }
   if (ds=="2023D") { //2023D needs BPix stuff!
-    jec = getFJC("", "Summer23BPixRun3_V1_MC_L2Relative_AK4PUPPI",  
+    jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI",  
 		    "Summer23Prompt23_Run2023D_V1_DATA_L2Residual_AK4PFPuppi"); //16th of Feb2024, w4
 		    	//"Summer23Prompt23_Run2023D_V1_DATA_L2L3Residual_AK4PFPuppi"); //17th of Feb2024, w5
 		 //"Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
