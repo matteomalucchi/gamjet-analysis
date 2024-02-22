@@ -10,7 +10,8 @@
 bool addMPFu2n = true;
 bool addG1toMPF = false;//true;
 bool addG12toMPF = false;
-string id = "w3"; //change this back to current version!!
+//string id = "w5"; //change this back to current version!!
+string id = "wX23"; //testing summer23 corrections with single files
 bool drawFullIOVList = false;//true;
 
 // Forward declaration of call
@@ -69,7 +70,8 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
     //"2018ABCD","Run3",
     //"2022CD","2022E","2022FG", //hadd
     //"2023Cv123","2023Cv4D", //hadd
-    "2023Cv123","2023Cv4","2023D" //hadd
+    //"2023Cv123","2023Cv4","2023D" //hadd <-- change back to this after testing single files
+    "2023Cv123X","2023Cv4X","2023DX" //testing single files with different jec
   };
 
   string mcs_long[] = {
@@ -82,7 +84,8 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
     //"2022P8","2022P8"
     //"2022P8","2022P8","2022P8"
     //"2023P8QCD","2023P8QCD","2023-BPixP8QCD" //in principle use QCD
-    "2023P8","2023P8","2023P8-BPix"
+    //"2023P8","2023P8","2023P8-BPix" //<-- change back to this after testing single files
+    "2023P8X","2023P8X","2023P8-BPixX"//testing single files with different jec
   };
   const int niov_long = sizeof(iovs_long)/sizeof(iovs_long[0]);
   const int nmc_long = sizeof(mcs_long)/sizeof(mcs_long[0]);
@@ -190,19 +193,20 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
     */
 
     //add this just for short time to check w2-w3 samples (w3 needed for BPix, otherwise same)
+    /*
     if (iovs[i]=="2023D") { //bpix sample, needs w3+
       fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ciov,cid));
-    }
-    else { //can use w2 samples, no bpix issue here
-      fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_w2.root",ciov));
-    }
-    assert(fd && !fd->IsZombie());
-    if (iovs[i]=="2023P8-BPix") {//bpix sample, needs w3+
       fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_%s.root",cmc,cid));
     }
     else { //can use w2 samples, no bpix issue here
+      fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_w2.root",ciov));
       fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_w2.root",cmc));
     }
+    */
+    fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ciov,cid));
+    fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_%s.root",cmc,cid));
+ 
+    assert(fd && !fd->IsZombie());
     assert(fm && !fm->IsZombie());
 
 
