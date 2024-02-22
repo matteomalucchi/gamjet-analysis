@@ -2327,6 +2327,7 @@ void GamHistosFill::Loop()
 	  pass_veto = false;
 	}
       } // jet veto
+        /* NOTE: REMOVE ALSO PHOTONS ACCORDING TO JETVETOMPA pass_veto_gam = false --> add it also to pass_basic*/
       bool pass_leak = (phoj.Pt()<0.06*ptgam);// || isRun3);
       bool pass_basic = (pass_trig && pass_filt && pass_ngam && pass_njet &&
 			 pass_gameta && pass_dphi && pass_jetid && pass_veto &&
