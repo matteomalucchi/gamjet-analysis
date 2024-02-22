@@ -10,7 +10,7 @@
 bool addMPFu2n = true;
 bool addG1toMPF = false;//true;
 bool addG12toMPF = false;
-string id = "v30";
+string id = "w3"; //change this back to current version!!
 bool drawFullIOVList = false;//true;
 
 // Forward declaration of call
@@ -66,8 +66,8 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
     "2023Cv123","2023Cv4","2023D"
   };
   string iovs_short[] = {
-    "2018ABCD","Run3",
-    "2022CD","2022E","2022FG", //hadd
+    //"2018ABCD","Run3",
+    //"2022CD","2022E","2022FG", //hadd
     //"2023Cv123","2023Cv4D", //hadd
     "2023Cv123","2023Cv4","2023D" //hadd
   };
@@ -77,10 +77,12 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
     "2022P8","2022P8","2022P8"
   };
   string mcs_short[] = {
-    "2018P8","Run3P8",
-    "2022P8","2022EEP8","2022EEP8", //hadd
+    //"2018P8","Run3P8",
+    //"2022P8","2022EEP8","2022EEP8", //hadd
     //"2022P8","2022P8"
-    "2022P8","2022P8","2022P8"
+    //"2022P8","2022P8","2022P8"
+    //"2023P8QCD","2023P8QCD","2023-BPixP8QCD" //in principle use QCD
+    "2023P8","2023P8","2023P8-BPix"
   };
   const int niov_long = sizeof(iovs_long)/sizeof(iovs_long[0]);
   const int nmc_long = sizeof(mcs_long)/sizeof(mcs_long[0]);
@@ -166,6 +168,7 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
     const char *cid = id.c_str();
 
     TFile *fd(0), *fm(0);
+    /*
     if (iovs[i]=="2018ABCD") {
     //fd = new TFile(Form("files/GamHistosFill_data_%s_v16.root",ciov));
       fd = new TFile(Form("files/GamHistosFill_data_%s_v20.root",ciov));
@@ -184,6 +187,24 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
       fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_%s.root",cmc,cid));
     }
     assert(fm && !fm->IsZombie());
+    */
+
+    //add this just for short time to check w2-w3 samples (w3 needed for BPix, otherwise same)
+    if (iovs[i]=="2023D") { //bpix sample, needs w3+
+      fd = new TFile(Form("files/GamHistosFill_data_%s_%s.root",ciov,cid));
+    }
+    else { //can use w2 samples, no bpix issue here
+      fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_w2.root",ciov));
+    }
+    assert(fd && !fd->IsZombie());
+    if (iovs[i]=="2023P8-BPix") {//bpix sample, needs w3+
+      fm = new TFile(Form("files/GamHistosFill_mc_%s_%s.root",cmc,cid));
+    }
+    else { //can use w2 samples, no bpix issue here
+      fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_w2.root",cmc));
+    }
+    assert(fm && !fm->IsZombie());
+
 
     curdir->cd();
     
