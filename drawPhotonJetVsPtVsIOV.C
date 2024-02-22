@@ -191,14 +191,14 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
 
     //add this just for short time to check w2-w3 samples (w3 needed for BPix, otherwise same)
     if (iovs[i]=="2023D") { //bpix sample, needs w3+
-      fd = new TFile(Form("files/GamHistosFill_data_%s_%s.root",ciov,cid));
+      fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ciov,cid));
     }
     else { //can use w2 samples, no bpix issue here
       fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_w2.root",ciov));
     }
     assert(fd && !fd->IsZombie());
     if (iovs[i]=="2023P8-BPix") {//bpix sample, needs w3+
-      fm = new TFile(Form("files/GamHistosFill_mc_%s_%s.root",cmc,cid));
+      fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_%s.root",cmc,cid));
     }
     else { //can use w2 samples, no bpix issue here
       fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_w2.root",cmc));
