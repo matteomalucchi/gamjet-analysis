@@ -489,13 +489,13 @@ void GamHistosFill::Loop()
 		    //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi","");
     //assert(false); // not yet available --> use the Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi, which is available.
   }
-  if (ds=="2023P8-BPix" || ds=="2023QCD-BPix") { //earlier called: Summer2023, BPix separately!!
+  if (ds=="2023P8-BPix" || ds=="2023QCD-BPix" || ds=="2023P8-BPixX" || ds=="2023QCD-BPixX") { //earlier called: Summer2023, BPix separately!!
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", "" ); //16th of Feb2024, w4, w5 and onwards 
 		    //"Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
 		    //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi",""); //old
   }
   //data2023
-  if (ds=="2023B" || ds=="2023Cv123") {//2023C --> no bpix issue
+  if (ds=="2023B" || ds=="2023Cv123" || ds=="2023Cv123X") {//2023C --> no bpix issue
 	//got Winter23 corrections from here: https://github.com/cms-jet/JECDatabase/tree/master/textFiles/Winter23Prompt23_V2_MC
     jec = getFJC("", "Summer23Run3_V1_MC_L2Relative_AK4PUPPI", 
 		  	"Summer23Prompt23_Run2023Cv123_V1_DATA_L2L3Residual_AK4PFPuppi"); //18th of Feb2024, w5
@@ -504,7 +504,7 @@ void GamHistosFill::Loop()
 		 //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //old
 		 //"Summer22Prompt23_Run2023Cv123_V3_DATA_L2L3Residual_AK4PFPUPPI"); //even older
   }
-  if (ds=="2023Cv4") {//2023C --> no bpix issue
+  if (ds=="2023Cv4" || ds=="2023Cv4X") {//2023C --> no bpix issue
     jec = getFJC("","Summer23Run3_V1_MC_L2Relative_AK4PUPPI",  
 		    	"Summer23Prompt23_Run2023Cv4_V1_DATA_L2L3Residual_AK4PFPuppi"); //18th of Feb2024, w5
 		    	//"Summer23Prompt23_Run2023Cv4_V1_DATA_L2Residual_AK4PFPuppi"); //16th of Feb2024, w4
@@ -512,7 +512,7 @@ void GamHistosFill::Loop()
 		 //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //old
 		 //"Summer22Prompt23_Run2023Cv4_V3_DATA_L2L3Residual_AK4PFPUPPI"); //even older
   }
-  if (ds=="2023D") { //2023D needs BPix stuff!
+  if (ds=="2023D" || ds=="2023DX") { //2023D needs BPix stuff!
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI",  
 		    	"Summer23Prompt23_Run2023D_V1_DATA_L2L3Residual_AK4PFPuppi"); //18th of Feb2024, w5
 		    	//"Summer23Prompt23_Run2023D_V1_DATA_L2Residual_AK4PFPuppi"); //16th of Feb2024, w4
@@ -543,10 +543,12 @@ void GamHistosFill::Loop()
   if (ds=="2022P8" || ds=="2022QCD") sera = "2022";
   if (ds=="2022EEP8" || ds=="2022EEQCD") sera = "2022EE";
   if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix") sera = "2023"; //added 2023P8-BPix
+  if (ds=="2023P8X" || ds=="2023QCDX" || ds=="2023P8-BPixX" || ds=="2023QCD-BPixX") sera = "2023"; //added for w23X and w22X
   if (ds=="2022C" || ds=="2022D") sera ="2022";
   if (ds=="2022E" || ds=="2022F" || ds=="2022G") sera = "2022EE";
   if (ds=="2023B" || ds=="2023Cv123" || ds=="2023Cv4" || ds=="2023D")
     sera = "2023";
+  if (ds=="2023Cv123X" || ds=="2023Cv4X" || ds=="2023DX") sera = "2023";
   assert(sera!="");
 
   // Load JSON files
