@@ -13,6 +13,8 @@ bool addG12toMPF = false;
 //string id = "w5"; //change this back to current version!!
 //string id = "wX23"; //testing summer23 corrections with single files
 string id = "wX22full"; //testing summer22 corrections with all files
+//string id = "wX22full-data_w5-mc"; //testing summer22 corrections with data files and summer23 corrections on mc files
+
 
 bool drawFullIOVList = false;//true;
 
@@ -219,6 +221,9 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
       fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_w2.root",cmc));
     }
     */
+
+    //fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_wX22full.root",ciov)); //only to test combination of 2022-jec for data and 2023-jec for MC
+    //fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_w5.root",cmc)); //only to test combination of 2022-jec for data and 2023-jec for MC
     fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ciov,cid));
     fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_%s.root",cmc,cid));
  
