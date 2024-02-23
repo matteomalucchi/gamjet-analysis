@@ -11,7 +11,9 @@ bool addMPFu2n = true;
 bool addG1toMPF = false;//true;
 bool addG12toMPF = false;
 //string id = "w5"; //change this back to current version!!
-string id = "wX23"; //testing summer23 corrections with single files
+//string id = "wX23"; //testing summer23 corrections with single files
+string id = "wX22full"; //testing summer22 corrections with all files
+
 bool drawFullIOVList = false;//true;
 
 // Forward declaration of call
@@ -120,6 +122,14 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
   mcolor["2023Cv4D"] = kBlue;//kGreen+2;
   mcolor["Run3"] = kBlack;
 
+  //for my investigations on the mpf issue
+  mcolor["2023Cv123X"] = kOrange+1;//kYellow+2;
+  mcolor["2023Cv4X"] = kBlue;//kGreen+2;
+  mcolor["2023DX"] = kGreen+2;//+2;
+  mcolor["2023D"] = kGreen+2;//+2; --> overwriting old setting (keep only for wX22full version)
+
+ 
+
   map<string,int> mmarker;
   mmarker["2022C"] = kFullSquare;
   mmarker["2022D"] = kOpenSquare;
@@ -135,6 +145,12 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
   mmarker["2023D"] = kOpenTriangleDown;//kOpenDiamond;
   mmarker["2023Cv4D"] = kFullTriangleDown;//kFullDiamond;
   mmarker["Run3"] = kFullSquare;
+
+  //for my investigation on the mpf issue
+  mmarker["2023Cv123X"] = kFullDiamond;//kFullCircle;
+  mmarker["2023Cv4X"] = kFullTriangleDown;//kFullDiamond;
+  mmarker["2023DX"] = kOpenTriangleDown;//kOpenDiamond;
+ 
   
   const char *cvar = var.c_str();
   const char *cname = name.c_str();
