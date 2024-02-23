@@ -67,18 +67,22 @@ void mk_GamHistosFill(string dataset = "X", string version = "wX23") { //using v
                   //dataset=="2018ABCD");
 		  dataset=="2022C"  || dataset=="2022D" || dataset=="2022E" ||
 		  dataset=="2022F"  || dataset=="2022G" ||
+		  dataset=="2023Cv123X" || dataset=="2023Cv4X" || dataset=="2023DX" || //for my test wX23
 		  dataset=="2023B" || dataset=="2023Cv123" ||
 		  dataset=="2023Cv4" || dataset=="2023D");
+
   bool addMC = (dataset=="2016P8" || dataset=="2017P8" || dataset=="2018P8" ||
 		dataset=="2016APVP8" ||
 		dataset=="2022P8" || //dataset=="2022QCD" ||
 		dataset=="2022EEP8" || //dataset=="2022EEQCD" ||
+                dataset=="2023P8X" || dataset=="2023P8-BPix"|| //for my test wX23
 		dataset=="2023P8" || //);// || dataset=="2023QCD");
   		dataset=="2023P8-BPix"); //added the BPix MC files
 
   bool addQCD = (dataset=="2016QCD" || dataset=="2016APVQCD" || 
 		 dataset=="2017QCD" || dataset=="2018QCD" ||
 		 dataset=="2022QCD" || dataset=="2022EEQCD" ||
+                 dataset=="2023QCDX" || dataset=="2023QCD-BPixX" || //for my test wX23
 		 dataset=="2023QCD" || dataset=="2023QCD-BPix"); //added BPix QCD MC
 
   //cout << "Clean old shared objects and link files" << endl << flush;
