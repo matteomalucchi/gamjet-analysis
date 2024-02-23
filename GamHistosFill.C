@@ -483,13 +483,13 @@ void GamHistosFill::Loop()
   }
  */
   //MC2023 --> added for running 2023MC with and without BPix stuff
-  if (ds=="2023P8" || ds=="2023QCD") { //earlier called: Summer2023
+  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8X") { //earlier called: Summer2023
     jec = getFJC("", "Summer23Run3_V1_MC_L2Relative_AK4PUPPI", ""); //16th of Feb2024, w4, w5 and onwards
 		    //"Summer23Run3_V1_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
 		    //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi","");
     //assert(false); // not yet available --> use the Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi, which is available.
   }
-  if (ds=="2023P8-BPix" || ds=="2023QCD-BPix" || ds=="2023P8-BPixX" || ds=="2023QCD-BPixX") { //earlier called: Summer2023, BPix separately!!
+  if (ds=="2023P8-BPix" || ds=="2023QCD-BPix" || ds=="2023P8-BPixX") { //earlier called: Summer2023, BPix separately!!
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", "" ); //16th of Feb2024, w4, w5 and onwards 
 		    //"Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
 		    //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi",""); //old
