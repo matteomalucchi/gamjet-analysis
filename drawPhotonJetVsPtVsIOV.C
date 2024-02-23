@@ -72,8 +72,8 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
     //"2018ABCD","Run3",
     //"2022CD","2022E","2022FG", //hadd
     //"2023Cv123","2023Cv4D", //hadd
-    //"2023Cv123","2023Cv4","2023D" //hadd <-- change back to this after testing single files
-    "2023Cv123X","2023Cv4X","2023DX" //testing single files with different jec
+    "2023Cv123","2023Cv4","2023D" //hadd <-- change back to this after testing single files
+    //"2023Cv123X","2023Cv4X","2023DX" //testing single files with different jec
   };
 
   string mcs_long[] = {
@@ -86,8 +86,8 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
     //"2022P8","2022P8"
     //"2022P8","2022P8","2022P8"
     //"2023P8QCD","2023P8QCD","2023-BPixP8QCD" //in principle use QCD
-    //"2023P8","2023P8","2023P8-BPix" //<-- change back to this after testing single files
-    "2023P8X","2023P8X","2023P8-BPixX"//testing single files with different jec
+    "2023P8","2023P8","2023P8-BPix" //<-- change back to this after testing single files
+    //"2023P8X","2023P8X","2023P8-BPixX"//testing single files with different jec
   };
   const int niov_long = sizeof(iovs_long)/sizeof(iovs_long[0]);
   const int nmc_long = sizeof(mcs_long)/sizeof(mcs_long[0]);
