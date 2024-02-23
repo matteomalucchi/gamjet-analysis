@@ -75,7 +75,7 @@ void mk_GamHistosFill(string dataset = "X", string version = "wX23") { //using v
 		dataset=="2016APVP8" ||
 		dataset=="2022P8" || //dataset=="2022QCD" ||
 		dataset=="2022EEP8" || //dataset=="2022EEQCD" ||
-                dataset=="2023P8X" || dataset=="2023P8-BPix"|| //for my test wX23
+                dataset=="2023P8X" || dataset=="2023P8-BPixX"|| //for my test wX23
 		dataset=="2023P8" || //);// || dataset=="2023QCD");
   		dataset=="2023P8-BPix"); //added the BPix MC files
 
