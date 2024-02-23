@@ -1,0 +1,6 @@
+/media/Duo/JME_NANO_MC/2023/GJ-4Jets_HT-100to200_TuneCP5_13p6TeV_madgraphMLM-pythia8_Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/a1b59ada-3fd8-43aa-8387-f5d155bc41e4.root
+/media/Duo/JME_NANO_MC/2023/GJ-4Jets_HT-200to400_TuneCP5_13p6TeV_madgraphMLM-pythia8_Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/a29d19ae-827f-4c44-8760-fd758ee57a66.root
+/media/Duo/JME_NANO_MC/2023/GJ-4Jets_HT-400to600_TuneCP5_13p6TeV_madgraphMLM-pythia8_Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/b843a6f9-b939-4bbd-b52c-aa5a5e2a0a22.root
+/media/Duo/JME_NANO_MC/2023/GJ-4Jets_HT-40to70_TuneCP5_13p6TeV_madgraphMLM-pythia8_Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/8b8f20a7-9a5e-4368-96c7-f1fb14b25d7e.root
+/media/Duo/JME_NANO_MC/2023/GJ-4Jets_HT-600_TuneCP5_13p6TeV_madgraphMLM-pythia8_Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/5666b8c3-19ac-4078-8c52-aaed90db9419.root
+/media/Duo/JME_NANO_MC/2023/GJ-4Jets_HT-70to100_TuneCP5_13p6TeV_madgraphMLM-pythia8_Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/53ad1607-57f4-4453-9f04-a745686cbf01.root

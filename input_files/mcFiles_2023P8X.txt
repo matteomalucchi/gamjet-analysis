@@ -1,0 +1,6 @@
+/media/Duo/JME_NANO_MC/2023/GJ-4Jets_HT-100to200_TuneCP5_13p6TeV_madgraphMLM-pythia8_Run3Summer23NanoAODv12-130X_mcRun3_2023_realistic_v14-v3/b732a0af-3595-42fe-9371-40721cc78955.root
+/media/Duo/JME_NANO_MC/2023/GJ-4Jets_HT-200to400_TuneCP5_13p6TeV_madgraphMLM-pythia8_Run3Summer23NanoAODv12-130X_mcRun3_2023_realistic_v14-v1/85bd2b95-75ac-4252-bf76-fe6adb6a346b.root
+/media/Duo/JME_NANO_MC/2023/GJ-4Jets_HT-400to600_TuneCP5_13p6TeV_madgraphMLM-pythia8_Run3Summer23NanoAODv12-130X_mcRun3_2023_realistic_v14-v1/f87576d6-79be-459a-a385-8cf63405bd4f.root
+/media/Duo/JME_NANO_MC/2023/GJ-4Jets_HT-40to70_TuneCP5_13p6TeV_madgraphMLM-pythia8_Run3Summer23NanoAODv12-130X_mcRun3_2023_realistic_v14-v1/07e82fb1-1c2b-4db4-ba99-18e2b36c481c.root
+/media/Duo/JME_NANO_MC/2023/GJ-4Jets_HT-600_TuneCP5_13p6TeV_madgraphMLM-pythia8_Run3Summer23NanoAODv12-130X_mcRun3_2023_realistic_v14-v3/cc43cabd-7366-4387-ba4c-a867f07d9686.root
+/media/Duo/JME_NANO_MC/2023/GJ-4Jets_HT-70to100_TuneCP5_13p6TeV_madgraphMLM-pythia8_Run3Summer23NanoAODv12-130X_mcRun3_2023_realistic_v14-v3/0c9cf419-0271-4e8c-a285-795662962439.root
