@@ -543,8 +543,10 @@ GamHistosFill::GamHistosFill(TTree *tree, int itype, string datasetname, string 
 	  ds=="2023P8X" || ds=="2023QCDX" || ds=="2023P8-BPixX"|| ds=="2023QCDX" || ds=="2023QCD-BPixX" || //for testing wX23 and wX22
 	  ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix"|| ds=="2023QCD" || ds=="2023QCD-BPix"); //added 2023P8_BPix
   isQCD = (ds=="2016QCD" || ds=="2016QCDAPV" || ds=="2017QCD" ||
-	   ds=="2018QCD" || ds=="2022QCD" || ds=="2022EEQCD");
-  isMG = (ds=="2022P8" || ds=="2022EEP8" || ds=="2022QCD" || ds=="2022EEQCD"); //should 2023P8 and 2023P8_BPix be added here, too? (for correct weight in HT bins)
+	   ds=="2018QCD" || ds=="2022QCD" || ds=="2022EEQCD" ||
+           ds=="2023QCD" || ds=="2023QCD-BPix"); //added qcd 2023
+  isMG = (ds=="2022P8" || ds=="2022EEP8" || ds=="2022QCD" || ds=="2022EEQCD" ||
+           ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix"); //should 2023P8 and 2023P8_BPix be added here, too? (for correct weight in HT bins)
   isRun3 = (is22 || is23);
   isRun2 = (is16  || is17 || is18);
   assert(is16 || is17 || is18 || is22 || is23);

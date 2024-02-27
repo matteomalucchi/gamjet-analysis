@@ -10,9 +10,9 @@
 bool addMPFu2n = true;
 bool addG1toMPF = false;//true;
 bool addG12toMPF = false;
-//string id = "w5"; //change this back to current version!!
+string id = "w6"; //change this always to current version
 //string id = "wX23"; //testing summer23 corrections with single files
-string id = "wX22full"; //testing summer22 corrections with all files
+//string id = "wX22full"; //testing summer22 corrections with all files
 //string id = "wX22full-data_w5-mc"; //testing summer22 corrections with data files and summer23 corrections on mc files
 
 

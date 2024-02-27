@@ -24,7 +24,7 @@ MC_list_of_lists = [
     ['Run3Summer23', '2023P8', '2023P8-BPix'] # !! does not make sense to merge these together - double check!!
     ]
 
-version = 'w5'
+version = 'w6'
 
 os.system("ls rootfiles/GamHistosFill_data_*_"+version+".root")
 for IOV_list in IOV_list_of_lists:
