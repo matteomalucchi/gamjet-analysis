@@ -501,8 +501,9 @@ void GamHistosFill::Loop()
 	//got Winter23 corrections from here: https://github.com/cms-jet/JECDatabase/tree/master/textFiles/Winter23Prompt23_V2_MC
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023Cv123_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     jec = getFJC("", "Summer23Run3_V1_MC_L2Relative_AK4PUPPI", 
+			"Summer23Prompt23_Run2023Cv123_V2_DATA_L2L3Residual_AK4PFPuppi"); //29th of Feb2024, w7
 		  	//"Summer23Prompt23_Run2023Cv123_V1_DATA_L2L3Residual_AK4PFPuppi"); //18th of Feb2024, w5
-		    	"Summer23Prompt23_Run2023Cv123_V1_DATA_L2Residual_AK4PFPuppi"); //16th of Feb2024, w4; and 27th of Feb2024, w6
+		    	//"Summer23Prompt23_Run2023Cv123_V1_DATA_L2Residual_AK4PFPuppi"); //16th of Feb2024, w4; and 27th of Feb2024, w6
 		 //"Summer23Run3_V1_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
 		 //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //old
 		 //"Summer22Prompt23_Run2023Cv123_V3_DATA_L2L3Residual_AK4PFPUPPI"); //even older
@@ -510,8 +511,9 @@ void GamHistosFill::Loop()
   if (ds=="2023Cv4" || ds=="2023Cv4X") {//2023C --> no bpix issue
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023Cv4_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     jec = getFJC("","Summer23Run3_V1_MC_L2Relative_AK4PUPPI",  
+			"Summer23Prompt23_Run2023Cv4_V2_DATA_L2L3Residual_AK4PFPuppi"); //29th of Feb2024, w7
 		    	//"Summer23Prompt23_Run2023Cv4_V1_DATA_L2L3Residual_AK4PFPuppi"); //18th of Feb2024, w5
-		    	"Summer23Prompt23_Run2023Cv4_V1_DATA_L2Residual_AK4PFPuppi"); //16th of Feb2024, w4; and 27th of Feb2024, w6
+		    	//"Summer23Prompt23_Run2023Cv4_V1_DATA_L2Residual_AK4PFPuppi"); //16th of Feb2024, w4; and 27th of Feb2024, w6
 		 //"Summer23Run3_V1_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
 		 //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //old
 		 //"Summer22Prompt23_Run2023Cv4_V3_DATA_L2L3Residual_AK4PFPUPPI"); //even older
@@ -519,8 +521,9 @@ void GamHistosFill::Loop()
   if (ds=="2023D" || ds=="2023DX") { //2023D needs BPix stuff!
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI",  
+			"Summer23Prompt23_Run2023Cv4_V2_DATA_L2L3Residual_AK4PFPuppi"); //29th of Feb2024, w7
 		    	//"Summer23Prompt23_Run2023D_V1_DATA_L2L3Residual_AK4PFPuppi"); //18th of Feb2024, w5
-		    	"Summer23Prompt23_Run2023D_V1_DATA_L2Residual_AK4PFPuppi"); //16th of Feb2024, w4; and 27th of Feb2024, w6
+		    	//"Summer23Prompt23_Run2023D_V1_DATA_L2Residual_AK4PFPuppi"); //16th of Feb2024, w4; and 27th of Feb2024, w6
 		 //"Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
 		 //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //old 
 		 //"Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI"); //even older
