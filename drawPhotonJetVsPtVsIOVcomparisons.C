@@ -15,7 +15,9 @@ bool addG12toMPF = false;
 //string id = "wX23"; //testing summer23 corrections with single files
 //string id = "wX22full"; //testing summer22 corrections with all files
 //string id = "wX22full-data_w5-mc"; //testing summer22 corrections with data files and summer23 corrections on mc files
-string id = "wX22full-data_w5-mc_plus-extra"; //displaying even more data and mc results.
+//string id = "wX22full-data_w5-mc_plus-extra"; //displaying even more data and mc results.
+//string id = "w7-29feb2024"; //comparing: Cv123, Cv4, D, P8, P8-BPix, P8QCD and P8QCD-BPix for 2023
+string id = "w8-09mar2024"; //comparing: Cv123, Cv4, D, P8, P8-BPix, P8QCD and P8QCD-BPix for 2023 (after bug-fix)
 //string id = "various comparions"; //displaying even more data and mc results.
 
 
@@ -57,8 +59,8 @@ void drawPhotonJetVsPtVsIOVscomparisons(string so, string var, string name,
   };
   string iovs_short[] = {
     //"2018ABCD","Run3",
-    "2023Cv123","2023Cv4","2023D", //hadd <-- change back to this after testing single files
-    "2018ABCD" //added UL2018, use v20 for this
+    "2023Cv123","2023Cv4","2023D"//, //hadd <-- change back to this after testing single files
+    //"2018ABCD" //added UL2018, use v20 for this
   };
 
   string mcs_long[] = {
@@ -67,8 +69,8 @@ void drawPhotonJetVsPtVsIOVscomparisons(string so, string var, string name,
   };
   string mcs_short[] = {
     //"2023P8QCD","2023P8QCD","2023-BPixP8QCD" //in principle use QCD
-    "2023P8","2023P8","2023P8-BPix", //<-- change back to this after testing single files
-    "2018P8" //use v20 for this
+    "2023P8","2023P8","2023P8-BPix"//, //<-- change back to this after testing single files
+    //"2018P8" //use v20 for this
   };
   const int niov_long = sizeof(iovs_long)/sizeof(iovs_long[0]);
   const int nmc_long = sizeof(mcs_long)/sizeof(mcs_long[0]);
@@ -123,7 +125,7 @@ void drawPhotonJetVsPtVsIOVscomparisons(string so, string var, string name,
   const char *cname = name.c_str();
 
   TH1D *h = tdrHist("h",cvar,y1,y2);
-  TH1D *h2 = tdrHist("h2","Data/MC",z1,z2);
+  TH1D *h2 = tdrHist("h2","Data/MC(noQCD)",z1,z2);
   //lumi_13TeV = "Run2 v16";
   //lumi_13TeV = "Run3 v21";
   lumi_13TeV = "Run2"; // 4=13 TeV
@@ -157,15 +159,17 @@ void drawPhotonJetVsPtVsIOVscomparisons(string so, string var, string name,
 
     //getting the correct input files (as they also differ in code version)
     if (iovs[i]=="2023Cv123" || iovs[i]=="2023Cv4" || iovs[i]=="2023D") {
-      //fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_w5.root",ciov)); //newest ones
-      //fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_w5.root",cmc));    //newest ones
-      fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_wX22full.root",ciov)); //newest data but with 2022 correctiongs
-      fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_wX22full.root",cmc));    //newest  data but with 2022 correctiongs
+      fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_w8.root",ciov)); //newest ones
+      fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_w8.root",cmc));    //newest ones
+      //fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_wX22full.root",ciov)); //newest data but with 2022 correctiongs
+      //fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_wX22full.root",cmc));    //newest  data but with 2022 correctiongs
     }
+/*
     if (iovs[i]=="2018ABCD") {
       fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_v20.root",ciov));
       fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_v20.root",cmc));
     }
+*/
 
     //fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ciov,cid));
     //fm = new TFile(Form("rootfiles/GamHistosFill_mc_%s_%s.root",cmc,cid));
@@ -233,18 +237,33 @@ void drawPhotonJetVsPtVsIOVscomparisons(string so, string var, string name,
 	    (mcolor[iov] ? mcolor[iov] : kBlack));
   } // for iov
 
-    //after all the iov specific curves have been drawn, still add the 2022 Monte Carlo
+    //after all the iov specific curves have been drawn, still add the 2022 Monte Carlo (or whatever else) --> TO DO: generalise this to a loop
+    //for example, add "-" to the data list and when there is "-" the corresponding MC will only be added to upper plot and not to ratio. <-- TO DO
     c1->cd(1);
     TFile *fmc(0);
-    fmc = new TFile(Form("rootfiles/GamHistosFill_mc_2022P8_v32.root"));
+    TFile *fmcbpix(0);
+    //fmc = new TFile(Form("rootfiles/GamHistosFill_mc_2022P8_v32.root"));
+    fmc = new TFile(Form("rootfiles/GamHistosMix_mc_2023P8QCD_w8.root")); //add P8QCD (mix)
+    fmcbpix = new TFile(Form("rootfiles/GamHistosMix_mc_2023-BPixP8QCD_w8.root")); //add P8QCD-BPix (mix)
     TObject *omc = fmc->Get(Form(so.c_str(),"MC")); assert(omc);
+    TObject *omcbpix = fmcbpix->Get(Form(so.c_str(),"MC")); assert(omcbpix);
 
     TH1D *hmc(0);
     hmc = (TH1D*)omc;
     assert(hmc);
-    tdrDraw(hmc,"H",kNone,(mcolor["2022P8"] ? mcolor["2022P8"] : kBlack),kSolid,-1,kNone);
+    //tdrDraw(hmc,"H",kNone,(mcolor["2022P8"] ? mcolor["2022P8"] : kBlack),kSolid,-1,kNone);
+    tdrDraw(hmc,"H",kNone,kMagenta+2,kSolid,-1,kNone);
 
-    leg->AddEntry(hmc,"2022P8","PLE");
+
+    TH1D *hmcbpix(0);
+    hmcbpix = (TH1D*)omcbpix;
+    assert(hmcbpix);
+    tdrDraw(hmcbpix,"H",kNone,kRed+2,kSolid,-1,kNone);
+
+
+    //leg->AddEntry(hmc,"2022P8","PLE");
+    leg->AddEntry(hmc,"2023P8QCD","PLE");
+    leg->AddEntry(hmcbpix,"2023P8QCD-BPix","PLE");
 
 
 

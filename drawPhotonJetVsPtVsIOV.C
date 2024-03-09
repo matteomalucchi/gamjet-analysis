@@ -10,7 +10,7 @@
 bool addMPFu2n = true;
 bool addG1toMPF = false;//true;
 bool addG12toMPF = false;
-string id = "w7"; //change this always to current version
+string id = "w8"; //change this always to current version
 //string id = "wX23"; //testing summer23 corrections with single files
 //string id = "wX22full"; //testing summer22 corrections with all files
 //string id = "wX22full-data_w5-mc"; //testing summer22 corrections with data files and summer23 corrections on mc files
@@ -87,8 +87,8 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
     //"2022P8","2022EEP8","2022EEP8", //hadd
     //"2022P8","2022P8"
     //"2022P8","2022P8","2022P8"
-    //"2023P8QCD","2023P8QCD","2023-BPixP8QCD" //in principle use QCD
-    "2023P8","2023P8","2023P8-BPix" //<-- change back to this after testing single files
+    "2023P8QCD","2023P8QCD","2023-BPixP8QCD" //in principle use QCD
+    //"2023P8","2023P8","2023P8-BPix" //<-- change back to this after testing single files
     //"2023P8X","2023P8X","2023P8-BPixX"//testing single files with different jec
   };
   const int niov_long = sizeof(iovs_long)/sizeof(iovs_long[0]);

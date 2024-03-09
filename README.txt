@@ -49,6 +49,8 @@ CHANGELOG (latest first):
 To-do later: 
 - update h2r9vspt r9 binning. Check if r9 cut makes sense at pT>230 GeV for Photon200 trigger, and if efficiency drops too much
 
+w8: fixed bug --> using correct L2L3Res for the RunD data
+w7: first run with new L2L3Res (29.02.2024)
 w6: for running with L2Rel + L2Res (27.02.2024) on new QCD monte carlo
 w5: used L2Rel + L2L3Res --> turned out to be not good (issue with L3-residuals)
 w4: for running with L2Rel + L2Res (16.02.2024)
