@@ -927,9 +927,10 @@ void GamHistosFill::Loop()
 
   const int nc = 18;
   string cuts[nc] = {"pass_trig", "pass_ngam", "pass_njet", "pass_gameta",
-		     "pass_dphi", "pass_jetid", "pass_veto", "pass_leak",
+		     //"pass_dphi", "pass_jetid", "pass_veto", "pass_leak",
+                     "pass_dphi", "pass_jetid", "pass_jetveto", "pass_gamveto", "pass_leak",
 		     "pass_basic", "pass_bal", "pass_mpf", "pass_basic_ext",
-		     "pass_jeteta", "pass_alpha100", "pass_all", "pass_gen"};
+		     "pass_jeteta", "pass_alpha100", "pass_all", "pass_gen"}; 
   for (int i = 0; i != nc; ++i) {
     pcutflow1->GetXaxis()->SetBinLabel(i+1, cuts[i].c_str());
     pcutflow2->GetXaxis()->SetBinLabel(i+1, cuts[i].c_str());
@@ -2329,19 +2330,35 @@ void GamHistosFill::Loop()
       bool pass_gameta = (fabs(gam.Eta()) < 1.3);
       bool pass_dphi = (fabs(gam.DeltaPhi(jet)) > 2.7); // pi-0.44 as in KIT Z+j
       bool pass_jetid = (iJet!=-1 && Jet_jetId[iJet]>=4); // tightLepVeto
-      bool pass_veto = true;
+      //bool pass_veto = true; //for now: replaced by pass_jetveto and pass_gamveto, since applying jetvetomap also to photons
+      bool pass_jetveto = true;
+      bool pass_gamveto = true;
       if (true) { // jet veto
         int i1 = h2jv->GetXaxis()->FindBin(jet.Eta());
         int j1 = h2jv->GetYaxis()->FindBin(jet.Phi());
         if (h2jv->GetBinContent(i1,j1)>0) {
-          ++_nbadevents_veto;
-	  pass_veto = false;
+          //++_nbadevents_veto;
+	  //pass_veto = false;
+          pass_jetveto = false;
 	}
       } // jet veto
-        /* NOTE: REMOVE ALSO PHOTONS ACCORDING TO JETVETOMPA pass_veto_gam = false --> add it also to pass_basic*/
+      if (true) { // photon veto
+        int i1 = h2jv->GetXaxis()->FindBin(gam.Eta());
+        int j1 = h2jv->GetYaxis()->FindBin(gam.Phi());
+        if (h2jv->GetBinContent(i1,j1)>0) {
+          //++_nbadevents_veto;
+	  //pass_veto = false;
+          pass_gamveto = false; //reject also photons that end up in bad regions
+	}
+      } // photon veto
+      /* NOTE: REMOVE ALSO PHOTONS ACCORDING TO JETVETOMPA pass_veto_gam = false --> add it also to pass_basic*/
+      if(pass_jetveto==false || pass_gamveto==false){//increase counter if event gets discarded either due to jet-veto or photon-veto
+        ++_nbadevents_veto;
+      }
       bool pass_leak = (phoj.Pt()<0.06*ptgam);// || isRun3);
       bool pass_basic = (pass_trig && pass_filt && pass_ngam && pass_njet &&
-			 pass_gameta && pass_dphi && pass_jetid && pass_veto &&
+			 pass_gameta && pass_dphi && pass_jetid && 
+                         pass_jetveto && pass_gamveto && //pass_veto &&
 			 pass_leak); // add pass_gameta v19 / 202111122 !
       
       // Control plots for jet response
@@ -2355,7 +2372,8 @@ void GamHistosFill::Loop()
 
       //const int nc = 18;
       bool cut[nc] = {pass_trig, pass_ngam, pass_njet, pass_gameta,
-		      pass_dphi, pass_jetid, pass_veto, pass_leak,
+		      //pass_dphi, pass_jetid, pass_veto, pass_leak,
+		      pass_dphi, pass_jetid, pass_jetveto, pass_gamveto, pass_leak,
 		      pass_basic, pass_bal, pass_mpf, pass_basic_ext,
 		      pass_jeteta, pass_alpha100, pass_all, pass_gen};
       bool passcuts(true);
@@ -2412,7 +2430,8 @@ void GamHistosFill::Loop()
 	cout << "Event " << jentry << " decisions" << endl;
 	cout << Form("pass_ngam = %d, pass_njet = %d, pass_gameta = %d "
 		     "pass_dphi = %d, pass_jetid = %d\n"
-		     "pass_veto = %d, pass_leak = %d, pass_basic = %d "
+		     //"pass_veto = %d, pass_leak = %d, pass_basic = %d "
+                     "pass_jetveto = %d, pass_gamveto = %d, pass_leak = %d, pass_basic = %d "
 		     "pass_bal = %d, pass_mpf = %d, \n"
 		     "pass_jeteta = %d, pass_alpha100 = %d, "
 		     "pass_basic_ext = %d, "
@@ -2420,7 +2439,8 @@ void GamHistosFill::Loop()
 		     "pass_trig = %d, pass_filt = %d",
 		     pass_ngam, pass_njet, pass_gameta,
 		     pass_dphi, pass_jetid,
-		     pass_veto, pass_leak, pass_basic,
+		     //pass_veto, pass_leak, pass_basic,
+                     pass_jetveto, pass_gamveto, pass_leak, pass_basic,
 		     pass_bal, pass_mpf, pass_jeteta,
 		     pass_alpha100, pass_basic_ext,
 		     pass_gen, pass_trig, pass_filt) << endl << flush;
