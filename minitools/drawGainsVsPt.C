@@ -17,7 +17,10 @@ void clean(TH1 *p, double maxerr = 0.005) {
   }
 } // clean
 
-void drawGainsVsPt(string era = "Run3", string version = "v27") {
+//void drawGainsVsPt(string era = "2023D", string version = "w8") {
+//void drawGainsVsPt(string era = "2023Cv4", string version = "w8") {
+//void drawGainsVsPt(string era = "2023D", string version = "w9") {
+void drawGainsVsPt(string era = "2023Cv4", string version = "w9") {
   //void drawGainsVsPt(string era = "Run2", string version = "v18") {
 
   const char *cera = era.c_str();
@@ -116,13 +119,13 @@ void drawGainsVsPt(string era = "Run3", string version = "v27") {
   tdrDraw(pr12bm,"HIST][",kNone,kBlue,kDashed,-1,kNone,0);
   tdrDraw(pr1bm,"HIST][",kNone,kRed,kDashed,-1,kNone,0);
 
-  tdrDraw(pr6m,"Pz",kFullSquare,kMagenta+2);
-  tdrDraw(pr12m,"Pz",kFullDiamond,kBlue);
-  tdrDraw(pr1m,"Pz",kFullCircle,kRed);
+  tdrDraw(pr6m,"Pz",kFullSquare,kMagenta+2,kSolid,-1,kNone,0);
+  tdrDraw(pr12m,"Pz",kFullDiamond,kBlue,kSolid,-1,kNone,0);
+  tdrDraw(pr1m,"Pz",kFullCircle,kRed,kSolid,-1,kNone,0);
 
-  tdrDraw(pr6b,"Pz",kOpenSquare,kMagenta+2);
-  tdrDraw(pr12b,"Pz",kOpenDiamond,kBlue);
-  tdrDraw(pr1b,"Pz",kOpenCircle,kRed);
+  tdrDraw(pr6b,"Pz",kOpenSquare,kMagenta+2,kSolid,-1,kNone,0);
+  tdrDraw(pr12b,"Pz",kOpenDiamond,kBlue,kSolid,-1,kNone,0);
+  tdrDraw(pr1b,"Pz",kOpenCircle,kRed,kSolid,-1,kNone,0);
 
   c1->cd(2);
   gPad->SetLogx();

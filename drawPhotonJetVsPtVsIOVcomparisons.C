@@ -17,7 +17,8 @@ bool addG12toMPF = false;
 //string id = "wX22full-data_w5-mc"; //testing summer22 corrections with data files and summer23 corrections on mc files
 //string id = "wX22full-data_w5-mc_plus-extra"; //displaying even more data and mc results.
 //string id = "w7-29feb2024"; //comparing: Cv123, Cv4, D, P8, P8-BPix, P8QCD and P8QCD-BPix for 2023
-string id = "w8-09mar2024"; //comparing: Cv123, Cv4, D, P8, P8-BPix, P8QCD and P8QCD-BPix for 2023 (after bug-fix)
+//string id = "w8-09mar2024"; //comparing: Cv123, Cv4, D, P8, P8-BPix, P8QCD and P8QCD-BPix for 2023 (after bug-fix)
+string id = "w9-13mar2024"; //comparing: Cv123, Cv4, D, P8, P8-BPix, P8QCD and P8QCD-BPix for 2023 (using jetvetomaps for photons)
 //string id = "various comparions"; //displaying even more data and mc results.
 
 
