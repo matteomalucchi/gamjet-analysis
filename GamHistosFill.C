@@ -684,9 +684,15 @@ void GamHistosFill::Loop()
   //double vx[] = {15, 20, 25, 30, 35, 40, 50, 60, 70, 85, 105, 130, 175, 230,
   //		 300, 400, 500, 600, 700, 850, 1000, 1200, 1450, 1750};
   // 22-23 binning
+  /*
   double vx[] = {15, 20, 25, 30, 35, 40, 50, 60, 75, 90, 110, 130, 175, 230,
   		 300, 400, 500, 600, 700, 850, 1000, 1200, 1450, 1750,
 		 2100, 2500, 3000};
+  */
+  //alternative binning used in w10 to combine upper bins for more statistics --> only for these histograms. --> starting version w10
+  double vx[] = {15, 20, 25, 30, 35, 40, 50, 60, 75, 90, 110, 130, 175, 230,
+  		 300, 400, 500, 600, 700, 850, 1000, 1200, 1450, 3000}; //no overflow bin?
+
   const int nx = sizeof(vx)/sizeof(vx[0])-1;
   
   // L2L3Res eta binning
@@ -1175,6 +1181,7 @@ void GamHistosFill::Loop()
 			  40, 50, 60, 75, 90, 110, 130, 175, 230, 300,
 			  400, 500, 600, 700, 850, 1000, 1200, 1450,
 			  1750, 2100, 2500, 3000};
+
     double npt = sizeof(vpt)/sizeof(vpt[0])-1;
 
     if (debug) cout << "Setup doGamjet " << endl << flush;
@@ -1243,12 +1250,17 @@ void GamHistosFill::Loop()
        59, 86, 110, 132, 170, 204, 236, 279, 302, 373, 460, 575,
        638, 737, 846, 967, 1101, 1248,
        1410, 1588, 1784, 2000, 2238, 2500, 2787, 3103};
+    // ^where did this original binning come from? How is that motivated? (I think it comes from dijet)
+
     double nptd = sizeof(vptd)/sizeof(vptd[0])-1;
+
+
     // L3Res (gamma+jet) pT binning adapted and extended
     const double vpt[] = {15, 20, 25, 30, 35,
 			  40, 50, 60, 70, 85, 100, 125, 155, 180, 210, 250, 300,
 			  350, 400, 500, 600, 800, 1000, 1200, 1500,
 			  1800, 2100, 2400, 2700, 3000};
+
     double npt = sizeof(vpt)/sizeof(vpt[0])-1;
 
     // Current L2Res |eta| binning from Jindrich
