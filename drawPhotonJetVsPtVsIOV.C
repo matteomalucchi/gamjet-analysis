@@ -87,8 +87,8 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
     //"2022P8","2022EEP8","2022EEP8", //hadd
     //"2022P8","2022P8"
     //"2022P8","2022P8","2022P8"
-    "2023P8QCD","2023P8QCD","2023-BPixP8QCD" //in principle use QCD
-    //"2023P8","2023P8","2023P8-BPix" //<-- change back to this after testing single files
+    //"2023P8QCD","2023P8QCD","2023-BPixP8QCD" //in principle use QCD
+    "2023P8","2023P8","2023P8-BPix" //<-- change back to this after testing single files
     //"2023P8X","2023P8X","2023P8-BPixX"//testing single files with different jec
   };
   const int niov_long = sizeof(iovs_long)/sizeof(iovs_long[0]);

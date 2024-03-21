@@ -47,7 +47,7 @@ void replacePt(TGraphErrors *g, TH1 *h) {
 void GamHistosRatios(string ver, string iov);
 
 // v27->v29->v30->v31(L2L3Res_V2)->v32(L2L3Res_V3)
-void GamHistosRatio(string ver = "w9") { 
+void GamHistosRatio(string ver = "w10") { 
   //GamHistosRatios(ver,"2016BCDEF");
   //GamHistosRatios(ver,"2016FGH");
   //GamHistosRatios(ver,"2017BCDEF");
@@ -203,17 +203,17 @@ void GamHistosRatios(string ver, string iov) {
   //THE TWO IF CONDITIONS BELOW ARE ONLY FOR 16.02.2024 WHEN RUNNING WITHOUT QCD AND WITHOUT L2L3RES - TODO: update this.
       if (iov=="2023Cv123" || iov=="2023Cv4") {
         fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
-        //fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023P8QCD_%s.root",cv),"READ"); 
-        //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE");
-        fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8_%s.root",cv),"READ"); //NO QCD (remove later)
-        fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8-noQCD_%s.root",ci,cv),"RECREATE"); //when no QCD in the mix (can remove it later)
+        fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023P8QCD_%s.root",cv),"READ"); 
+        fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE");
+        //fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8_%s.root",cv),"READ"); //NO QCD (remove later)
+        //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8-noQCD_%s.root",ci,cv),"RECREATE"); //when no QCD in the mix (can remove it later)
       }
       if (iov=="2023D") { //BPix issue (GamHistosMix_mc_2023-BPixP8QCD_w4.root) //should adjust the naming in the other programs!
         fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
-        //fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023-BPixP8QCD_%s.root",cv),"READ"); 
-        //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8BPixQCD_%s.root",ci,cv),"RECREATE"); //changed name!!
-        fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8-BPix_%s.root",cv),"READ"); //NO QCD (remove later)
-        fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8BPix-noQCD_%s.root",ci,cv),"RECREATE"); //when no QCD in the mix (can remove it later)
+        fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023-BPixP8QCD_%s.root",cv),"READ"); 
+        fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8BPixQCD_%s.root",ci,cv),"RECREATE"); //changed name!!
+        //fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8-BPix_%s.root",cv),"READ"); //NO QCD (remove later)
+        //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8BPix-noQCD_%s.root",ci,cv),"RECREATE"); //when no QCD in the mix (can remove it later)
       }
   if (iov=="Run3") {
 
