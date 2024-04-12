@@ -10,7 +10,7 @@
 bool addMPFu2n = true;
 bool addG1toMPF = false;//true;
 bool addG12toMPF = false;
-string id = "w10"; //change this always to current version
+string id = "w10"; //change this always to current version (need to use w10 for comparison with the w10 files... change 2024B name manually to w10 although it is w11
 //string id = "wX23"; //testing summer23 corrections with single files
 //string id = "wX22full"; //testing summer22 corrections with all files
 //string id = "wX22full-data_w5-mc"; //testing summer22 corrections with data files and summer23 corrections on mc files
@@ -68,13 +68,13 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
   //string mcs[] = {"2016APVP8","2016P8","2017P8","2018P8"};
   string iovs_long[] = {
     "2022C","2022D","2022E","2022F","2022G",
-    "2023Cv123","2023Cv4","2023D"
+    "2023Cv123","2023Cv4","2023D","2024B-PromptReco-v1"
   };
   string iovs_short[] = {
     //"2018ABCD","Run3",
     //"2022CD","2022E","2022FG", //hadd
     //"2023Cv123","2023Cv4D", //hadd
-    "2023Cv123","2023Cv4","2023D" //hadd <-- change back to this after testing single files
+    "2023Cv123","2023Cv4","2023D","2024B-PromptReco-v1" //hadd <-- change back to this after testing single files
     //"2023Cv123X","2023Cv4X","2023DX" //testing single files with different jec
   };
 
@@ -88,7 +88,7 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
     //"2022P8","2022P8"
     //"2022P8","2022P8","2022P8"
     //"2023P8QCD","2023P8QCD","2023-BPixP8QCD" //in principle use QCD
-    "2023P8","2023P8","2023P8-BPix" //<-- change back to this after testing single files
+    "2023P8","2023P8","2023P8-BPix", "2023P8-BPix" //<-- change back to this after testing single files; use 2023P8-BPix also for 2024B
     //"2023P8X","2023P8X","2023P8-BPixX"//testing single files with different jec
   };
   const int niov_long = sizeof(iovs_long)/sizeof(iovs_long[0]);
@@ -122,6 +122,7 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
   mcolor["2023Cv4"] = kBlue;//kGreen+2;
   mcolor["2023D"] = kMagenta;//+2;
   mcolor["2023Cv4D"] = kBlue;//kGreen+2;
+  mcolor["2024B-PromptReco-v1"] = kRed;
   mcolor["Run3"] = kBlack;
 
   //for my investigations on the mpf issue
@@ -129,6 +130,7 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
   mcolor["2023Cv4X"] = kBlue;//kGreen+2;
   mcolor["2023DX"] = kGreen+2;//+2;
   mcolor["2023D"] = kGreen+2;//+2; --> overwriting old setting (keep only for wX22full version)
+  mcolor["2024B-PromptReco-v1"] = kRed;
 
  
 
@@ -146,6 +148,7 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
   mmarker["2023Cv4"] = kFullTriangleDown;//kFullDiamond;
   mmarker["2023D"] = kOpenTriangleDown;//kOpenDiamond;
   mmarker["2023Cv4D"] = kFullTriangleDown;//kFullDiamond;
+  mmarker["2024B-PromptReco-v1"] = kFullCircle;
   mmarker["Run3"] = kFullSquare;
 
   //for my investigation on the mpf issue

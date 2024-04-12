@@ -46,7 +46,7 @@ R__LOAD_LIBRARY(GamHistosFill_C.so)
 #endif
 
 
-void mk_GamHistosFill(string dataset = "X", string version = "w10") { //using w-version names for my code (Bettina).
+void mk_GamHistosFill(string dataset = "X", string version = "w11") { //using w-version names for my code (Bettina).
 //void mk_GamHistosFill(string dataset = "X", string version = "wX23") { //using version wX23 for summer23 corrections TEST (with one single file per iov)
 //void mk_GamHistosFill(string dataset = "X", string version = "wX22full") { //using version wX22full for summer23 corrections TEST (with all files, but old jec)
 
@@ -71,7 +71,8 @@ void mk_GamHistosFill(string dataset = "X", string version = "w10") { //using w-
 		  dataset=="2022F"  || dataset=="2022G" ||
 		  dataset=="2023Cv123X" || dataset=="2023Cv4X" || dataset=="2023DX" || //for my test wX23
 		  dataset=="2023B" || dataset=="2023Cv123" ||
-		  dataset=="2023Cv4" || dataset=="2023D");
+		  dataset=="2023Cv4" || dataset=="2023D"
+                  dataset=="2024B-PromptReco-v1");
 
   bool addMC = (dataset=="2016P8" || dataset=="2017P8" || dataset=="2018P8" ||
 		dataset=="2016APVP8" ||

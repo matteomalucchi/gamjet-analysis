@@ -49,6 +49,8 @@ CHANGELOG (latest first):
 To-do later: 
 - update h2r9vspt r9 binning. Check if r9 cut makes sense at pT>230 GeV for Photon200 trigger, and if efficiency drops too much
 
+w11: first time running with 2024 data
+w10: upper pT bins in some histograms were combined for better statistics. (might want to change this back?)
 w9: applying jetvetomap also to photons (for all data periods: Cv123, Cv4, D)
 w8: fixed bug --> using correct L2L3Res for the RunD data
 w7: first run with new L2L3Res (29.02.2024)
