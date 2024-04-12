@@ -575,6 +575,10 @@ void GamHistosFill::Loop()
     LoadJSON("files/Cert_Collisions2022_355100_362760_Golden.json");
   if (TString(ds.c_str()).Contains("2023"))
     LoadJSON("files/Cert_Collisions2023_366442_370790_Golden.json");
+//for prompt data 2024B
+  if (TString(ds.c_str()).Contains("2024"))
+    LoadJSON("files/Collisions24_13p6TeV_378981_379154_DCSOnly_TkPx.json");
+
   //Cert_Collisions2023_370354_370790_Golden.json");
 
   // Load pileup JSON
@@ -621,7 +625,7 @@ void GamHistosFill::Loop()
     }
 //for now also use jetvetomap 2023D for the new 2024B prompt reco data:
   if (TString(ds.c_str()).Contains("2024")) {
-    if (TString(ds.c_str()).Contains("2024-PromptReco-v1"))
+    if (TString(ds.c_str()).Contains("2024B-PromptReco-v1"))
       fjv = new TFile("files/jetveto2023D.root","READ");
   }
   if (!fjv) cout << "Jetvetomap file not found for " << ds << endl << flush;
@@ -644,7 +648,8 @@ void GamHistosFill::Loop()
   if (TString(ds.c_str()).Contains("2018"))
     h2jv = (TH2D*)fjv->Get("h2hot_ul18_plus_hem1516_and_hbp2m1");
   if (TString(ds.c_str()).Contains("2022") ||
-      TString(ds.c_str()).Contains("2023"))
+      TString(ds.c_str()).Contains("2023") ||
+      TString(ds.c_str()).Contains("2024"))
     h2jv = (TH2D*)fjv->Get("jetvetomap");
   if (!h2jv) cout << "Jetvetomap histo not found for " << ds << endl << flush;
   assert(h2jv);
