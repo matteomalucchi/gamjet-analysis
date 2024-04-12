@@ -618,6 +618,7 @@ void GamHistosFill::Loop()
 	TString(ds.c_str()).Contains("2023P8-BPix") || //overwrites the previous choice of fjv (in case of BPix it first sets the wrong one, as both strings contain 22023P8
 	TString(ds.c_str()).Contains("2023QCD-BPix"))
       fjv = new TFile("files/jetveto2023D.root","READ");
+    }
 //for now also use jetvetomap 2023D for the new 2024B prompt reco data:
   if (TString(ds.c_str()).Contains("2024")) {
     if (TString(ds.c_str()).Contains("2024-PromptReco-v1"))
