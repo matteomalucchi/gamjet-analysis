@@ -180,7 +180,7 @@ void GamHistosFill::Loop()
       if (!isMC) fChain->SetBranchStatus("HLT_Photon30",1);
       if (!isMC) fChain->SetBranchStatus("HLT_Photon36",1);
     }
-    if (is17 || is18 || is22 || is23) {
+    if (is17 || is18 || is22 || is23 || is24) {
       fChain->SetBranchStatus("HLT_Photon33",1);
       fChain->SetBranchStatus("HLT_Photon200",1);
     //fChain->SetBranchStatus("HLT_Photon500",1);
@@ -209,6 +209,12 @@ void GamHistosFill::Loop()
       fChain->SetBranchStatus("HLT_Photon110EB_TightID_TightIso",1);
       fChain->SetBranchStatus("HLT_Photon100EBHE10",1);
     }
+    if (is24) { //new 2024 trigger paths
+      fChain->SetBranchStatus("HLT_Photon50EB_TightID_TightIso",1);
+      fChain->SetBranchStatus("HLT_Photon55EB_TightID_TightIso",1);
+      fChain->SetBranchStatus("HLT_Photon75EB_TightID_TightIso",1);
+      fChain->SetBranchStatus("HLT_Photon90EB_TightID_TightIso",1);
+    }
 
     // Triggers to recover 60-105 GeV range. However, inefficient up to high pT
     // Possibly medium HLT cuts not fully consistent with tight ID?
@@ -224,7 +230,7 @@ void GamHistosFill::Loop()
     fChain->SetBranchStatus("HLT_Photon165_R9Id90_HE10_IsoM",1);
     
     // Triggers to recover 30-60 GeV range. Efficient above 30 GeV
-    if (is17 || is18 || is22 || is23) {
+    if (is17 || is18 || is22 || is23 || is24) {
       fChain->SetBranchStatus("HLT_Photon20_HoverELoose",1);
       fChain->SetBranchStatus("HLT_Photon30_HoverELoose",1);
     }
@@ -305,7 +311,7 @@ void GamHistosFill::Loop()
     fChain->SetBranchStatus("Photon_pt",1);
     fChain->SetBranchStatus("Photon_eta",1);
     fChain->SetBranchStatus("Photon_phi",1);
-    if (!(is22||is23)) fChain->SetBranchStatus("Photon_mass",1);
+    if (!(is22||is23||is24)) fChain->SetBranchStatus("Photon_mass",1);
     fChain->SetBranchStatus("Photon_hoe",1);
     if (is17 && isMC && isQCD)
       fChain->SetBranchStatus("Photon_cutBasedBitmap",1);
@@ -529,6 +535,7 @@ void GamHistosFill::Loop()
 		 //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //old 
 		 //"Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI"); //even older
   }
+  //data2024
   if (ds=="2024B-PromptReco-v1") { //2023D needs BPix stuff, use this also for 2024B prompt data (12.4.24)
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPuppi"); //9th of Mar2024, w8 (fixed this...)
   }
@@ -575,7 +582,7 @@ void GamHistosFill::Loop()
     LoadJSON("files/Cert_Collisions2022_355100_362760_Golden.json");
   if (TString(ds.c_str()).Contains("2023"))
     LoadJSON("files/Cert_Collisions2023_366442_370790_Golden.json");
-//for prompt data 2024B
+//for prompt data 2024B - UPDATE THIS REGULARLY
   if (TString(ds.c_str()).Contains("2024"))
     LoadJSON("files/Collisions24_13p6TeV_378981_379154_DCSOnly_TkPx.json");
 
@@ -626,7 +633,7 @@ void GamHistosFill::Loop()
 //for now also use jetvetomap 2023D for the new 2024B prompt reco data:
   if (TString(ds.c_str()).Contains("2024")) {
     if (TString(ds.c_str()).Contains("2024B-PromptReco-v1"))
-      fjv = new TFile("files/jetveto2023D.root","READ");
+      fjv = new TFile("files/jetveto2023D.root","READ"); //update this when possible (new jetvetomap)
   }
   if (!fjv) cout << "Jetvetomap file not found for " << ds << endl << flush;
   assert(fjv);
@@ -905,36 +912,46 @@ void GamHistosFill::Loop()
   fout->cd("runs");
 
   // Time stability of xsec
-  TH1D *pr30n = new TH1D("pr30n",";Run;N_{events};",16000,355000.5,371000.5);
-  TH1D *pr110n = new TH1D("pr110n",";Run;N_{events};",16000,355000.5,371000.5);
-  TH1D *pr230n = new TH1D("pr230n",";Run;N_{events};",16000,355000.5,371000.5);
-  TH1D *prg1n = new TH1D("prg1n",";Run;N_{events};",16000,355000.5,371000.5);
+  //TH1D *pr30n = new TH1D("pr30n",";Run;N_{events};",16000,355000.5,371000.5);         //can remove this (keep updated version)
+  //TH1D *pr110n = new TH1D("pr110n",";Run;N_{events};",16000,355000.5,371000.5);
+  //TH1D *pr230n = new TH1D("pr230n",";Run;N_{events};",16000,355000.5,371000.5);
+  //TH1D *prg1n = new TH1D("prg1n",";Run;N_{events};",16000,355000.5,371000.5);
+  TH1D *pr30n = new TH1D("pr30n",";Run;N_{events};",26000,355000.5,381000.5);
+  TH1D *pr50n = new TH1D("pr50n",";Run;N_{events};",26000,355000.5,381000.5);
+  TH1D *pr110n = new TH1D("pr110n",";Run;N_{events};",26000,355000.5,381000.5);
+  TH1D *pr230n = new TH1D("pr230n",";Run;N_{events};",26000,355000.5,381000.5);
+  TH1D *prg1n = new TH1D("prg1n",";Run;N_{events};",26000,355000.5,381000.5);
   
   // Time stability of JEC
-  TProfile *pr30b = new TProfile("pr30b",";Run;BAL;",16000,355000.5,371000.5);
-  TProfile *pr110b = new TProfile("pr110b",";Run;BAL;",16000,355000.5,371000.5);
-  TProfile *pr230b = new TProfile("pr230b",";Run;BAL;",16000,355000.5,371000.5);
-  TProfile *prg1b = new TProfile("prg1b",";Run;BAL;",16000,355000.5,371000.5);
-  TProfile *pr30m = new TProfile("pr30m",";Run;MPF;",16000,355000.5,371000.5);
-  TProfile *pr110m = new TProfile("pr110m",";Run;MPF;",16000,355000.5,371000.5);
-  TProfile *pr230m = new TProfile("pr230m",";Run;MPF;",16000,355000.5,371000.5);
-  TProfile *prg1m = new TProfile("prg1m",";Run;MPF;",16000,355000.5,371000.5);
+  TProfile *pr30b = new TProfile("pr30b",";Run;BAL;",26000,355000.5,381000.5);
+  TProfile *pr50b = new TProfile("pr50b",";Run;BAL;",26000,355000.5,381000.5);
+  TProfile *pr110b = new TProfile("pr110b",";Run;BAL;",26000,355000.5,381000.5);
+  TProfile *pr230b = new TProfile("pr230b",";Run;BAL;",26000,355000.5,381000.5);
+  TProfile *prg1b = new TProfile("prg1b",";Run;BAL;",26000,355000.5,381000.5);
+  TProfile *pr30m = new TProfile("pr30m",";Run;MPF;",26000,355000.5,381000.5);
+  TProfile *pr50m = new TProfile("pr50m",";Run;MPF;",26000,355000.5,381000.5);
+  TProfile *pr110m = new TProfile("pr110m",";Run;MPF;",26000,355000.5,381000.5);
+  TProfile *pr230m = new TProfile("pr230m",";Run;MPF;",26000,355000.5,381000.5);
+  TProfile *prg1m = new TProfile("prg1m",";Run;MPF;",26000,355000.5,381000.5);
 
   // Time stability of PF composition
-  TProfile *pr30chf = new TProfile("pr30chf",";Run;CHF;",16000,355000.5,371000.5);
-  TProfile *pr110chf = new TProfile("pr110chf",";Run;CHF;",16000,355000.5,371000.5);
-  TProfile *pr230chf = new TProfile("pr230chf",";Run;CHF;",16000,355000.5,371000.5);
-  TProfile *prg1chf = new TProfile("prg1chf",";Run;CHF;",16000,355000.5,371000.5);
+  TProfile *pr30chf = new TProfile("pr30chf",";Run;CHF;",26000,355000.5,381000.5);
+  TProfile *pr50chf = new TProfile("pr50chf",";Run;CHF;",26000,355000.5,381000.5);
+  TProfile *pr110chf = new TProfile("pr110chf",";Run;CHF;",26000,355000.5,381000.5);
+  TProfile *pr230chf = new TProfile("pr230chf",";Run;CHF;",26000,355000.5,381000.5);
+  TProfile *prg1chf = new TProfile("prg1chf",";Run;CHF;",26000,355000.5,381000.5);
   //
-  TProfile *pr30nhf = new TProfile("pr30nhf",";Run;NHF;",16000,355000.5,371000.5);
-  TProfile *pr110nhf = new TProfile("pr110nhf",";Run;NHF;",16000,355000.5,371000.5);
-  TProfile *pr230nhf = new TProfile("pr230nhf",";Run;NHF;",16000,355000.5,371000.5);
-  TProfile *prg1nhf = new TProfile("prg1nhf",";Run;NHF;",16000,355000.5,371000.5);
+  TProfile *pr30nhf = new TProfile("pr30nhf",";Run;NHF;",26000,355000.5,381000.5);
+  TProfile *pr50nhf = new TProfile("pr50nhf",";Run;NHF;",26000,355000.5,381000.5);
+  TProfile *pr110nhf = new TProfile("pr110nhf",";Run;NHF;",26000,355000.5,381000.5);
+  TProfile *pr230nhf = new TProfile("pr230nhf",";Run;NHF;",26000,355000.5,381000.5);
+  TProfile *prg1nhf = new TProfile("prg1nhf",";Run;NHF;",26000,355000.5,381000.5);
   //
-  TProfile *pr30nef = new TProfile("pr30nef",";Run;NHF;",16000,355000.5,371000.5);
-  TProfile *pr110nef = new TProfile("pr110nef",";Run;NHF;",16000,355000.5,371000.5);
-  TProfile *pr230nef = new TProfile("pr230nef",";Run;NHF;",16000,355000.5,371000.5);
-  TProfile *prg1nef = new TProfile("prg1nef",";Run;NHF;",16000,355000.5,371000.5);
+  TProfile *pr30nef = new TProfile("pr30nef",";Run;NHF;",26000,355000.5,381000.5);
+  TProfile *pr50nef = new TProfile("pr50nef",";Run;NHF;",26000,355000.5,381000.5);
+  TProfile *pr110nef = new TProfile("pr110nef",";Run;NHF;",26000,355000.5,381000.5);
+  TProfile *pr230nef = new TProfile("pr230nef",";Run;NHF;",26000,355000.5,381000.5);
+  TProfile *prg1nef = new TProfile("prg1nef",";Run;NHF;",26000,355000.5,381000.5);
 
   // Control plots stored in a separate directory
   fout->mkdir("control");
@@ -1518,6 +1535,10 @@ void GamHistosFill::Loop()
     if (jentry%10000==0) cout << "." << flush;
     ++nlap;
 
+    //Safety resets for triggers only in 2024
+    HLT_Photon50EB_TightID_TightIso = HLT_Photon55EB_TightID_TightIso =
+      HLT_Photon75EB_TightID_TightIso = HLT_Photon90EB_TightID_TightIso =
+      kFALSE;
     // Safety resets for triggers only in 2022-2023
     HLT_Photon30EB_TightID_TightIso = kFALSE;
     // Safety resets for tight triggers that are partly missing in 2018A, 2016
@@ -1569,12 +1590,22 @@ void GamHistosFill::Loop()
       // Only in (most of) 2018, and now some in 22-23
       if (b_HLT_Photon120EB_TightID_TightIso && is18) // not in 2016-17, 2018A
 	b_HLT_Photon120EB_TightID_TightIso->GetEntry(ientry);
-      if (b_HLT_Photon110EB_TightID_TightIso && (is18 || is22 || is23)) // not in 2016-17, 2018A
+      if (b_HLT_Photon110EB_TightID_TightIso && (is18 || is22 || is23 || is24)) // not in 2016-17, 2018A
 	b_HLT_Photon110EB_TightID_TightIso->GetEntry(ientry);
       if (b_HLT_Photon100EB_TightID_TightIso && is18) // not in 2016-17, 2018A
 	b_HLT_Photon100EB_TightID_TightIso->GetEntry(ientry);
 
-      // Only 22-23
+      // Only 24
+      if (b_HLT_Photon50EB_TightID_TightIso && is24)
+	b_HLT_Photon50EB_TightID_TightIso->GetEntry(ientry);
+      if (b_HLT_Photon55EB_TightID_TightIso && is24)
+	b_HLT_Photon55EB_TightID_TightIso->GetEntry(ientry);
+      if (b_HLT_Photon75EB_TightID_TightIso && is24)
+	b_HLT_Photon75EB_TightID_TightIso->GetEntry(ientry);
+      if (b_HLT_Photon90EB_TightID_TightIso && is24)
+	b_HLT_Photon90EB_TightID_TightIso->GetEntry(ientry);
+
+      // Only 22-23-24
       if (b_HLT_Photon100EBHE10 && isRun3)
 	b_HLT_Photon100EBHE10->GetEntry(ientry);
       if (b_HLT_Photon30EB_TightID_TightIso && isRun3)
@@ -1630,6 +1661,10 @@ void GamHistosFill::Loop()
 	     HLT_Photon110EB_TightID_TightIso ||
 	     //HLT_Photon100EB_TightID_TightIso ||
 	     HLT_Photon100EBHE10 ||
+             HLT_Photon90EB_TightID_TightIso ||
+	     HLT_Photon75EB_TightID_TightIso ||
+	     HLT_Photon55EB_TightID_TightIso ||
+	     HLT_Photon50EB_TightID_TightIso ||
 	     HLT_Photon30EB_TightID_TightIso ||
 	     HLT_Photon90_R9Id90_HE10_IsoM ||
 	     HLT_Photon75_R9Id90_HE10_IsoM ||
@@ -1974,7 +2009,7 @@ void GamHistosFill::Loop()
 	 (isMC                           && pt>=20  && pt<35  && (itrg=20))
 	 )) ||
        // Push triggers to the limit for 22-23 (2022C bad 75,90)
-       (isRun3 &&
+       (isRun3 && (is22 || is23) &&
 	((HLT_Photon200                 && pt>=230            && (itrg=200)) ||
 	 (HLT_Photon110EB_TightID_TightIso && pt>=110&&pt<230 && (itrg=110)) ||
 	 (HLT_Photon90_R9Id90_HE10_IsoM && pt>=90  && pt<110  && (itrg=90))  ||
@@ -1984,6 +2019,15 @@ void GamHistosFill::Loop()
 	 (HLT_Photon30EB_TightID_TightIso  && pt>=30&&pt<50   && (itrg=30))  ||
 	 (HLT_Photon20_HoverELoose      && pt>=20  && pt<30   && (itrg=20))
 	 //|| (true && (itrg=1))// trigger bypass for EGamma on photonTrigs.C
+	 )) ||
+       // Updated menu in 2024 with high rate isolated triggers
+       (isRun3 && (is24) &&
+	((HLT_Photon200                    && pt>=230         && (itrg=200)) ||
+	 (HLT_Photon110EB_TightID_TightIso && pt>=110&&pt<230 && (itrg=110)) ||
+	 (HLT_Photon50EB_TightID_TightIso  && pt>=50 &&pt<230 && (itrg=50))  ||
+	 (HLT_Photon30EB_TightID_TightIso  && pt>=30 &&pt<50  && (itrg=30))  ||
+	 (HLT_Photon20_HoverELoose         && pt>=20 && pt<30 && (itrg=20))
+	 || (true && (itrg=1))// trigger bypass for EGamma on photonTrigs.C
 	 ))
        );
   
@@ -2426,6 +2470,14 @@ void GamHistosFill::Loop()
 	  pr30nhf->Fill(run, Jet_neHEF[iJet], w);
 	  pr30nef->Fill(run, Jet_neEmEF[iJet], w);
 	}
+        if (itrg==50 && ptgam>50) {
+	  pr50n->Fill(run, w); 
+	  pr50b->Fill(run, bal, w); 
+	  pr50m->Fill(run, mpf, w);
+	  pr50chf->Fill(run, Jet_chHEF[iJet], w);
+	  pr50nhf->Fill(run, Jet_neHEF[iJet], w);
+	  pr50nef->Fill(run, Jet_neEmEF[iJet], w);
+	}
 	if (itrg==110 && ptgam>110) {
 	  pr110n->Fill(run, w);
 	  pr110b->Fill(run, bal, w); 
@@ -2628,8 +2680,11 @@ void GamHistosFill::Loop()
 	  if (HLT_Photon20_HoverELoose         && pt>=20)  hmus20->Fill(mu,w1);
 	  if (HLT_Photon30_HoverELoose         && pt>=30)  hmus30->Fill(mu,w1);
 	  if (HLT_Photon50_R9Id90_HE10_IsoM    && pt>=55)  hmus50->Fill(mu,w1);
+          if (HLT_Photon50EB_TightID_TightIso  && pt>=55)  hmus50->Fill(mu,w1);
 	  if (HLT_Photon75_R9Id90_HE10_IsoM    && pt>=80)  hmus75->Fill(mu,w1);
+          if (HLT_Photon75EB_TightID_TightIso  && pt>=55)  hmus75->Fill(mu,w1);
 	  if (HLT_Photon90_R9Id90_HE10_IsoM    && pt>=95)  hmus90->Fill(mu,w1);
+          if (HLT_Photon90EB_TightID_TightIso  && pt>=55)  hmus90->Fill(mu,w1);
 	  if (HLT_Photon100EB_TightID_TightIso && pt>=105) hmus100->Fill(mu,w1);
 	  if (HLT_Photon110EB_TightID_TightIso && pt>=115) hmus110->Fill(mu,w1);
 	  if (HLT_Photon200                    && pt>=210) hmus200->Fill(mu,w1);
