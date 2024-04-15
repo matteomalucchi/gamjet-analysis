@@ -570,7 +570,7 @@ GamHistosFill::GamHistosFill(TTree *tree, int itype, string datasetname, string 
            ds=="2023QCD" || ds=="2023QCD-BPix" || 
            ds=="2024QCD"); //added 2024QCD already here
   isMG = (ds=="2022P8" || ds=="2022EEP8" || ds=="2022QCD" || ds=="2022EEQCD" ||
-           ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix" //); //should 2023P8 and 2023P8_BPix be added here, too? (for correct weight in HT bins)
+           ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix" || //); //should 2023P8 and 2023P8_BPix be added here, too? (for correct weight in HT bins)
            ds=="2024P8");  //added already here
   isRun3 = (is22 || is23 || is24);
   isRun2 = (is16  || is17 || is18);
