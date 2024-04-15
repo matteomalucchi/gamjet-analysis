@@ -231,6 +231,15 @@ public :
    //Bool_t          HLT_Photon500;
    //Bool_t          HLT_Photon600;
 
+   // Triggers and branches from 24
+   //Bool_t          HLT_Photon50EB_TightID_TightIso_PFJet30;
+   Bool_t          HLT_Photon50EB_TightID_TightIso;
+   Bool_t          HLT_Photon55EB_TightID_TightIso;
+   Bool_t          HLT_Photon75EB_TightID_TightIso;
+   Bool_t          HLT_Photon90EB_TightID_TightIso;
+   //Bool_t          HLT_Photon110EB_TightID_TightIso;
+   //Bool_t          HLT_Photon110EB_TightID_TightIso_PFJet30;
+
    // Triggers and branches from 22-23
    Bool_t          HLT_Photon100EBHE10;
    Bool_t          HLT_Photon30EB_TightID_TightIso;
@@ -472,7 +481,18 @@ public :
    //TBranch        *b_HLT_Photon500;   //!
    //TBranch        *b_HLT_Photon600;   //!
 
-  // Triggers (and branches) from 22-23
+
+   // Triggers (and branches) from 24
+   TBranch        *b_HLT_Photon50EB_TightID_TightIso_PFJet30;   //!
+   TBranch        *b_HLT_Photon50EB_TightID_TightIso;   //!
+   TBranch        *b_HLT_Photon55EB_TightID_TightIso;   //!
+   TBranch        *b_HLT_Photon75EB_TightID_TightIso;   //!
+   TBranch        *b_HLT_Photon90EB_TightID_TightIso;   //!
+   //TBranch        *b_HLT_Photon110EB_TightID_TightIso;   //!
+   //TBranch        *b_HLT_Photon110EB_TightID_TightIso_PFJet30;   //!
+
+
+   // Triggers (and branches) from 22-23
    TBranch        *b_HLT_Photon100EBHE10;
    TBranch        *b_HLT_Photon30EB_TightID_TightIso;
   
@@ -543,12 +563,15 @@ GamHistosFill::GamHistosFill(TTree *tree, int itype, string datasetname, string 
           ds=="2023Cv123X" || ds=="2023Cv4X" || ds=="2023DX" || //for testing wX23 and wX22
 	  ds=="2023P8X" || ds=="2023QCDX" || ds=="2023P8-BPixX"|| ds=="2023QCDX" || ds=="2023QCD-BPixX" || //for testing wX23 and wX22
 	  ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix"|| ds=="2023QCD" || ds=="2023QCD-BPix"); //added 2023P8_BPix
-  is24 = (ds=="2024B-PromptReco-v1");
+  is24 = (ds=="2024B-PromptReco-v1" ||
+          ds=="2024P8" || ds=="2024QCD"); //added these already, even though no MC for 2024 yet
   isQCD = (ds=="2016QCD" || ds=="2016QCDAPV" || ds=="2017QCD" ||
 	   ds=="2018QCD" || ds=="2022QCD" || ds=="2022EEQCD" ||
-           ds=="2023QCD" || ds=="2023QCD-BPix"); //added qcd 2023
+           ds=="2023QCD" || ds=="2023QCD-BPix" || 
+           ds=="2024QCD"); //added 2024QCD already here
   isMG = (ds=="2022P8" || ds=="2022EEP8" || ds=="2022QCD" || ds=="2022EEQCD" ||
-           ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix"); //should 2023P8 and 2023P8_BPix be added here, too? (for correct weight in HT bins)
+           ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix" //); //should 2023P8 and 2023P8_BPix be added here, too? (for correct weight in HT bins)
+           ds=="2024P8");  //added already here
   isRun3 = (is22 || is23 || is24);
   isRun2 = (is16  || is17 || is18);
   assert(is16 || is17 || is18 || is22 || is23 || is24);
@@ -844,6 +867,11 @@ void GamHistosFill::Init(TTree *tree)
 
    b_HLT_Photon165_HE10 = 0;
 
+   b_HLT_Photon50EB_TightID_TightIso = 0;
+   b_HLT_Photon55EB_TightID_TightIso = 0;
+   b_HLT_Photon75EB_TightID_TightIso = 0;
+   b_HLT_Photon90EB_TightID_TightIso = 0;
+
    b_HLT_Photon100EB_TightID_TightIso = 0;
    b_HLT_Photon110EB_TightID_TightIso = 0;
    b_HLT_Photon120EB_TightID_TightIso = 0;
@@ -956,13 +984,22 @@ void GamHistosFill::Init(TTree *tree)
    } // is18
    if (is22 || is23 || is24) {
 
-     //fChain->SetBranchAddress("HLT_Photon20", &HLT_Photon20, &b_HLT_Photon20);
-   
-   fChain->SetBranchAddress("HLT_Photon30EB_TightID_TightIso", &HLT_Photon30EB_TightID_TightIso, &b_HLT_Photon30EB_TightID_TightIso);
-   fChain->SetBranchAddress("HLT_Photon100EBHE10", &HLT_Photon100EBHE10, &b_HLT_Photon100EBHE10);
-   fChain->SetBranchAddress("HLT_Photon110EB_TightID_TightIso", &HLT_Photon110EB_TightID_TightIso, &b_HLT_Photon110EB_TightID_TightIso);
+       //fChain->SetBranchAddress("HLT_Photon20", &HLT_Photon20, &b_HLT_Photon20);
+       fChain->SetBranchAddress("HLT_Photon30EB_TightID_TightIso", &HLT_Photon30EB_TightID_TightIso, &b_HLT_Photon30EB_TightID_TightIso);
+       fChain->SetBranchAddress("HLT_Photon100EBHE10", &HLT_Photon100EBHE10, &b_HLT_Photon100EBHE10);
+       fChain->SetBranchAddress("HLT_Photon110EB_TightID_TightIso", &HLT_Photon110EB_TightID_TightIso, &b_HLT_Photon110EB_TightID_TightIso);
 
    } // is22 is23 is24
+   if (is24){
+       //fChain->SetBranchAddress("HLT_Photon50EB_TightID_TightIso_PFJet30", &HLT_Photon50EB_TightID_TightIso_PFJet30, &b_HLT_Photon50EB_TightID_TightIso_PFJet30);
+       fChain->SetBranchAddress("HLT_Photon50EB_TightID_TightIso", &HLT_Photon50EB_TightID_TightIso, &b_HLT_Photon50EB_TightID_TightIso);
+       fChain->SetBranchAddress("HLT_Photon55EB_TightID_TightIso", &HLT_Photon55EB_TightID_TightIso, &b_HLT_Photon55EB_TightID_TightIso);
+       fChain->SetBranchAddress("HLT_Photon75EB_TightID_TightIso", &HLT_Photon75EB_TightID_TightIso, &b_HLT_Photon75EB_TightID_TightIso);
+       fChain->SetBranchAddress("HLT_Photon90EB_TightID_TightIso", &HLT_Photon90EB_TightID_TightIso, &b_HLT_Photon90EB_TightID_TightIso);
+       //fChain->SetBranchAddress("HLT_Photon110EB_TightID_TightIso", &HLT_Photon110EB_TightID_TightIso, &b_HLT_Photon110EB_TightID_TightIso);
+       //fChain->SetBranchAddress("HLT_Photon110EB_TightID_TightIso_PFJet30", &HLT_Photon110EB_TightID_TightIso_PFJet30, &b_HLT_Photon110EB_TightID_TightIso_PFJet30);
+   } // is24
+
    Notify();
 }
 
