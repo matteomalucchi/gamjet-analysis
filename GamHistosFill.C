@@ -537,7 +537,8 @@ void GamHistosFill::Loop()
   }
   //data2024
   if (ds=="2024B-PromptReco-v1") { //2023D needs BPix stuff, use this also for 2024B prompt data (12.4.24)
-    jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPuppi"); //9th of Mar2024, w8 (fixed this...)
+    jec = getFJC("", "Summer23BPixPrompt23_V1_MC_L2Relative_AK4PFPuppi", "Summer23BPixPrompt23_RunD_V1_DATA_L2L3Residual_AK4PFPuppi"); //took the official ones from: (the one with V2 was an internal one from Mikko) --> should update also for 2023 stuff above (TO DO).
+    //jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPuppi"); //9th of Mar2024, w8 (fixed this...)
   }
   assert(jec);
 
@@ -584,7 +585,7 @@ void GamHistosFill::Loop()
     LoadJSON("files/Cert_Collisions2023_366442_370790_Golden.json");
 //for prompt data 2024B - UPDATE THIS REGULARLY
   if (TString(ds.c_str()).Contains("2024"))
-    LoadJSON("files/Collisions24_13p6TeV_378981_379154_DCSOnly_TkPx.json");
+    LoadJSON("files/Collisions24_13p6TeV_378981_379355_DCSOnly_TkPx.json");
 
   //Cert_Collisions2023_370354_370790_Golden.json");
 
