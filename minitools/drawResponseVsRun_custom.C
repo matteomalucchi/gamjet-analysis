@@ -17,6 +17,29 @@ void clean(TH1 *p, double maxerr = 0.005) {
   }
 } // clean
 
+// Shift the x-axis position for higher run numbers, to avoid whitespace
+void shiftX(TH1 *p, double maxrunnum = 378000){
+    TAxis *a = p->GetXaxis();
+    cout << "this is xmin: " << a->GetXmin();
+    //cout << "getsize: " << a->GetXbins()->GetSize();
+    //if(a->GetXmin()>maxrunnum){ //doesn't work, because they all start at 355000...
+
+    if(a->GetXbins()->GetSize()){ //axis with variable bins
+        cout << a << endl; 
+        TArrayD X(*(a->GetXbins()));
+        for(Int_t i=0; i<X.GetSize(); i++){
+            X[i]-=3000; //shift the x-value 3000 to the left
+        }
+
+        //set new xbins
+        a->Set((X.GetSize()-1), X.GetArray());
+    }
+    else{ //axis with fix bins
+        a->Set(a->GetNbins(),(a->GetXmin())-3000,(a->GetXmax())-3000);
+    }
+    //}
+}//shiftX
+
 // Add offset to histogram, if bin content nonempty
 void addOffset(TH1D *h, double off) {
   for (int i = 1; i != h->GetNbinsX()+1; ++i) {
@@ -40,7 +63,7 @@ TH1D *hadd(string name, TProfile *p1, TProfile *p2) {
 void drawPFcompVsRun(string version);
 
 // v26->v29->(v30)->v31(after L2L3Res_V2)->v32(L2L3Res_V3) ==> these are Mikko's versions, mine are with "wX"
-void drawResponseVsRun(string version = "w10") { //w10 for 2023 data, w11 for the new 2024 data
+void drawResponseVsRun_custom(string version = "w10") { //w10 for 2023 data, w11 for the new 2024 data
 
   const char *cv = version.c_str();
   
@@ -48,34 +71,35 @@ void drawResponseVsRun(string version = "w10") { //w10 for 2023 data, w11 for th
   TDirectory *curdir = gDirectory;
 
   // Open input files
-  TFile *f = new TFile(Form("rootfiles/GamHistosFill_data_Run3_%s.root",cv),
-		       "READ"); //is this the entire run 3 data with all runperiods?
+  //TFile *f = new TFile(Form("rootfiles/GamHistosFill_data_Run3_%s.root",cv), "READ"); //is this the entire run 3 data with all runperiods?
+  TFile *f = new TFile(Form("rootfiles/GamHistosFill_data_Run3Summer23_%s.root",cv), "READ"); //for now: hadd on 2023 Cv123, Cv4, D
+
   assert(f && !f->IsZombie());
 
   //f->cd("control"); // v29
   f->cd("runs"); // v30
   TDirectory *d = gDirectory;
 
-  // Load input profiles
+  // Load input profiles + clean the errors
   TProfile *pr30b = (TProfile*)d->Get("pr30b"); clean(pr30b,0.006); //b = balance
   TProfile *pr30m = (TProfile*)d->Get("pr30m"); clean(pr30m,0.006); //m = mpf
   TProfile *pr110b = (TProfile*)d->Get("pr110b"); clean(pr110b,0.003);
   TProfile *pr110m = (TProfile*)d->Get("pr110m"); clean(pr110m,0.003);
 
   TProfile *pr50b, *pr50m;
-  { // add 2024 --> so this is so far added separately while the rest is read from one run3-file??
-    TFile *f24 = new TFile("rootfiles/GamHistosFill_data_2024B-PromptReco-v1_w11.root",
-			   "READ");
+  { // add 2024 --> this is so far added separately while the rest is read from one run3-file. could combine it.
+    TFile *f24 = new TFile("rootfiles/GamHistosFill_data_2024B-PromptReco-v1_w11.root", "READ");
     assert(f24 && !f24->IsZombie());
     TDirectory *d24 = f24->GetDirectory("runs");
 
     TProfile *pr30b_24, *pr30m_24, *pr110b_24, *pr110m_24;
-    pr30b_24 = (TProfile*)d24->Get("pr30b"); clean(pr30b_24,0.01);
+    pr30b_24 = (TProfile*)d24->Get("pr30b"); clean(pr30b_24,0.01); //shiftX(pr30m_24); //test
     pr30m_24 = (TProfile*)d24->Get("pr30m"); clean(pr30m_24,0.01);
-    pr50b = (TProfile*)d24->Get("pr50b"); clean(pr50b,0.01);
-    pr50m = (TProfile*)d24->Get("pr50m"); clean(pr50m,0.01);
-    pr110b_24 = (TProfile*)d24->Get("pr110b"); clean(pr110b_24,0.01);
-    pr110m_24 = (TProfile*)d24->Get("pr110m"); clean(pr110m_24,0.01);
+    pr50b = (TProfile*)d24->Get("pr50b"); clean(pr50b,0.01); //shiftX(pr50b); //test
+    pr50m = (TProfile*)d24->Get("pr50m"); clean(pr50m,0.01); //shiftX(pr50m); //test
+    pr110b_24 = (TProfile*)d24->Get("pr110b"); clean(pr110b_24,0.01); //shiftX(pr110b_24); //test
+    pr110m_24 = (TProfile*)d24->Get("pr110m"); clean(pr110m_24,0.01); //shiftX(pr110m_24); //test
+
 
     pr30b = (TProfile*)hadd("pr30b2",pr30b_24, pr30b);
     pr30m = (TProfile*)hadd("pr30m2",pr30m_24, pr30m);
@@ -104,8 +128,10 @@ void drawResponseVsRun(string version = "w10") { //w10 for 2023 data, w11 for th
   // Setup canvas
   //TH1D *h = tdrHist("h","Response",0.8,1.2,"Run",355300,371300);
   //TH1D *h = tdrHist("h","Response",0.92,1.08,"Run",355300,371300);
-  TH1D *h = tdrHist("h","Response",0.92,1.08,"Run",355300,381300);
-  lumi_136TeV = Form("Photon+jet, Run 3, %s",cv);
+  //TH1D *h = tdrHist("h","Response",0.92,1.08,"Run",355300,381300); //wherefrom do i know these run numbers -> link
+  TH1D *h = tdrHist("h","Response",0.92,1.08,"Run",366000,381300); //should start later when dropping 2022 data (here some before 2023C)
+  //lumi_136TeV = Form("Photon+jet, Run 3, %s",cv);
+  lumi_136TeV = Form("Photon+jet, Run 3 2023, %s",cv); //for 2023-only version
   extraText = "Private";
   TCanvas *c1 = tdrCanvas("c1",h,8,11);
   TLine *l = new TLine();
@@ -121,6 +147,8 @@ void drawResponseVsRun(string version = "w10") { //w10 for 2023 data, w11 for th
 
   // 2023 Era definition
   // https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVRun3Analysis#2023_Era_definition
+  //comment out 2022 FOR NOW --> TODO: run 2022 with w10 code and include all.
+  /*
   double run22c1b(355794), run22c1e(357486);
   l->DrawLine(run22c1b,y1,run22c1b,y2);
   l->SetLineStyle(kDotted);
@@ -130,6 +158,9 @@ void drawResponseVsRun(string version = "w10") { //w10 for 2023 data, w11 for th
   double run22d2b(357734), run22d2e(358219);
   double run22d3b(358220), run22d3e(359021);
   l->DrawLine(run22d1b,y1,run22d1b,y2);
+  */
+
+  //this was aleady commented out
   /*
   l->SetLineStyle(kDashed);
   l->DrawLine(run22d1e,y1+0.015,run22d1e,y2);
@@ -138,6 +169,9 @@ void drawResponseVsRun(string version = "w10") { //w10 for 2023 data, w11 for th
   l->DrawLine(run22d3b,y1+0.015,run22d3b,y2);
   l->SetLineStyle(kSolid);
   */
+
+  //comment out 2022 FOR NOW --> TODO: run 2022 with w10 code and include all.
+  /*
   l->DrawLine(run22d3e,y1,run22d3e,y2);
   t->DrawLatex(run22d1b+300,0.925,"D");//"22D");
   double run22e1b(359022), run22e1e(360331);
@@ -155,7 +189,8 @@ void drawResponseVsRun(string version = "w10") { //w10 for 2023 data, w11 for th
   l->SetLineStyle(kSolid);
   l->DrawLine(run22g1e,y1,run22g1e,y2);  
   t->DrawLatex(run22g1b+50,0.925,"G");
-  //
+  */
+  // 2023
   double run23c1b(367080), run23c1e(367515);
   double run23c2b(367516), run23c2e(367620);
   double run23c3b(367621), run23c3e(367763);
@@ -238,13 +273,17 @@ void drawResponseVsRun(string version = "w10") { //w10 for 2023 data, w11 for th
 
 
   
-  c1->SaveAs(Form("pdf/drawResponseVsRun_%s.pdf",cv));
+  //c1->SaveAs(Form("pdf/drawResponseVsRun_custom_%s.pdf",cv));
+    c1->SaveAs(Form("pdf/drawResponseVsRun_custom_%s_TEST.pdf",cv));
+
 
   // Extra composition plots
   drawPFcompVsRun(version);
-} // drawResponseVsRun
+} // drawResponseVsRun_custom
 
 
+//for calling function and running this PFComp code with certain code version from command line:
+/*
 void drawPFcompVsRun(string version) {
 
   const char *cv = version.c_str();
@@ -413,3 +452,4 @@ void drawPFcompVsRun(string version) {
   c1->SaveAs(Form("pdf/drawResponseVsRun_PFcomp_%s.pdf",cv));
   
 } // drawPFcompVsRun
+*/
