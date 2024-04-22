@@ -16,15 +16,16 @@ IOV_list_of_lists = [
 #    ['Run3','2022C','2022D','2022E','2022F','2022G',
 #     '2023Cv123','2023Cv4','2023D']
     ['Run3Summer23', '2023Cv123', '2023Cv4','2023D']
+#    ['Run3', '2023Cv123', '2023Cv4','2023D']
     ]
 MC_list_of_lists = [
 #    ['Run2P8','2016P8','2016APVP8','2017P8','2018P8'],
 #    ['Run2QCD','2016QCD','2016QCDAPV','2017QCD','2018QCD'],
 #    ['Run3P8','2022P8','2022EEP8']
-    ['Run3Summer23', '2023P8', '2023P8-BPix'] # !! does not make sense to merge these together - double check!!
+    ['Run3Summer23', '2023P8', '2023P8-BPix'] # !! does not make sense to merge these together? - double check!!
     ]
 
-version = 'w7'
+version = 'w10'
 
 os.system("ls rootfiles/GamHistosFill_data_*_"+version+".root")
 for IOV_list in IOV_list_of_lists:
