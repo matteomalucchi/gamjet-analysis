@@ -536,7 +536,7 @@ void GamHistosFill::Loop()
 		 //"Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI"); //even older
   }
   //data2024
-  if (ds=="2024B-PromptReco-v1") { //2023D needs BPix stuff, use this also for 2024B prompt data (12.4.24)
+  if (ds=="2024B-PromptReco-v1" || ds=="2024B" || ds=="2024C") { //2023D needs BPix stuff, use this also for 2024B prompt data (12.4.24)
     jec = getFJC("", "Summer23BPixPrompt23_V1_MC_L2Relative_AK4PFPuppi", "Summer23BPixPrompt23_RunD_V1_DATA_L2L3Residual_AK4PFPuppi"); //took the official ones from: (the one with V2 was an internal one from Mikko) --> should update also for 2023 stuff above (TO DO).
     //jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPuppi"); //9th of Mar2024, w8 (fixed this...)
   }
@@ -569,7 +569,7 @@ void GamHistosFill::Loop()
   if (ds=="2022E" || ds=="2022F" || ds=="2022G") sera = "2022EE";
   if (ds=="2023B" || ds=="2023Cv123" || ds=="2023Cv4" || ds=="2023D") sera = "2023";
   if (ds=="2023Cv123X" || ds=="2023Cv4X" || ds=="2023DX") sera = "2023";
-  if (ds=="2024B-PromptReco-v1") sera = "2024";
+  if (ds=="2024B-PromptReco-v1" || ds=="2024B" || ds=="2024C") sera = "2024";
   assert(sera!="");
 
   // Load JSON files
@@ -634,7 +634,9 @@ void GamHistosFill::Loop()
     }
 //for now also use jetvetomap 2023D for the new 2024B prompt reco data:
   if (TString(ds.c_str()).Contains("2024")) {
-    if (TString(ds.c_str()).Contains("2024B-PromptReco-v1"))
+    if (TString(ds.c_str()).Contains("2024B-PromptReco-v1") ||
+        TString(ds.c_str()).Contains("2024B") ||
+        TString(ds.c_str()).Contains("2024C"))
       fjv = new TFile("files/jetveto2023D.root","READ"); //update this when possible (new jetvetomap)
   }
   if (!fjv) cout << "Jetvetomap file not found for " << ds << endl << flush;
