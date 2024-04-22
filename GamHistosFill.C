@@ -585,7 +585,8 @@ void GamHistosFill::Loop()
     LoadJSON("files/Cert_Collisions2023_366442_370790_Golden.json");
 //for prompt data 2024B - UPDATE THIS REGULARLY
   if (TString(ds.c_str()).Contains("2024"))
-    LoadJSON("files/Collisions24_13p6TeV_378981_379355_DCSOnly_TkPx.json");
+    //LoadJSON("files/Collisions24_13p6TeV_378981_379355_DCSOnly_TkPx.json");
+    LoadJSON("files/Collisions24_13p6TeV_378981_379774_DCSOnly_TkPx.json");
 
   //Cert_Collisions2023_370354_370790_Golden.json");
 
@@ -706,14 +707,14 @@ void GamHistosFill::Loop()
   //double vx[] = {15, 20, 25, 30, 35, 40, 50, 60, 70, 85, 105, 130, 175, 230,
   //		 300, 400, 500, 600, 700, 850, 1000, 1200, 1450, 1750};
   // 22-23 binning
-  /*
   double vx[] = {15, 20, 25, 30, 35, 40, 50, 60, 75, 90, 110, 130, 175, 230,
   		 300, 400, 500, 600, 700, 850, 1000, 1200, 1450, 1750,
 		 2100, 2500, 3000};
-  */
-  //alternative binning used in w10 to combine upper bins for more statistics --> only for these histograms. --> starting version w10
+  /*
+  //alternative binning used in w10 to combine upper bins for more statistics --> only for these histograms. --> starting version w10 (removed in version w12)
   double vx[] = {15, 20, 25, 30, 35, 40, 50, 60, 75, 90, 110, 130, 175, 230,
   		 300, 400, 500, 600, 700, 850, 1000, 1200, 1450, 3000}; //no overflow bin?
+  */
 
   const int nx = sizeof(vx)/sizeof(vx[0])-1;
   
@@ -1303,7 +1304,7 @@ void GamHistosFill::Loop()
     // Newer L2Res |eta| binning from Mikel
     // https://indico.cern.ch/event/1335203/#7-update-on-l2res-for-2022-rer
     //  {0., 0.261, 0.522, 0.783, 1.044, 1.305, 1.479, 1.653, 1.93, 2.172, 2.322, 2.5, 2.65, 2.853, 2.964, 3.139, 3.314, 3.489, 3.839, 4.013, 4.583, 5.191};
-    //binning from dijet analysis (added on 22.04.2024):
+    //binning from dijet analysis (added on 22.04.2024), version w12:
     {0, 0.087, 0.174, 0.261, 0.348, 0.435, 0.522, 0.609, 0.696, 0.783, 0.879, 0.957, 1.044, 1.131, 1.218, 1.305,
        1.392, 1.479, 1.566, 1.653, 1.74, 1.83, 1.93, 2.043, 2.172, 2.322, 2.5, 2.65, 2.853, 2.964, 3.139, 3.314, 
        3.489, 3.664, 3.839, 4.013, 4.191, 4.363, 4.538, 4.716, 4.889, 5.191};
