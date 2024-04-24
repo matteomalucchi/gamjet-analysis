@@ -68,13 +68,13 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
   //string mcs[] = {"2016APVP8","2016P8","2017P8","2018P8"};
   string iovs_long[] = {
     "2022C","2022D","2022E","2022F","2022G",
-    "2023Cv123","2023Cv4","2023D","2024B-PromptReco-v1"
+    "2023Cv123","2023Cv4","2023D","2024B", "2024C"
   };
   string iovs_short[] = {
     //"2018ABCD","Run3",
     //"2022CD","2022E","2022FG", //hadd
     //"2023Cv123","2023Cv4D", //hadd
-    "2023Cv123","2023Cv4","2023D","2024B-PromptReco-v1" //hadd <-- change back to this after testing single files
+    "2023Cv123","2023Cv4","2023D","2024B", "2024C" //hadd <-- change back to this after testing single files
     //"2023Cv123X","2023Cv4X","2023DX" //testing single files with different jec
   };
 
@@ -88,7 +88,7 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
     //"2022P8","2022P8"
     //"2022P8","2022P8","2022P8"
     //"2023P8QCD","2023P8QCD","2023-BPixP8QCD" //in principle use QCD
-    "2023P8","2023P8","2023P8-BPix", "2023P8-BPix" //<-- change back to this after testing single files; use 2023P8-BPix also for 2024B
+    "2023P8","2023P8","2023P8-BPix", "2023P8-BPix", "2023P8-BPix" //<-- change back to this after testing single files; use 2023P8-BPix also for 2024B and C
     //"2023P8X","2023P8X","2023P8-BPixX"//testing single files with different jec
   };
   const int niov_long = sizeof(iovs_long)/sizeof(iovs_long[0]);
@@ -122,7 +122,8 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
   mcolor["2023Cv4"] = kBlue;//kGreen+2;
   mcolor["2023D"] = kMagenta;//+2;
   mcolor["2023Cv4D"] = kBlue;//kGreen+2;
-  mcolor["2024B-PromptReco-v1"] = kRed;
+  mcolor["2024B"] = kRed;
+  mcolor["2024C"] = kGreen;
   mcolor["Run3"] = kBlack;
 
   //for my investigations on the mpf issue
@@ -130,7 +131,8 @@ void drawPhotonJetVsPtVsIOVs(string so, string var, string name,
   mcolor["2023Cv4X"] = kBlue;//kGreen+2;
   mcolor["2023DX"] = kGreen+2;//+2;
   mcolor["2023D"] = kGreen+2;//+2; --> overwriting old setting (keep only for wX22full version)
-  mcolor["2024B-PromptReco-v1"] = kRed;
+  mcolor["2024B"] = kRed;
+  mcolor["2024C"] = kGreen;
 
  
 
