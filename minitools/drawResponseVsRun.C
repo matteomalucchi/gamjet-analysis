@@ -38,8 +38,8 @@ TH1D *hadd(string name, TProfile *p1, TProfile *p2) {
 
 void drawPFcompVsRun(string version);
 
-// v26->v29->(v30)->v31(after L2L3Res_V2)->v32(L2L3Res_V3)
-void drawResponseVsRun(string version = "v32") {
+// v26->v29->(v30)->v31(after L2L3Res_V2)->v32(L2L3Res_V3) ==> these are Mikko's versions, mine are with "wX"
+void drawResponseVsRun(string version = "w12") {
 
   const char *cv = version.c_str();
   
@@ -48,7 +48,7 @@ void drawResponseVsRun(string version = "v32") {
 
   // Open input files
   TFile *f = new TFile(Form("rootfiles/GamHistosFill_data_Run3_%s.root",cv),
-		       "READ");
+		       "READ"); //is this the entire run 3 data with all runperiods?
   assert(f && !f->IsZombie());
 
   //f->cd("control"); // v29
@@ -56,14 +56,14 @@ void drawResponseVsRun(string version = "v32") {
   TDirectory *d = gDirectory;
 
   // Load input profiles
-  TProfile *pr30b = (TProfile*)d->Get("pr30b"); clean(pr30b,0.006);
-  TProfile *pr30m = (TProfile*)d->Get("pr30m"); clean(pr30m,0.006);
+  TProfile *pr30b = (TProfile*)d->Get("pr30b"); clean(pr30b,0.006); //b = balance
+  TProfile *pr30m = (TProfile*)d->Get("pr30m"); clean(pr30m,0.006); //m = mpf
   TProfile *pr110b = (TProfile*)d->Get("pr110b"); clean(pr110b,0.003);
   TProfile *pr110m = (TProfile*)d->Get("pr110m"); clean(pr110m,0.003);
 
   TProfile *pr50b, *pr50m;
-  { // add 2024
-    TFile *f24 = new TFile("rootfiles/GamHistosFill_data_2024B_v34.root",
+  { // add 2024 --> so this is so far added separately while the rest is read from one run3-file??
+    TFile *f24 = new TFile("rootfiles/GamHistosFill_data_2024B-PromptReco-v1_w11.root",
 			   "READ");
     assert(f24 && !f24->IsZombie());
     TDirectory *d24 = f24->GetDirectory("runs");
