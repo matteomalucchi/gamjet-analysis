@@ -19,6 +19,7 @@ using namespace std;
 #define PNET_REG
 
 
+
 bool _gh_debug = false;
 bool _gh_debug100 = false;
 
@@ -499,7 +500,7 @@ void GamHistosFill::Loop()
   }
  */
   //MC2023 --> added for running 2023MC with and without BPix stuff
-  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8X" ||ds == "Summer23MG_1" || ds == "Summer23MG_2" || ds == "Summer23MG_3" || ds == "Summer23MG_4"  ) { //earlier called: Summer2023
+  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8X" || TString(ds.c_str()).Contains("Summer23MG_")) { //earlier called: Summer2023
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", ""); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     jec = getFJC("", "Summer23Run3_V1_MC_L2Relative_AK4PUPPI", ""); //16th of Feb2024, w4, w5 and onwards
 		    //"Summer23Run3_V1_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
@@ -561,7 +562,7 @@ void GamHistosFill::Loop()
   if (ds=="2022P8" || ds=="2022QCD") sera = "2022";
   if (ds=="2022EEP8" || ds=="2022EEQCD") sera = "2022EE";
   if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix" ||
-  ds == "Summer23MG_1" || ds == "Summer23MG_2" || ds == "Summer23MG_3" || ds == "Summer23MG_4" ||
+  TString(ds.c_str()).Contains("Summer23MG_") ||
     ds == "Summer23MGBPix_1" || ds == "Summer23MGBPix_2" || ds == "Summer23MGBPix_3" || ds == "Summer23MGBPix_4" ) sera = "2023"; //added 2023P8-BPix
   //
   if (ds=="2016B"||ds=="2016C"||ds=="2016D"||ds=="2016BCD"||
@@ -1857,13 +1858,13 @@ void GamHistosFill::Loop()
 	//assert(idx<nJet);
       }
       #ifdef PNET_REG
-      Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[idx]*Jet_PNetRegPtRawCorrNeutrino[idx];
+      double Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[idx]*Jet_PNetRegPtRawCorrNeutrino[idx];
       #else
-      Jet_PNetRegPtRawCorrTotal = 1.;
+      double Jet_PNetRegPtRawCorrTotal = 1.;
       #endif
-      if idx==0{
-      cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
-      }
+      // if (idx==0){
+      // cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
+      // }
       phoj.SetPtEtaPhiM(Jet_pt[idx]*Jet_PNetRegPtRawCorrTotal, Jet_eta[idx], Jet_phi[idx], Jet_mass[idx]);
       phoj *= (1-Jet_rawFactor[idx]);
       if (rawgam.DeltaR(phoj)<0.4) { // does not always hold in Run3
@@ -1939,13 +1940,13 @@ void GamHistosFill::Loop()
 	rawgam = gam;
 
   #ifdef PNET_REG
-  Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[iFox]*Jet_PNetRegPtRawCorrNeutrino[iFox];
+  double Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[iFox]*Jet_PNetRegPtRawCorrNeutrino[iFox];
   #else
-  Jet_PNetRegPtRawCorrTotal = 1.;
+  double Jet_PNetRegPtRawCorrTotal = 1.;
   #endif
-  if iFox==0{
-      cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
-      }
+  // if (iFox==0){
+  //     cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
+  //     }
 
 	fox.SetPtEtaPhiM(Jet_pt[iFox]*Jet_PNetRegPtRawCorrTotal, Jet_eta[iFox], Jet_phi[iFox],
 			 Jet_mass[iFox]);
@@ -2162,13 +2163,13 @@ void GamHistosFill::Loop()
       if (jec!=0) {
 
   #ifdef PNET_REG
-  Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[i]*Jet_PNetRegPtRawCorrNeutrino[i];
+  double Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[i]*Jet_PNetRegPtRawCorrNeutrino[i];
   #else
-  Jet_PNetRegPtRawCorrTotal = 1.;
+  double Jet_PNetRegPtRawCorrTotal = 1.;
   #endif
-  if i==0{
-    cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
-  }
+  // if (i==0){
+  //   cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
+  // }
 
 	double rawJetPt = Jet_pt[i] * (1.0 - Jet_rawFactor[i])* Jet_PNetRegPtRawCorrTotal;
 	double rawJetMass = Jet_mass[i] * (1.0 - Jet_rawFactor[i]);

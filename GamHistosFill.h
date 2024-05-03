@@ -567,7 +567,7 @@ GamHistosFill::GamHistosFill(TTree *tree, int itype, string datasetname, string 
           ds=="2023Cv123X" || ds=="2023Cv4X" || ds=="2023DX" || //for testing wX23 and wX22
 	  ds=="2023P8X" || ds=="2023QCDX" || ds=="2023P8-BPixX"|| ds=="2023QCDX" || ds=="2023QCD-BPixX" || //for testing wX23 and wX22
 	  ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix"|| ds=="2023QCD" || ds=="2023QCD-BPix" ||//added 2023P8_BPix
-    ds == "Summer23MG_1" || ds == "Summer23MG_2" || ds == "Summer23MG_3" || ds == "Summer23MG_4" ||
+    TString(ds.c_str()).Contains("Summer23MG_") ||
     ds == "Summer23MGBPix_1" || ds == "Summer23MGBPix_2" || ds == "Summer23MGBPix_3" || ds == "Summer23MGBPix_4" );
   is24 = (ds=="2024B-PromptReco-v1" || ds=="2024B" || ds=="2024C" ||
           ds=="2024P8" || ds=="2024QCD"); //added these already, even though no MC for 2024 yet
@@ -575,12 +575,12 @@ GamHistosFill::GamHistosFill(TTree *tree, int itype, string datasetname, string 
 	   ds=="2018QCD" || ds=="2022QCD" || ds=="2022EEQCD" ||
            ds=="2023QCD" || ds=="2023QCD-BPix" ||
            ds=="2024QCD" ||  //added 2024QCD already here
-           ds == "Summer23MG_1" || ds == "Summer23MG_2" || ds == "Summer23MG_3" || ds == "Summer23MG_4" ||
+           TString(ds.c_str()).Contains("Summer23MG_") ||
           ds == "Summer23MGBPix_1" || ds == "Summer23MGBPix_2" || ds == "Summer23MGBPix_3" || ds == "Summer23MGBPix_4" );
   isMG = (ds=="2022P8" || ds=="2022EEP8" || ds=="2022QCD" || ds=="2022EEQCD" ||
            ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix" || //); //should 2023P8 and 2023P8_BPix be added here, too? (for correct weight in HT bins)
            ds=="2024P8"  || //added already here
-           ds == "Summer23MG_1" || ds == "Summer23MG_2" || ds == "Summer23MG_3" || ds == "Summer23MG_4" ||
+           TString(ds.c_str()).Contains("Summer23MG_") ||
           ds == "Summer23MGBPix_1" || ds == "Summer23MGBPix_2" || ds == "Summer23MGBPix_3" || ds == "Summer23MGBPix_4" );
   isRun3 = (is22 || is23 || is24);
   isRun2 = (is16  || is17 || is18);

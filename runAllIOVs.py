@@ -42,11 +42,11 @@ version = 'w11'
 
 
 IOV_list= [
-        #    '2023Cv123','2023Cv4','2023D'
-        #     '2023P8-BPix',
+           '2023Cv123','2023Cv4','2023D'
+            '2023P8-BPix', # not produced without the regression
         '2023P8',
-            # 'Summer23MG_1', 'Summer23MG_2', 'Summer23MG_3', 'Summer23MG_4',
-            # 'Summer23MGBPix_1', 'Summer23MGBPix_2', 'Summer23MGBPix_3', 'Summer23MGBPix_4',
+            'Summer23MG_1', 'Summer23MG_2', 'Summer23MG_3', 'Summer23MG_4', 'Summer23MG_5', 'Summer23MG_6',
+            'Summer23MGBPix_1', 'Summer23MGBPix_2', 'Summer23MGBPix_3', 'Summer23MGBPix_4',
             ]
 
 parser = argparse.ArgumentParser(description='Run all IOVs')
