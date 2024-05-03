@@ -94,8 +94,8 @@ public :
    Float_t         Jet_mass[nJetMax];
 
    Float_t         Jet_rawFactor[nJetMax];
-   Float_t         PNetRegPtRawCorr[nJetMax];   //[nJet]
-   Float_t         PNetRegPtRawCorrNeutrino[nJetMax];   //[nJet]
+   Float_t         Jet_PNetRegPtRawCorr[nJetMax];   //[nJet]
+   Float_t         Jet_PNetRegPtRawCorrNeutrino[nJetMax];   //[nJet]
    Float_t         Jet_area[nJetMax];
    //Int_t           Jet_jetId[nJetMax]; // NanoV10,11
    UChar_t         Jet_jetId[nJetMax];   // NanoV12
@@ -323,8 +323,8 @@ public :
    //TBranch        *b_Jet_puIdDisc;   //!
    TBranch        *b_Jet_qgl;   //!
    TBranch        *b_Jet_rawFactor;   //!
-   TBranch        *PNetRegPtRawCorr;   //!
-   TBranch        *PNetRegPtResCorrNeutrino;   //!
+   TBranch        *b_Jet_PNetRegPtRawCorr;   //!
+   TBranch        *b_Jet_PNetRegPtRawCorrNeutrino;   //!
    TBranch        *b_Jet_jetId;   //!
    TBranch        *b_Jet_nConstituents;   //!
    TBranch        *b_Jet_nElectrons;   //!
@@ -693,8 +693,8 @@ void GamHistosFill::Init(TTree *tree)
    //fChain->SetBranchAddress("Jet_puIdDisc", Jet_puIdDisc, &b_Jet_puIdDisc);
    if (!(is22 || is23 || is24)) fChain->SetBranchAddress("Jet_qgl", Jet_qgl, &b_Jet_qgl);
    fChain->SetBranchAddress("Jet_rawFactor", Jet_rawFactor, &b_Jet_rawFactor);
-   fChain->SetBranchAddress("PNetRegPtRawCorr", PNetRegPtRawCorr, &b_PNetRegPtRawCorr);
-   fChain->SetBranchAddress("PNetRegPtRawCorrNeutrino", PNetRegPtRawCorrNeutrino, &b_PNetRegPtRawCorrNeutrino);
+   fChain->SetBranchAddress("Jet_PNetRegPtRawCorr", Jet_PNetRegPtRawCorr, &b_Jet_PNetRegPtRawCorr);
+   fChain->SetBranchAddress("Jet_PNetRegPtRawCorrNeutrino", Jet_PNetRegPtRawCorrNeutrino, &b_Jet_PNetRegPtRawCorrNeutrino);
    fChain->SetBranchAddress("Jet_jetId", Jet_jetId, &b_Jet_jetId);
    //fChain->SetBranchAddress("Jet_nConstituents", Jet_nConstituents, &b_Jet_nConstituents);
    //fChain->SetBranchAddress("Jet_nElectrons", Jet_nElectrons, &b_Jet_nElectrons);

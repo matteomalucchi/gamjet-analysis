@@ -1857,7 +1857,7 @@ void GamHistosFill::Loop()
 	//assert(idx<nJet);
       }
       #ifdef PNET_REG
-      Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[idx]*Jet_PNetRegPtCorrNeutrino[idx];
+      Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[idx]*Jet_PNetRegPtRawCorrNeutrino[idx];
       #else
       Jet_PNetRegPtRawCorrTotal = 1.;
       #endif
@@ -1939,7 +1939,7 @@ void GamHistosFill::Loop()
 	rawgam = gam;
 
   #ifdef PNET_REG
-  Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[iFox]*Jet_PNetRegPtCorrNeutrino[iFox];
+  Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[iFox]*Jet_PNetRegPtRawCorrNeutrino[iFox];
   #else
   Jet_PNetRegPtRawCorrTotal = 1.;
   #endif
@@ -2162,7 +2162,7 @@ void GamHistosFill::Loop()
       if (jec!=0) {
 
   #ifdef PNET_REG
-  Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[i]*Jet_PNetRegPtCorrNeutrino[i];
+  Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[i]*Jet_PNetRegPtRawCorrNeutrino[i];
   #else
   Jet_PNetRegPtRawCorrTotal = 1.;
   #endif
