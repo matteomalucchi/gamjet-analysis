@@ -16,6 +16,9 @@ using namespace std;
 
 #include "parsePileUpJSON.C"
 
+#define PNET_REG
+
+
 bool _gh_debug = false;
 bool _gh_debug100 = false;
 
@@ -331,6 +334,13 @@ void GamHistosFill::Loop()
     fChain->SetBranchStatus("Jet_phi",1);
     fChain->SetBranchStatus("Jet_mass",1);
     fChain->SetBranchStatus("Jet_rawFactor",1);
+
+    #ifdef PNET_REG
+    cout << "USING PNET REGRESSION" << endl;
+    fChain->SetBranchStatus("Jet_PNetRegPtRawCorr", 1);
+    fChain->SetBranchStatus("Jet_PNetRegPtRawCorrNeutrino", 1);
+    #endif
+
     fChain->SetBranchStatus("Jet_area",1);
     fChain->SetBranchStatus("Jet_jetId",1);
 
@@ -1846,7 +1856,15 @@ void GamHistosFill::Loop()
 	continue;
 	//assert(idx<nJet);
       }
-      phoj.SetPtEtaPhiM(Jet_pt[idx], Jet_eta[idx], Jet_phi[idx], Jet_mass[idx]);
+      #ifdef PNET_REG
+      Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[idx]*Jet_PNetRegPtCorrNeutrino[idx];
+      #else
+      Jet_PNetRegPtRawCorrTotal = 1.;
+      #endif
+      if idx==0{
+      cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
+      }
+      phoj.SetPtEtaPhiM(Jet_pt[idx]*Jet_PNetRegPtRawCorrTotal, Jet_eta[idx], Jet_phi[idx], Jet_mass[idx]);
       phoj *= (1-Jet_rawFactor[idx]);
       if (rawgam.DeltaR(phoj)<0.4) { // does not always hold in Run3
 	//phoj.Pt() >= rawgam.Pt()) { // not always true in Run3 (esp. 2022C)
@@ -1920,7 +1938,16 @@ void GamHistosFill::Loop()
 	gam *= (gam.Pt()>0 ? 1 - 3.5*area/gam.Pt() : 1.);
 	rawgam = gam;
 
-	fox.SetPtEtaPhiM(Jet_pt[iFox], Jet_eta[iFox], Jet_phi[iFox],
+  #ifdef PNET_REG
+  Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[iFox]*Jet_PNetRegPtCorrNeutrino[iFox];
+  #else
+  Jet_PNetRegPtRawCorrTotal = 1.;
+  #endif
+  if iFox==0{
+      cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
+      }
+
+	fox.SetPtEtaPhiM(Jet_pt[iFox]*Jet_PNetRegPtRawCorrTotal, Jet_eta[iFox], Jet_phi[iFox],
 			 Jet_mass[iFox]);
 	fox *= (1-Jet_rawFactor[iFox]);
 	// Calculate L1RC correction
@@ -2134,7 +2161,16 @@ void GamHistosFill::Loop()
       // Redo JEC on the fly (should be no previous use of corrected jets)
       if (jec!=0) {
 
-	double rawJetPt = Jet_pt[i] * (1.0 - Jet_rawFactor[i]);
+  #ifdef PNET_REG
+  Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[i]*Jet_PNetRegPtCorrNeutrino[i];
+  #else
+  Jet_PNetRegPtRawCorrTotal = 1.;
+  #endif
+  if i==0{
+    cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
+  }
+
+	double rawJetPt = Jet_pt[i] * (1.0 - Jet_rawFactor[i])* Jet_PNetRegPtRawCorrTotal;
 	double rawJetMass = Jet_mass[i] * (1.0 - Jet_rawFactor[i]);
 	jec->setJetPt(rawJetPt);
 	jec->setJetEta(Jet_eta[i]);
