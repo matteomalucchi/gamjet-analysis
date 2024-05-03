@@ -1,0 +1,1 @@
+root://xrootd-cms.infn.it///store/data/Run2023D/EGamma0/NANOAOD/22Sep2023_v1-v1/2530000/15c7be47-77f7-4cfb-8ecb-3da4766c8b32.root

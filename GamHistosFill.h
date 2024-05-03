@@ -50,7 +50,7 @@ public :
    string          version;
    string          _filename; // file name for debugging purposes
    static const bool debugFiles = true;
-  
+
 // Fixed size dimensions of array or collections stored in the TTree if any.
    // nCorrT1MetJet, nFatJet, nJet, nSoftActivityJet, nSubJet
    static const int nJetMax = 200;
@@ -79,7 +79,7 @@ public :
    UInt_t          luminosityBlock;
    ULong64_t       event;
    UInt_t          bunchCrossing; // NanoV12
-  
+
    Float_t         ChsMET_phi; // Run2
    Float_t         ChsMET_pt;  // Run2
    Float_t         RawPuppiMET_phi; // Run3
@@ -113,14 +113,14 @@ public :
    Float_t         Jet_chEmEF[nJetMax];
    Float_t         Jet_muEF[nJetMax];
    //Float_t         Jet_chFPV0EF[nJetMax];   //[nJet]
-  
+
    //Int_t           Jet_nConstituents[nJetMax];   //[nJet]
    //Int_t           Jet_nElectrons[nJetMax];   //[nJet]
    //Int_t           Jet_nMuons[nJetMax];   //[nJet]
 
    //Int_t           Jet_genJetIdx[nJetMax]; // NanoV11,10
    Short_t           Jet_genJetIdx[nJetMax]; // NanoV12
-  
+
    //UInt_t          nPhoton; // NanoV11,10
    Int_t           nPhoton; // NanoV12
    Float_t         Photon_pt[nPhotonMax];
@@ -139,7 +139,7 @@ public :
    Float_t         Photon_r9[nPhotonMax];
    Float_t         Photon_eCorr[nPhotonMax];
    Float_t         Photon_energyErr[nPhotonMax];
-  
+
    Float_t         fixedGridRhoFastjetAll; // Run2,Run3
 
    //UInt_t          nTrigObj; // NanoV11,10
@@ -167,7 +167,7 @@ public :
    UChar_t           PV_npvs; // NanoV12
    //Int_t           PV_npvsGood; // NanoV11,10
    UChar_t           PV_npvsGood; // NanoV12
- 
+
    Bool_t          Flag_HBHENoiseFilter;
    Bool_t          Flag_HBHENoiseIsoFilter;
    Bool_t          Flag_CSCTightHaloFilter;
@@ -243,7 +243,7 @@ public :
    // Triggers and branches from 22-23
    Bool_t          HLT_Photon100EBHE10;
    Bool_t          HLT_Photon30EB_TightID_TightIso;
-  
+
    // Triggers and branches from 2018
    Bool_t          HLT_Photon100EB_TightID_TightIso;
    Bool_t          HLT_Photon110EB_TightID_TightIso;
@@ -277,7 +277,7 @@ public :
    Float_t         GenIsolatedPhoton_mass[nPhotonMax];
 
    Float_t         LHE_HT;
-  
+
    Float_t         genWeight;
    Float_t         Pileup_nTrueInt;
   //UInt_t          nPSWeight; // NanoV11,10
@@ -495,7 +495,7 @@ public :
    // Triggers (and branches) from 22-23
    TBranch        *b_HLT_Photon100EBHE10;
    TBranch        *b_HLT_Photon30EB_TightID_TightIso;
-  
+
    // Triggers (and branches) from 2018
    TBranch        *b_Photon_eCorr;
    TBranch        *b_HLT_Photon100EB_TightID_TightIso;
@@ -507,7 +507,7 @@ public :
    TBranch        *b_HLT_Photon20;
    TBranch        *b_HLT_Photon20_HoverELoose;
    TBranch        *b_HLT_Photon30_HoverELoose;
-   
+
    // Triggers from 2017
    TBranch        *b_HLT_Photon40_HoverELoose;
    TBranch        *b_HLT_Photon50_HoverELoose;
@@ -550,7 +550,7 @@ GamHistosFill::GamHistosFill(TTree *tree, int itype, string datasetname, string 
   is16 = (is16apv || is16fgh);
   is17 = (ds=="2017B" || ds=="2017C" || ds=="2017D" || ds=="2017E" ||
 	  ds=="2017F" || ds=="2017BCDEF" || ds=="2017P8" || ds=="2017QCD");
-  is18 = (ds=="2018A" || ds=="2018B" || ds=="2018C" || ds=="2018D" || 
+  is18 = (ds=="2018A" || ds=="2018B" || ds=="2018C" || ds=="2018D" ||
 	  ds=="2018A1" || ds=="2018A2" ||
 	  ds=="2018D1" || ds=="2018D2" || ds=="2018D3" || ds=="2018D4" ||
 	  ds=="2018ABCD" || ds=="2018P8" || ds=="2018QCD");
@@ -562,20 +562,26 @@ GamHistosFill::GamHistosFill(TTree *tree, int itype, string datasetname, string 
   is23 = (ds=="2023B" || ds=="2023Cv123" || ds=="2023Cv4" || ds=="2023D" ||
           ds=="2023Cv123X" || ds=="2023Cv4X" || ds=="2023DX" || //for testing wX23 and wX22
 	  ds=="2023P8X" || ds=="2023QCDX" || ds=="2023P8-BPixX"|| ds=="2023QCDX" || ds=="2023QCD-BPixX" || //for testing wX23 and wX22
-	  ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix"|| ds=="2023QCD" || ds=="2023QCD-BPix"); //added 2023P8_BPix
+	  ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix"|| ds=="2023QCD" || ds=="2023QCD-BPix" ||//added 2023P8_BPix
+    ds == "Summer23MG_1" || ds == "Summer23MG_2" || ds == "Summer23MG_3" || ds == "Summer23MG_4" ||
+    ds == "Summer23MGBPix_1" || ds == "Summer23MGBPix_2" || ds == "Summer23MGBPix_3" || ds == "Summer23MGBPix_4" );
   is24 = (ds=="2024B-PromptReco-v1" || ds=="2024B" || ds=="2024C" ||
           ds=="2024P8" || ds=="2024QCD"); //added these already, even though no MC for 2024 yet
   isQCD = (ds=="2016QCD" || ds=="2016QCDAPV" || ds=="2017QCD" ||
 	   ds=="2018QCD" || ds=="2022QCD" || ds=="2022EEQCD" ||
-           ds=="2023QCD" || ds=="2023QCD-BPix" || 
-           ds=="2024QCD"); //added 2024QCD already here
+           ds=="2023QCD" || ds=="2023QCD-BPix" ||
+           ds=="2024QCD" ||  //added 2024QCD already here
+           ds == "Summer23MG_1" || ds == "Summer23MG_2" || ds == "Summer23MG_3" || ds == "Summer23MG_4" ||
+          ds == "Summer23MGBPix_1" || ds == "Summer23MGBPix_2" || ds == "Summer23MGBPix_3" || ds == "Summer23MGBPix_4" );
   isMG = (ds=="2022P8" || ds=="2022EEP8" || ds=="2022QCD" || ds=="2022EEQCD" ||
            ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix" || //); //should 2023P8 and 2023P8_BPix be added here, too? (for correct weight in HT bins)
-           ds=="2024P8");  //added already here
+           ds=="2024P8"  || //added already here
+           ds == "Summer23MG_1" || ds == "Summer23MG_2" || ds == "Summer23MG_3" || ds == "Summer23MG_4" ||
+          ds == "Summer23MGBPix_1" || ds == "Summer23MGBPix_2" || ds == "Summer23MGBPix_3" || ds == "Summer23MGBPix_4" );
   isRun3 = (is22 || is23 || is24);
   isRun2 = (is16  || is17 || is18);
   assert(is16 || is17 || is18 || is22 || is23 || is24);
-  
+
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
@@ -700,7 +706,7 @@ void GamHistosFill::Init(TTree *tree)
 
    fChain->SetBranchAddress("nPhoton", &nPhoton, &b_nPhoton);
    //if (!is16)
-   if (!(is16 || is22 || is23 || is24)) 
+   if (!(is16 || is22 || is23 || is24))
      fChain->SetBranchAddress("Photon_eCorr", Photon_eCorr, &b_Photon_eCorr);
    else
      b_Photon_eCorr = 0;
@@ -719,7 +725,7 @@ void GamHistosFill::Init(TTree *tree)
    //fChain->SetBranchAddress("Photon_charge", Photon_charge, &b_Photon_charge);
    if (is17 && isMC && isQCD)
      fChain->SetBranchAddress("Photon_cutBasedBitmap", Photon_cutBased, &b_Photon_cutBasedBitmap);
-   else 
+   else
      fChain->SetBranchAddress("Photon_cutBased", Photon_cutBased, &b_Photon_cutBased);
    //fChain->SetBranchAddress("Photon_cutBasedBitmap", Photon_cutBased, &b_Photon_cutBasedBitmap);
 
@@ -917,7 +923,7 @@ void GamHistosFill::Init(TTree *tree)
    fChain->SetBranchAddress("HLT_Photon90_R9Id90_HE10_IsoM", &HLT_Photon90_R9Id90_HE10_IsoM, &b_HLT_Photon90_R9Id90_HE10_IsoM);
    fChain->SetBranchAddress("HLT_Photon120_R9Id90_HE10_IsoM", &HLT_Photon120_R9Id90_HE10_IsoM, &b_HLT_Photon120_R9Id90_HE10_IsoM);
    fChain->SetBranchAddress("HLT_Photon165_R9Id90_HE10_IsoM", &HLT_Photon165_R9Id90_HE10_IsoM, &b_HLT_Photon165_R9Id90_HE10_IsoM);
-   
+
    // only in 2016 (HI pp reference runs?)
    //fChain->SetBranchAddress("HLT_HISinglePhoton10", &HLT_HISinglePhoton10, &b_HLT_HISinglePhoton10);
    //fChain->SetBranchAddress("HLT_HISinglePhoton15", &HLT_HISinglePhoton15, &b_HLT_HISinglePhoton15);

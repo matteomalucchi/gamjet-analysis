@@ -10,7 +10,7 @@ version = 'v20'
 #os.system("rm *.so *.d *.pcm")
 os.system("root -l -b -q mk_CondFormats.C")
 for iov in IOV_list:
-    print "Process GamHistFill.C+g for IOV "+iov
+    print ("Process GamHistFill.C+g for IOV "+iov)
     os.system("ls -ltrh files/GamHistosFill_mc_"+iov+".root")
     os.system("ls -ltrh files/GamHistosFill_data_"+iov+".root")
     os.system("ls -ltrh log_"+iov+"_"+version+".txt")

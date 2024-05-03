@@ -16,7 +16,7 @@
 #include <fstream>
 #include <string>
 
-#define GPU
+// #define GPU
 //#define LOCAL
 
 #ifdef LOCAL
@@ -53,14 +53,14 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
 
 
   // Settings
-  bool addData = (dataset=="2016B"  || dataset=="2016C" || dataset=="2016D" || 
-		  dataset=="2016E"  || dataset=="2016F" || 
-		  dataset=="2016FG" || dataset=="2016H" || 
+  bool addData = (dataset=="2016B"  || dataset=="2016C" || dataset=="2016D" ||
+		  dataset=="2016E"  || dataset=="2016F" ||
+		  dataset=="2016FG" || dataset=="2016H" ||
 		  dataset=="2016BCD"|| dataset=="2016EF"|| dataset=="2016FGH" ||
 		  //dataset=="2016BCDEF" ||
-		  dataset=="2017B" || dataset=="2017C" || dataset=="2017D" || 
+		  dataset=="2017B" || dataset=="2017C" || dataset=="2017D" ||
 		  dataset=="2017E" || dataset=="2017F" ||
-		  //dataset=="2017BCDEF" || 
+		  //dataset=="2017BCDEF" ||
 		  dataset=="2018A"  || dataset=="2018B" ||
 		  dataset=="2018C"  || dataset=="2018D" ||
 		  dataset=="2018A1" || dataset=="2018A2" ||
@@ -83,16 +83,19 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
 		dataset=="2023P8" || //);// || dataset=="2023QCD");
   		dataset=="2023P8-BPix"); //added the BPix MC files
 
-  bool addQCD = (dataset=="2016QCD" || dataset=="2016APVQCD" || 
+  bool addQCD = (dataset=="2016QCD" || dataset=="2016APVQCD" ||
 		 dataset=="2017QCD" || dataset=="2018QCD" ||
 		 dataset=="2022QCD" || dataset=="2022EEQCD" ||
                  dataset=="2023QCDX" || dataset=="2023QCD-BPixX" || //for my test wX23
-		 dataset=="2023QCD" || dataset=="2023QCD-BPix"); //added BPix QCD MC
+		 dataset=="2023QCD" || dataset=="2023QCD-BPix" || //added BPix QCD MC
+      dataset=="Summer23MG_1" || dataset=="Summer23MG_2" || dataset=="Summer23MG_3" || dataset=="Summer23MG_4" ||
+      dataset=="Summer23MGBPix_1" || dataset=="Summer23MGBPix_2" || dataset=="Summer23MGBPix_3" || dataset=="Summer23MGBPix_4" );
+
 
   //cout << "Clean old shared objects and link files" << endl << flush;
   //gSystem->Exec("rm *.d");
   //gSystem->Exec("rm *.so");
-  //gSystem->Exec("rm *.pcm");	
+  //gSystem->Exec("rm *.pcm");
 
   string path = gSystem->pwd();
   cout << "Current path: " << path << endl << flush;
@@ -106,7 +109,7 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
   gROOT->ProcessLine(".L CondFormats/JetMETObjects/src/JetCorrectorParameters.cc+");
   gROOT->ProcessLine(".L CondFormats/JetMETObjects/src/SimpleJetCorrector.cc+");
   gROOT->ProcessLine(".L CondFormats/JetMETObjects/src/FactorizedJetCorrector.cc+");
-  
+
   gROOT->ProcessLine(".L CondFormats/JetMETObjects/src/SimpleJetCorrectionUncertainty.cc+");
   gROOT->ProcessLine(".L CondFormats/JetMETObjects/src/JetCorrectionUncertainty.cc+");
 
@@ -119,7 +122,7 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
   //c->AddFile("files/mc-ht-600toInf.root");
   //c->AddFile("files/mc-pt-15to6000.root");
   //c->AddFile("files/data-2018a.root");
-  
+
   // Automatically figure out where we are running the job
   bool runGPU = (path=="/media/storage/gamjet" ||
 		  path=="/home/bschilli/Cern/gamjet-analysis" || //); //on Vulcan, I have this home directory (should fix this code, as i have same directory also locally...)
@@ -132,9 +135,9 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
 
   if (runGPU) cout << "Running on Hefaistos or Vulcan (runGPU)" << endl;
   if (runLocal) cout << "Running on locally (runLocal)" << endl;
-  
+
   if (addData) {
-    ifstream fin(runLocal ? Form("input_files/dataFiles_local_Run%s.txt",dataset.c_str()) : 
+    ifstream fin(runLocal ? Form("input_files/dataFiles_local_Run%s.txt",dataset.c_str()) :
 		 Form("input_files/dataFiles_Run%s.txt",dataset.c_str()), ios::in);
     string filename;
     cout << "Chaining data files:" << endl << flush;
@@ -144,11 +147,11 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
       c->AddFile(filename.c_str());
     }
     cout << "Chained " << nFiles <<  " files" << endl << flush;
-    
+
     GamHistosFill filler(c,0,dataset,version);
     filler.Loop();
   }
-  
+
   if (addMC) {
     ifstream fin(runLocal ? Form("input_files/mcFiles_local_%s.txt",dataset.c_str()) :
 		 Form("input_files/mcFiles_%s.txt",dataset.c_str()), ios::in);
@@ -160,7 +163,7 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
       c->AddFile(filename.c_str());
     }
     cout << "Chained " << nFiles <<  " files" << endl << flush;
-  
+
     GamHistosFill filler(c,1,dataset,version);
     filler.Loop();
   }
@@ -176,7 +179,7 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
       c->AddFile(filename.c_str());
     }
     cout << "Chained " << nFiles <<  " files" << endl << flush;
-  
+
     GamHistosFill filler(c,1,dataset,version);
     filler.Loop();
   }
