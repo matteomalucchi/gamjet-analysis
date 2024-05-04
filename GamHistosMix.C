@@ -50,8 +50,8 @@ void GamHistosMix() {
   */
 
   //w1
-  GamHistosMixEra("2023","w12"); //make this contain MC without BPix issue
-  GamHistosMixEra("2023-BPix","w12"); //MC accounted for BPix issue
+  GamHistosMixEra("2023","tot_23_test"); //make this contain MC without BPix issue
+  GamHistosMixEra("2023-BPix","tot_23_test"); //MC accounted for BPix issue
 }
 
 TF1 *_f1p(0);
@@ -115,7 +115,7 @@ void GamHistosMixEra(string sepoch, string sver) {
   if (!_f1qcd) _f1qcd = new TF1("f1qcd","[p0]+[p1]*pow(x,[p2])",15,1650);
   _f1qcd->SetParameters(1.0015, -0.11621, -0.56594);
 
-  // Loop over all the directories recursively                                 
+  // Loop over all the directories recursively
   recurseGamHistosFile(fgam,fqcd,fout);
 
   cout << endl;
@@ -132,10 +132,10 @@ void GamHistosMixEra(string sepoch, string sver) {
   fqcd->Delete();
 } // void GamHistosMix
 
-void recurseGamHistosFile(TDirectory *gamdir, TDirectory *qcddir, 
+void recurseGamHistosFile(TDirectory *gamdir, TDirectory *qcddir,
 			  TDirectory *outdir, int lvl) {
-  
-  // Automatically go through the list of keys (directories)                   
+
+  // Automatically go through the list of keys (directories)
   TList *keys = gamdir->GetListOfKeys();
   TListIter itkey(keys);
   TObject *obj;
@@ -147,7 +147,7 @@ void recurseGamHistosFile(TDirectory *gamdir, TDirectory *qcddir,
 		     << endl << flush;
     obj = key->ReadObj(); assert(obj);
 
-    // Found a subdirectory: copy it to output and go deeper                   
+    // Found a subdirectory: copy it to output and go deeper
     if (obj->InheritsFrom("TDirectory")) {
       int loclvl = lvl;
       outdir->mkdir(obj->GetName());
@@ -162,7 +162,7 @@ void recurseGamHistosFile(TDirectory *gamdir, TDirectory *qcddir,
 
       if (loclvl>=0) loclvl++;
 
-      //if (loclvl==1) 
+      //if (loclvl==1)
       if ((string(gamdir2->GetName())!="runs" &&
 	   string(gamdir2->GetName())!="Gamjet")) { // patch v30
 	cout << endl << "Entering: " << gamdir2->GetName() << endl;
@@ -170,7 +170,7 @@ void recurseGamHistosFile(TDirectory *gamdir, TDirectory *qcddir,
       }
       else
 	cout << endl << "Skip 'runs' and 'Gamjet' for v30" << endl;
-    } // inherits from TDirectory  
+    } // inherits from TDirectory
     else if (obj->InheritsFrom("TH1")) { // Combine histograms
 
       outdir->cd();
@@ -201,7 +201,7 @@ void recurseGamHistosFile(TDirectory *gamdir, TDirectory *qcddir,
       hout->Reset();
       TH1D *hingam = (TH1D*)gamdir->Get(key->GetName());
       TH1D *hinqcd = (TH1D*)qcddir->Get(key->GetName()); assert(hinqcd);
-      
+
       // Project TProfiles to TH1D for easier handling
       if (obj->InheritsFrom("TProfile")) {
 	assert(hingam->InheritsFrom("TProfile"));
@@ -223,7 +223,7 @@ void recurseGamHistosFile(TDirectory *gamdir, TDirectory *qcddir,
 	     << ": missing QCD dijet from input"<<endl;
 	continue;
       }
-      
+
       if (hinqcd->GetNbinsX()!=hout->GetNbinsX()) {
 	cout << outdir->GetName()<<"/"<<key->GetName()
 	     << ": bin # mismatch ("
@@ -231,7 +231,7 @@ void recurseGamHistosFile(TDirectory *gamdir, TDirectory *qcddir,
 	     << endl;
 	continue;
       } // bin # mistmatch
-	
+
       // Scale QCD "photon" i.e. EM jet based on MC best estimate
       if (scaleEMjet && obj->InheritsFrom("TProfile")) {
 	TString s(key->GetName());
@@ -275,8 +275,8 @@ void recurseGamHistosFile(TDirectory *gamdir, TDirectory *qcddir,
 	hout->SetBinError(j, sqrt(pow(P * hingam->GetBinError(j),2) +
 				  pow((1-P) * hinqcd->GetBinError(j),2)));
       } // for j in hout
-      
-      // Save the stuff into an identical directory                            
+
+      // Save the stuff into an identical directory
       outdir->cd();
       assert(hout);
       // Hack TProfile back close to original
@@ -304,12 +304,8 @@ void recurseGamHistosFile(TDirectory *gamdir, TDirectory *qcddir,
     }
     else
       assert(false);
-    
+
     obj->Delete();
-  } // while key      
+  } // while key
 
 } // recurseGamHistosFile
-
-
-
-

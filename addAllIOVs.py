@@ -15,31 +15,34 @@ IOV_list_of_lists = [
 #    ['2023Cv4D','2023Cv4','2023D'],
 #    ['Run3','2022C','2022D','2022E','2022F','2022G',
 #     '2023Cv123','2023Cv4','2023D']
-    ['Run3Summer23', '2023Cv123', '2023Cv4','2023D']
+    # ['Run3Summer23', '2023Cv123', '2023Cv4','2023D']
 #    ['Run3', '2023Cv123', '2023Cv4','2023D']
     ]
 MC_list_of_lists = [
 #    ['Run2P8','2016P8','2016APVP8','2017P8','2018P8'],
 #    ['Run2QCD','2016QCD','2016QCDAPV','2017QCD','2018QCD'],
 #    ['Run3P8','2022P8','2022EEP8']
-    ['Run3Summer23', '2023P8', '2023P8-BPix'] # !! does not make sense to merge these together? - double check!!
+    # ['Run3Summer23', '2023P8', '2023P8-BPix'] # !! does not make sense to merge these together? - double check!!
+    ["Summer23MGBPix_1", "Summer23MGBPix_2", "Summer23MGBPix_3", "Summer23MGBPix_4"],
+    ["Summer23MG_1", "Summer23MG_2", "Summer23MG_3", "Summer23MG_4"],
     ]
 
-version = 'w12'
+version = 'tot_23_test'
 
 os.system("ls rootfiles/GamHistosFill_data_*_"+version+".root")
 for IOV_list in IOV_list_of_lists:
-    command = "hadd "
+    command = "hadd rootfiles/GamHistosFill_data_cmb_"+IOV_list[0]+"_"+version+".root"
     for iov in IOV_list:
-        command = command + "rootfiles/GamHistosFill_data_"+iov+"_"+version+".root "
+        command = command + " rootfiles/GamHistosFill_data_"+iov+"_"+version+".root "
     print("\""+command+"\"...")
     os.system(command)
 
 os.system("ls rootfiles/GamHistosFill_mc_*_"+version+".root")
 for MC_list in MC_list_of_lists:
-    command = "hadd "
+    command = "hadd rootfiles/GamHistosFill_mc_cmb_"+MC_list[0]+"_"+version+".root"
+    print("\n", command)
     for mc in MC_list:
-        command = command + "rootfiles/GamHistosFill_mc_"+mc+"_"+version+".root "
+        command = command + " rootfiles/GamHistosFill_mc_"+mc+"_"+version+".root "
     print("\""+command+"\"...")
     os.system(command)
 

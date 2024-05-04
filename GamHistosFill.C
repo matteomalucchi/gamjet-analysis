@@ -16,7 +16,7 @@ using namespace std;
 
 #include "parsePileUpJSON.C"
 
-#define PNET_REG
+// #define PNET_REG
 
 
 
@@ -1862,6 +1862,9 @@ void GamHistosFill::Loop()
       #else
       double Jet_PNetRegPtRawCorrTotal = 1.;
       #endif
+      if (Jet_PNetRegPtRawCorrTotal==0){
+        Jet_PNetRegPtRawCorrTotal = 1.;
+      }
       // if (idx==0){
       // cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
       // }
@@ -1944,6 +1947,9 @@ void GamHistosFill::Loop()
   #else
   double Jet_PNetRegPtRawCorrTotal = 1.;
   #endif
+  if (Jet_PNetRegPtRawCorrTotal==0){
+    Jet_PNetRegPtRawCorrTotal = 1.;
+  }
   // if (iFox==0){
   //     cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
   //     }
@@ -2167,6 +2173,9 @@ void GamHistosFill::Loop()
   #else
   double Jet_PNetRegPtRawCorrTotal = 1.;
   #endif
+  if (Jet_PNetRegPtRawCorrTotal==0){
+    Jet_PNetRegPtRawCorrTotal = 1.;
+  }
   // if (i==0){
   //   cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
   // }

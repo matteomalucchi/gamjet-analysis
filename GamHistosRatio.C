@@ -47,7 +47,7 @@ void replacePt(TGraphErrors *g, TH1 *h) {
 void GamHistosRatios(string ver, string iov);
 
 // v27->v29->v30->v31(L2L3Res_V2)->v32(L2L3Res_V3)
-void GamHistosRatio(string ver = "w12") { 
+void GamHistosRatio(string ver = "tot_23_test") {
   //GamHistosRatios(ver,"2016BCDEF");
   //GamHistosRatios(ver,"2016FGH");
   //GamHistosRatios(ver,"2017BCDEF");
@@ -71,13 +71,13 @@ void GamHistosRatio(string ver = "w12") {
   GamHistosRatios(ver,"2023Cv123");
   GamHistosRatios(ver,"2023Cv4");
   GamHistosRatios(ver,"2023D");
-  GamHistosRatios(ver,"2024B");
-  GamHistosRatios(ver,"2024C");
+  // GamHistosRatios(ver,"2024B");
+  // GamHistosRatios(ver,"2024C");
 
 
   //GamHistosRatios(ver,"2023Cv4D");
   //GamHistosRatios(ver,"Run3");
-  
+
 }
 
 void GamHistosRatios(string ver, string iov) {
@@ -122,7 +122,7 @@ void GamHistosRatios(string ver, string iov) {
     fm = new TFile(Form("files/GamHistosMix_mc_2017P8QCD_%s.root",cv),"READ");
     fr = new TFile(Form("files/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),
 		   "RECREATE");//ps=="" ? "RECREATE" : "UPDATE");
-  
+
   }
   if (iov=="2018ABCD") {
 
@@ -138,7 +138,7 @@ void GamHistosRatios(string ver, string iov) {
 		       "files/GamHistosFill_data_2018D3_%s.root "
 		       "files/GamHistosFill_data_2018D4_%s.root",
 		       cv, cvo,cvo,cvo,cvo, cvo,cvo,cvo,cvo));
-    
+
     fd = new TFile(Form("files/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
     fm = new TFile(Form("files/GamHistosMix_mc_2018P8QCD_%s.root",cv),"READ");
     fr = new TFile(Form("files/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),
@@ -150,12 +150,12 @@ void GamHistosRatios(string ver, string iov) {
     // Merge files, if not already done (delete combination file to redo)
     // Now updated into addAllIOVs.py
     /*
-    if (iov=="2022CD")    
+    if (iov=="2022CD")
       gSystem->Exec(Form("hadd files/GamHistosFill_data_2022CD_%s.root "
 			 "files/GamHistosFill_data_2022C_%s.root "
 			 "files/GamHistosFill_data_2022D_%s.root",
 			 cv, cv,cv));
-    if (iov=="2022CDE")    
+    if (iov=="2022CDE")
       gSystem->Exec(Form("hadd files/GamHistosFill_data_2022CDE_%s.root "
 			 "files/GamHistosFill_data_2022C_%s.root "
 			 "files/GamHistosFill_data_2022D_%s.root "
@@ -175,7 +175,7 @@ void GamHistosRatios(string ver, string iov) {
 
     // Merge files, if not already done (delete combination file to redo)
     /*
-    if (iov=="2022FG")    
+    if (iov=="2022FG")
       gSystem->Exec(Form("hadd files/GamHistosFill_data_2022FG_%s.root "
 			 "files/GamHistosFill_data_2022F_%s.root "
 			 "files/GamHistosFill_data_2022G_%s.root",
@@ -193,7 +193,7 @@ void GamHistosRatios(string ver, string iov) {
     fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
     //fm = new TFile(Form("rootfiles/GamHistosFill_mc_2022P8_%s.root",cv),"READ");
     //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8_%s.root",ci,cv),"RECREATE");
-    
+
     //fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023P8QCD_%s.root",cv),"READ"); //gam+qcd MC
     //fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023P8-BPixQCD_%s.root",cv),"READ"); //gam+qcd MC (BPix)
     //fm = new TFile(Form("rootfiles/GamHistosMix_mc_2022P8-BPix_%s.root",cv),"READ"); //gam MC (BPix)
@@ -206,7 +206,7 @@ void GamHistosRatios(string ver, string iov) {
   //THE TWO IF CONDITIONS BELOW ARE ONLY FOR 16.02.2024 WHEN RUNNING WITHOUT QCD AND WITHOUT L2L3RES - TODO: update this.
       if (iov=="2023Cv123" || iov=="2023Cv4") {
         fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
-        fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023P8QCD_%s.root",cv),"READ"); 
+        fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023P8QCD_%s.root",cv),"READ");
         fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE");
         //fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8_%s.root",cv),"READ"); //NO QCD (remove later)
         //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8-noQCD_%s.root",ci,cv),"RECREATE"); //when no QCD in the mix (can remove it later)
@@ -214,7 +214,7 @@ void GamHistosRatios(string ver, string iov) {
       //if (iov=="2023D") { //BPix issue (GamHistosMix_mc_2023-BPixP8QCD_w4.root) //should adjust the naming in the other programs!
       if (iov=="2023D" || iov=="2024B" || iov=="2024C") { //BPix issue, for now use this also for early 2024 data
         fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
-        fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023-BPixP8QCD_%s.root",cv),"READ"); 
+        fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023-BPixP8QCD_%s.root",cv),"READ");
         fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8BPixQCD_%s.root",ci,cv),"RECREATE"); //changed name!!
         //fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8-BPix_%s.root",cv),"READ"); //NO QCD (remove later)
         //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8BPix-noQCD_%s.root",ci,cv),"RECREATE"); //when no QCD in the mix (can remove it later)
@@ -245,23 +245,23 @@ void GamHistosRatios(string ver, string iov) {
     fm = new TFile(Form("rootfiles/GamHistosMix_mc_Run3P8QCD_%s.root",cv),"READ");
     fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE");
   }
-  
+
   assert(fd && !fd->IsZombie());
   assert(fm && !fm->IsZombie());
   assert(fr && !fr->IsZombie());
   fr->mkdir("orig");
   fr->mkdir("flavor");
   fr->mkdir("pf");
-  
-  cout << "Merging files "<<fd->GetName()<<" and "<<fm->GetName() << endl;  
+
+  cout << "Merging files "<<fd->GetName()<<" and "<<fm->GetName() << endl;
   cout << "Output file " << fr->GetName() << endl << flush;
-  
+
   // Automatically go through the list of keys (profiles, histograms)
   TList *keys = fm->GetListOfKeys();
   TListIter itkey(keys);
   TObject *obj;
   TKey *key;
-  
+
   bool debug = false;//true;
   while ( (key = dynamic_cast<TKey*>(itkey.Next())) ) {
     if (debug) cout << key->GetName() << endl << flush;
@@ -310,8 +310,8 @@ void GamHistosRatios(string ver, string iov) {
       TString rationame = mcname;
       rationame.ReplaceAll("_MC","");
       TH1D *hr = (TH1D*)hd->Clone(Form("h_%s",rationame.Data()));
-      if (TString(key->GetName()).Contains("MPFR1chs") || 
-	  TString(key->GetName()).Contains("MPFRnchs") || 
+      if (TString(key->GetName()).Contains("MPFR1chs") ||
+	  TString(key->GetName()).Contains("MPFRnchs") ||
 	  TString(key->GetName()).Contains("MpfRuchs"))
 	hr->Add(hm,-1);
       else
@@ -366,24 +366,24 @@ void GamHistosRatios(string ver, string iov) {
       gm->SetNameTitle(mcname.Data(), mcname.Data());
       TGraphErrors *gr = new TGraphErrors(hr);
       gr->SetNameTitle(rationame.Data(), rationame.Data());
-      
+
       cleanGraph(gm);
       cleanGraph(gd);
       cleanGraph(gr);
-      
+
       // Replace pT with more accurate estimate
       replacePt(gm,pmpt);
       replacePt(gd,pdpt);
       replacePt(gr,hrpt);
       delete hrpt;
-      
+
       gm->SetLineColor(kRed);
       gd->SetLineColor(kBlue);
       gr->SetLineColor(kBlack);
-      
-      gm->Write(gm->GetName(),TObject::kOverwrite); 
-      gd->Write(gd->GetName(),TObject::kOverwrite); 
-      gr->Write(gr->GetName(),TObject::kOverwrite); 
+
+      gm->Write(gm->GetName(),TObject::kOverwrite);
+      gd->Write(gd->GetName(),TObject::kOverwrite);
+      gr->Write(gr->GetName(),TObject::kOverwrite);
     } // TProfile
     else if (obj->InheritsFrom("TH1D")) {
 
@@ -419,9 +419,9 @@ void GamHistosRatios(string ver, string iov) {
       //hm->SetDirectory(gDirectory);
       //hd->SetDirectory(gDirectory);
       //hr->SetDirectory(gDirectory);
-      hm->Write(hm->GetName(),TObject::kOverwrite); 
-      hd->Write(hd->GetName(),TObject::kOverwrite); 
-      hr->Write(hr->GetName(),TObject::kOverwrite); 
+      hm->Write(hm->GetName(),TObject::kOverwrite);
+      hd->Write(hd->GetName(),TObject::kOverwrite);
+      hr->Write(hr->GetName(),TObject::kOverwrite);
     } // TH1D
   } // while key in itkey
 
@@ -434,7 +434,7 @@ void GamHistosRatios(string ver, string iov) {
 
   TList *fkeys = d1m->GetListOfKeys();
   TListIter itfkey(fkeys);
-  
+
   while ( (key = dynamic_cast<TKey*>(itfkey.Next())) ) {
     if (debug) cout << key->GetName() << endl << flush;
     obj = key->ReadObj(); assert(obj);
@@ -451,8 +451,8 @@ void GamHistosRatios(string ver, string iov) {
       TH1D *hm = pm->ProjectionX(Form("%s_mc",pm->GetName()));
       TH1D *hd = pd->ProjectionX(Form("%s_data",pd->GetName()));
       TH1D *hr = (TH1D*)hd->Clone(Form("%s_ratio",pd->GetName()));
-      if (TString(key->GetName()).Contains("mpf1") || 
-	  TString(key->GetName()).Contains("mpfn") || 
+      if (TString(key->GetName()).Contains("mpf1") ||
+	  TString(key->GetName()).Contains("mpfn") ||
 	  TString(key->GetName()).Contains("mpfu"))
 	hr->Add(hm,-1);
       else
@@ -466,16 +466,16 @@ void GamHistosRatios(string ver, string iov) {
       gm->SetNameTitle(hm->GetName(),hm->GetName());
       TGraphErrors *gr = new TGraphErrors(hr);
       gr->SetNameTitle(hr->GetName(),hr->GetName());
-      
+
       cleanGraph(gm);
       cleanGraph(gd);
       cleanGraph(gr);
-      
+
       gm->SetLineColor(kRed);
       gd->SetLineColor(kBlue);
       gr->SetLineColor(kBlack);
-      
-      gm->Write(); 
+
+      gm->Write();
       gd->Write();
       gr->Write();
 
@@ -525,7 +525,7 @@ void GamHistosRatios(string ver, string iov) {
 
   TList *pkeys = d2m->GetListOfKeys();
   TListIter itpkey(pkeys);
-  
+
   while ( (key = dynamic_cast<TKey*>(itpkey.Next())) ) {
     if (debug) cout << key->GetName() << endl << flush;
     obj = key->ReadObj(); assert(obj);
@@ -541,11 +541,11 @@ void GamHistosRatios(string ver, string iov) {
       TH2D *h2m = p2m->ProjectionXY(Form("%s_mc",p2m->GetName()));
       TH2D *h2d = p2d->ProjectionXY(Form("%s_data",p2d->GetName()));
       TH2D *h2r = (TH2D*)h2d->Clone(Form("%s_ratio",p2d->GetName()));
-      if (TString(key->GetName()).Contains("chf") || 
-	  TString(key->GetName()).Contains("nhf") || 
-	  TString(key->GetName()).Contains("nef") || 
-	  TString(key->GetName()).Contains("cef") || 
-	  TString(key->GetName()).Contains("muf") || 
+      if (TString(key->GetName()).Contains("chf") ||
+	  TString(key->GetName()).Contains("nhf") ||
+	  TString(key->GetName()).Contains("nef") ||
+	  TString(key->GetName()).Contains("cef") ||
+	  TString(key->GetName()).Contains("muf") ||
 	  TString(key->GetName()).Contains("puf"))
 	h2r->Add(h2m,-1);
       else
@@ -553,7 +553,7 @@ void GamHistosRatios(string ver, string iov) {
 
       fr->cd("pf");
 
-      h2m->Write(); 
+      h2m->Write();
       h2d->Write();
       h2r->Write();
 
@@ -569,11 +569,11 @@ void GamHistosRatios(string ver, string iov) {
       TH1D *hm = pm->ProjectionX(Form("%s_mc",pm->GetName()));
       TH1D *hd = pd->ProjectionX(Form("%s_data",pd->GetName()));
       TH1D *hr = (TH1D*)hd->Clone(Form("%s_ratio",pd->GetName()));
-      if (TString(key->GetName()).Contains("chf") || 
-	  TString(key->GetName()).Contains("nhf") || 
-	  TString(key->GetName()).Contains("nef") || 
-	  TString(key->GetName()).Contains("cef") || 
-	  TString(key->GetName()).Contains("muf") || 
+      if (TString(key->GetName()).Contains("chf") ||
+	  TString(key->GetName()).Contains("nhf") ||
+	  TString(key->GetName()).Contains("nef") ||
+	  TString(key->GetName()).Contains("cef") ||
+	  TString(key->GetName()).Contains("muf") ||
 	  TString(key->GetName()).Contains("puf"))
 	hr->Add(hm,-1);
       else
@@ -587,16 +587,16 @@ void GamHistosRatios(string ver, string iov) {
       gm->SetNameTitle(hm->GetName(),hm->GetName());
       TGraphErrors *gr = new TGraphErrors(hr);
       gr->SetNameTitle(hr->GetName(),hr->GetName());
-      
+
       cleanGraph(gm);
       cleanGraph(gd);
       cleanGraph(gr);
-      
+
       gm->SetLineColor(kRed);
       gd->SetLineColor(kBlue);
       gr->SetLineColor(kBlack);
-      
-      gm->Write(); 
+
+      gm->Write();
       gd->Write();
       gr->Write();
 
@@ -629,7 +629,7 @@ void GamHistosRatios(string ver, string iov) {
 
   TList *rkeys = d3m->GetListOfKeys();
   TListIter itrkey(rkeys);
-  
+
   while ( (key = dynamic_cast<TKey*>(itrkey.Next())) ) {
     if (debug) cout << key->GetName() << endl << flush;
     obj = key->ReadObj(); assert(obj);
@@ -662,16 +662,16 @@ void GamHistosRatios(string ver, string iov) {
       gm->SetNameTitle(hm->GetName(),hm->GetName());
       TGraphErrors *gr = new TGraphErrors(hr);
       gr->SetNameTitle(hr->GetName(),hr->GetName());
-      
+
       cleanGraph(gm);
       cleanGraph(gd);
       cleanGraph(gr);
-      
+
       gm->SetLineColor(kRed);
       gd->SetLineColor(kBlue);
       gr->SetLineColor(kBlack);
-      
-      gm->Write(); 
+
+      gm->Write();
       gd->Write();
       gr->Write();
 
