@@ -16,6 +16,8 @@
 
 bool _debug = false;
 
+string version="tot_23_pnetreg_ok";
+
 // Scale EM jets (pi0->gamma+gamma) relative to prompt photons
 // Possible causes: EM shower containment, pi>gamma+gamma is a bit wider
 // also have primary energy coming from two lower energy photons
@@ -50,8 +52,9 @@ void GamHistosMix() {
   */
 
   //w1
-  GamHistosMixEra("2023","tot_23_test"); //make this contain MC without BPix issue
-  GamHistosMixEra("2023-BPix","tot_23_test"); //MC accounted for BPix issue
+
+  GamHistosMixEra("2023",version); //make this contain MC without BPix issue
+  GamHistosMixEra("2023-BPix",version); //MC accounted for BPix issue
 }
 
 TF1 *_f1p(0);

@@ -16,6 +16,9 @@
 #include <iostream>
 using namespace std;
 
+string version="tot_23_pnetreg_ok";
+
+
 // Patches to input raw gamma+jet
 // v15: moved these hard-coded into GamHistosFill, don't redo
 bool addGain1 = false;//true;
@@ -47,7 +50,7 @@ void replacePt(TGraphErrors *g, TH1 *h) {
 void GamHistosRatios(string ver, string iov);
 
 // v27->v29->v30->v31(L2L3Res_V2)->v32(L2L3Res_V3)
-void GamHistosRatio(string ver = "tot_23_test") {
+void GamHistosRatio(string ver = version) {
   //GamHistosRatios(ver,"2016BCDEF");
   //GamHistosRatios(ver,"2016FGH");
   //GamHistosRatios(ver,"2017BCDEF");
@@ -71,6 +74,7 @@ void GamHistosRatio(string ver = "tot_23_test") {
   GamHistosRatios(ver,"2023Cv123");
   GamHistosRatios(ver,"2023Cv4");
   GamHistosRatios(ver,"2023D");
+
   // GamHistosRatios(ver,"2024B");
   // GamHistosRatios(ver,"2024C");
 
