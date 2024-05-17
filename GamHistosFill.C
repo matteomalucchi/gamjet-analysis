@@ -16,7 +16,7 @@ using namespace std;
 
 #include "parsePileUpJSON.C"
 
-// #define PNET_REG
+#define PNET_REG
 
 
 
@@ -1864,6 +1864,7 @@ void GamHistosFill::Loop()
       #endif
       if (Jet_PNetRegPtRawCorrTotal==0){
         Jet_PNetRegPtRawCorrTotal = 1.;
+        continue;
       }
       // if (idx==0){
       // cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
@@ -1949,6 +1950,7 @@ void GamHistosFill::Loop()
   #endif
   if (Jet_PNetRegPtRawCorrTotal==0){
     Jet_PNetRegPtRawCorrTotal = 1.;
+    continue;
   }
   // if (iFox==0){
   //     cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
@@ -2175,12 +2177,13 @@ void GamHistosFill::Loop()
   #endif
   if (Jet_PNetRegPtRawCorrTotal==0){
     Jet_PNetRegPtRawCorrTotal = 1.;
+    continue;
   }
   // if (i==0){
   //   cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
   // }
 
-	double rawJetPt = Jet_pt[i] * (1.0 - Jet_rawFactor[i])* Jet_PNetRegPtRawCorrTotal;
+	double rawJetPt = Jet_pt[i] * (1.0 - Jet_rawFactor[i]);//* Jet_PNetRegPtRawCorrTotal; //HERE
 	double rawJetMass = Jet_mass[i] * (1.0 - Jet_rawFactor[i]);
 	jec->setJetPt(rawJetPt);
 	jec->setJetEta(Jet_eta[i]);
@@ -2199,6 +2202,11 @@ void GamHistosFill::Loop()
 	Jet_mass[i] = corr * rawJetMass;
 	Jet_rawFactor[i] = (1.0 - 1.0/corr);
 	Jet_resFactor[i] = (1.0 - 1.0/res);
+  #ifdef PNET_REG
+  Jet_pt[i] = Jet_pt[i] * (1.0 - Jet_rawFactor[i])* Jet_PNetRegPtRawCorrTotal;
+  Jet_mass[i] = Jet_mass[i] * (1.0 - Jet_rawFactor[i]);
+  Jet_rawFactor[i]=0;
+  #endif
       }
 
       // Smear jets
