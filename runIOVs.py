@@ -79,7 +79,7 @@ parser.add_argument("-v", "--version", default=version)
 parser.add_argument("--max_files", default=9999)
 args = parser.parse_args()
 
-if args.IOV_list:
+if args.IOV_list and "all" not in args.IOV_list:
     IOV_list = args.IOV_list
 
 print("IOVs to run: ", IOV_list)
@@ -107,13 +107,9 @@ for iov in IOV_list:
     # os.system("ls -ltrh logs/log_"+iov+"_"+version+".txt")
     # os.system("nohup time root -l -b -q 'mk_GamHistosFill.C(\""+iov+"\",\""+version+"\")' > logs/"+version+"/log_"+iov+"_"+version+".txt &")
     # print(f" => Follow logging with 'tail -f logs/{version}/log_{iov}_{version}.txt'")
-    os.system(
-        "time root -l -b -q 'mk_GamHistosFill.C(\""
-        + iov
-        + '","'
-        + version
-        + "\")' "
-    )
+    # os.system(f'time root -l -b -q \'mk_GamHistosFill.C("{iov}","{version}")\'')
+    os.system(f"sbatch submit_slurm.sh {iov} {version}")
+
 
 #    os.system("fs flush")
 #    wait()
