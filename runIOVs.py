@@ -71,6 +71,25 @@ IOV_list = [
     "Summer23MGBPix_4",
 ]
 
+res_iovs = {
+    # dataset: [memory, hours, days]
+    "2023Cv123": [10, 0, "3-"],
+    "2023Cv4": [10, 0, "3-"],
+    "2023D": [10, 0, "3-"],
+    "2023P8-BPix": [10, 0, "3-"],
+    "2023P8": [10, 0, "3-"],
+    "Summer23MG_1": [10, 0, "3-"],
+    "Summer23MG_2": [10, 0, "3-"],
+    "Summer23MG_3": [10, 0, "3-"],
+    "Summer23MG_4": [10, 0, "3-"],
+    "Summer23MG_5": [10, 0, "3-"],
+    "Summer23MG_6": [10, 0, "3-"],
+    "Summer23MGBPix_1": [10, 0, "3-"],
+    "Summer23MGBPix_2": [10, 0, "3-"],
+    "Summer23MGBPix_3": [10, 0, "3-"],
+    "Summer23MGBPix_4": [10, 0, "3-"],
+}
+
 parser = argparse.ArgumentParser(description="Run all IOVs")
 
 # The user can pass the IOV list, version, max number of files as an argument
@@ -92,8 +111,8 @@ if args.max_files and ("test" not in args.IOV_list):
     max_files = args.max_files
 
 # Check that the version directory exists, if not create it
-# if not os.path.exists('rootfiles/'+version):
-#     os.makedirs('rootfiles/'+version)
+if not os.path.exists('rootfiles/'+version):
+    os.makedirs('rootfiles/'+version)
 
 if not os.path.exists("logs/" + version):
     os.makedirs("logs/" + version)
@@ -105,10 +124,15 @@ for iov in IOV_list:
     # os.system("ls -ltrh rootfiles/GamHistosFill_mc_"+iov+".root")
     # os.system("ls -ltrh rootfiles/GamHistosFill_data_"+iov+".root")
     # os.system("ls -ltrh logs/log_"+iov+"_"+version+".txt")
-    # os.system("nohup time root -l -b -q 'mk_GamHistosFill.C(\""+iov+"\",\""+version+"\")' > logs/"+version+"/log_"+iov+"_"+version+".txt &")
-    # print(f" => Follow logging with 'tail -f logs/{version}/log_{iov}_{version}.txt'")
+
+    os.system("nohup time root -l -b -q 'mk_GamHistosFill.C(\""+iov+"\",\""+version+"\")' > logs/"+version+"/log_"+iov+"_"+version+".txt &")
+    print(f" => Follow logging with 'tail -f logs/{version}/log_{iov}_{version}.txt'")
+
     # os.system(f'time root -l -b -q \'mk_GamHistosFill.C("{iov}","{version}")\'')
-    os.system(f"sbatch submit_slurm.sh {iov} {version}")
+    # os.system("mkdir -p logs/" + version)
+    # os.system(f"sbatch submit_slurm.sh {iov} {version}")
+
+    # os.system(f"sbatch --job-name=gamjet_analysis -p {'long' if (res_iovs[iov][1] > 12 or res_iovs[iov][2]) else 'standard'} --time={res_iovs[iov][2]}0{res_iovs[iov][1]}:00:00 --ntasks=1 --cpus-per-task=1 --mem={res_iovs[iov][0]}gb --output=logs/{version}/gamjet_analysis_{iov}_{version}_%j.log submit_slurm.sh {iov} {version}")
 
 
 #    os.system("fs flush")

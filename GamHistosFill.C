@@ -502,23 +502,36 @@ void GamHistosFill::Loop()
   //MC2023 --> added for running 2023MC with and without BPix stuff
   if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8X" || TString(ds.c_str()).Contains("Summer23MG_")) { //earlier called: Summer2023
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", ""); //23rd of Feb2024 - investigating how plots look with 2022 corrections
+    #ifdef PNET_REG
+    jec = getFJC("", "Summer23Run3_PNETREG_MC_L2Relative_AK4PUPPI", "");
+    #else
     jec = getFJC("", "Summer23Run3_V1_MC_L2Relative_AK4PUPPI", ""); //16th of Feb2024, w4, w5 and onwards
+    #endif
 		    //"Summer23Run3_V1_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
 		    //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi","");
     //assert(false); // not yet available --> use the Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi, which is available.
   }
   if (ds=="2023P8-BPix" || ds=="2023QCD-BPix" || ds=="2023P8-BPixX" ||    ds == "Summer23MGBPix_1" || ds == "Summer23MGBPix_2" || ds == "Summer23MGBPix_3" || ds == "Summer23MGBPix_4" ) { //earlier called: Summer2023, BPix separately!!
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", ""); //23rd of Feb2024 - investigating how plots look with 2022 corrections
+    #ifdef PNET_REG
+    jec = getFJC("", "Summer23BPixRun3_PNETREG_MC_L2Relative_AK4PUPPI", "");
+    #else
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", "" ); //16th of Feb2024, w4, w5 and onwards
-		    //"Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
+    #endif
+        //"Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
 		    //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi",""); //old
   }
   //data2023
   if (ds=="2023B" || ds=="2023Cv123" || ds=="2023Cv123X") {//2023C --> no bpix issue
 	//got Winter23 corrections from here: https://github.com/cms-jet/JECDatabase/tree/master/textFiles/Winter23Prompt23_V2_MC
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023Cv123_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
+    #ifdef PNET_REG
+    jec = getFJC("", "Summer23Run3_PNETREG_MC_L2Relative_AK4PUPPI",
+      "Summer23Prompt23_Run2023Cv123_V2_DATA_L2L3Residual_AK4PFPuppi");
+    #else
     jec = getFJC("", "Summer23Run3_V1_MC_L2Relative_AK4PUPPI",
 			"Summer23Prompt23_Run2023Cv123_V2_DATA_L2L3Residual_AK4PFPuppi"); //29th of Feb2024, w7 and onwards
+    #endif
 		  	//"Summer23Prompt23_Run2023Cv123_V1_DATA_L2L3Residual_AK4PFPuppi"); //18th of Feb2024, w5
 		    	//"Summer23Prompt23_Run2023Cv123_V1_DATA_L2Residual_AK4PFPuppi"); //16th of Feb2024, w4; and 27th of Feb2024, w6
 		 //"Summer23Run3_V1_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
@@ -527,8 +540,13 @@ void GamHistosFill::Loop()
   }
   if (ds=="2023Cv4" || ds=="2023Cv4X") {//2023C --> no bpix issue
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023Cv4_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
+    #ifdef PNET_REG
+    jec = getFJC("", "Summer23Run3_PNETREG_MC_L2Relative_AK4PUPPI",
+      "Summer23Prompt23_Run2023Cv4_V2_DATA_L2L3Residual_AK4PFPuppi");
+    #else
     jec = getFJC("","Summer23Run3_V1_MC_L2Relative_AK4PUPPI",
 			"Summer23Prompt23_Run2023Cv4_V2_DATA_L2L3Residual_AK4PFPuppi"); //29th of Feb2024, w7 and onwards
+    #endif
 		    	//"Summer23Prompt23_Run2023Cv4_V1_DATA_L2L3Residual_AK4PFPuppi"); //18th of Feb2024, w5
 		    	//"Summer23Prompt23_Run2023Cv4_V1_DATA_L2Residual_AK4PFPuppi"); //16th of Feb2024, w4; and 27th of Feb2024, w6
 		 //"Summer23Run3_V1_MC_L2Relative_AK4PUPPI", ""); //only used MC L2Rel for w2
@@ -537,8 +555,13 @@ void GamHistosFill::Loop()
   }
   if (ds=="2023D" || ds=="2023DX") { //2023D needs BPix stuff!
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
+    #ifdef PNET_REG
+    jec = getFJC("", "Summer23BPixRun3_PNETREG_MC_L2Relative_AK4PUPPI",
+      "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPuppi");
+    #else
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI",
                         "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPuppi"); //9th of Mar2024, w8 (fixed this...)
+    #endif
 			//"Summer23Prompt23_Run2023Cv4_V2_DATA_L2L3Residual_AK4PFPuppi"); //29th of Feb2024, w7
 		    	//"Summer23Prompt23_Run2023D_V1_DATA_L2L3Residual_AK4PFPuppi"); //18th of Feb2024, w5
 		    	//"Summer23Prompt23_Run2023D_V1_DATA_L2Residual_AK4PFPuppi"); //16th of Feb2024, w4; and 27th of Feb2024, w6
@@ -713,7 +736,8 @@ void GamHistosFill::Loop()
   // Create histograms. Copy format from existing files from Lyon
   // Keep only histograms actually used by global fit (reprocess.C)
   TDirectory *curdir = gDirectory;
-  TFile *fout = new TFile(Form("rootfiles/GamHistosFill_%s_%s_%s.root",
+  TFile *fout = new TFile(Form("rootfiles/%s/GamHistosFill_%s_%s_%s.root",
+             version.c_str(),
 			       isMC ? "mc" : "data",
 			       dataset.c_str(), version.c_str()),
 			  "RECREATE");
@@ -1864,7 +1888,7 @@ void GamHistosFill::Loop()
       #endif
       if (Jet_PNetRegPtRawCorrTotal==0){
         Jet_PNetRegPtRawCorrTotal = 1.;
-        continue;
+        // continue;
       }
       // if (idx==0){
       // cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
@@ -1950,7 +1974,7 @@ void GamHistosFill::Loop()
   #endif
   if (Jet_PNetRegPtRawCorrTotal==0){
     Jet_PNetRegPtRawCorrTotal = 1.;
-    continue;
+    // continue;
   }
   // if (iFox==0){
   //     cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
@@ -2177,13 +2201,13 @@ void GamHistosFill::Loop()
   #endif
   if (Jet_PNetRegPtRawCorrTotal==0){
     Jet_PNetRegPtRawCorrTotal = 1.;
-    continue;
+    // continue;
   }
   // if (i==0){
   //   cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
   // }
 
-	double rawJetPt = Jet_pt[i] * (1.0 - Jet_rawFactor[i]);//* Jet_PNetRegPtRawCorrTotal; //HERE
+	double rawJetPt = Jet_pt[i] * (1.0 - Jet_rawFactor[i])* Jet_PNetRegPtRawCorrTotal; //HERE
 	double rawJetMass = Jet_mass[i] * (1.0 - Jet_rawFactor[i]);
 	jec->setJetPt(rawJetPt);
 	jec->setJetEta(Jet_eta[i]);
@@ -2202,11 +2226,11 @@ void GamHistosFill::Loop()
 	Jet_mass[i] = corr * rawJetMass;
 	Jet_rawFactor[i] = (1.0 - 1.0/corr);
 	Jet_resFactor[i] = (1.0 - 1.0/res);
-  #ifdef PNET_REG
-  Jet_pt[i] = Jet_pt[i] * (1.0 - Jet_rawFactor[i])* Jet_PNetRegPtRawCorrTotal;
-  Jet_mass[i] = Jet_mass[i] * (1.0 - Jet_rawFactor[i]);
-  Jet_rawFactor[i]=0;
-  #endif
+  // #ifdef PNET_REG
+  // Jet_pt[i] = Jet_pt[i] * (1.0 - Jet_rawFactor[i])* Jet_PNetRegPtRawCorrTotal;
+  // Jet_mass[i] = Jet_mass[i] * (1.0 - Jet_rawFactor[i]);
+  // Jet_rawFactor[i]=0;
+  // #endif
       }
 
       // Smear jets
