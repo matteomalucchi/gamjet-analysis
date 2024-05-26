@@ -51,23 +51,23 @@ args = parser.parse_args()
 
 version = args.version
 
-os.system("ls rootfiles/GamHistosFill_data_*_" + version + ".root")
+os.system("ls rootfiles/" + version + "/GamHistosFill_data_*_" + version + ".root")
 for IOV_list in IOV_list_of_lists:
     command = (
-        "hadd rootfiles/GamHistosFill_data_cmb_" + IOV_list[0] + "_" + version + ".root"
+        "hadd rootfiles/" + version + "/GamHistosFill_data_cmb_" + IOV_list[0] + "_" + version + ".root"
     )
     for iov in IOV_list:
         command = (
-            command + " rootfiles/GamHistosFill_data_" + iov + "_" + version + ".root "
+            command + " rootfiles/" + version + "/GamHistosFill_data_" + iov + "_" + version + ".root "
         )
     print('"' + command + '"...')
     os.system(command)
 
-os.system("ls rootfiles/GamHistosFill_mc_*_" + version + ".root")
+os.system("ls rootfiles/" + version + "/GamHistosFill_mc_*_" + version + ".root")
 for MC_list in MC_list_of_lists:
     command = (
         (
-            "hadd rootfiles/GamHistosFill_mc_"
+            "hadd rootfiles/" + version + "/GamHistosFill_mc_"
             + ("2023QCD" if "Summer23MG_" in MC_list[0] else "2023QCD-BPix")
         )
         + "_"
@@ -77,7 +77,7 @@ for MC_list in MC_list_of_lists:
     print("\n", command)
     for mc in MC_list:
         command = (
-            command + " rootfiles/GamHistosFill_mc_" + mc + "_" + version + ".root "
+            command + " rootfiles/" + version + "/GamHistosFill_mc_" + mc + "_" + version + ".root "
         )
     print('"' + command + '"...')
     os.system(command)

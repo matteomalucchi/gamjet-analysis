@@ -16,7 +16,7 @@
 #include <iostream>
 using namespace std;
 
-string version="tot_23_pnetreg_ok";
+string version="pnetreg_tot23_l2rel";
 
 
 // Patches to input raw gamma+jet
@@ -167,13 +167,13 @@ void GamHistosRatios(string ver, string iov) {
 			 cv, cv,cv,cv));
     */
 
-    fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
+    fd = new TFile(Form("rootfiles/%s/GamHistosFill_data_%s_%s.root",cv,ci,cv),"READ");
     //fm = new TFile(Form("files/GamHistosMix_mc_2018P8QCD_%s.root",cv),"READ");
     //fm = new TFile(Form("rootfiles/GamHistosFill_mc_2022P8_%s.root",cv),"READ");
     //fr = new TFile(Form("files/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),
     //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8_%s.root",ci,cv),"RECREATE");
-    fm = new TFile(Form("rootfiles/GamHistosMix_mc_2022P8QCD_%s.root",cv),"READ");
-    fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE");
+    fm = new TFile(Form("rootfiles/%s/GamHistosMix_mc_2022P8QCD_%s.root",cv,cv),"READ");
+    fr = new TFile(Form("rootfiles/%s/GamHistosRatio_%s_P8QCD_%s.root",cv,ci,cv),"RECREATE");
   }
   if (iov=="2022E" || iov=="2022F" || iov=="2022G" || iov=="2022FG") {
 
@@ -185,11 +185,11 @@ void GamHistosRatios(string ver, string iov) {
 			 "files/GamHistosFill_data_2022G_%s.root",
 			 cv, cv,cv));
     */
-    fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
+    fd = new TFile(Form("rootfiles/%s/GamHistosFill_data_%s_%s.root",cv,ci,cv),"READ");
     //fm = new TFile(Form("rootfiles/GamHistosFill_mc_2022EEP8_%s.root",cv),"READ");
     //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8_%s.root",ci,cv),"RECREATE");
-    fm = new TFile(Form("rootfiles/GamHistosMix_mc_2022EEP8QCD_%s.root",cv),"READ");
-    fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE");
+    fm = new TFile(Form("rootfiles/%s/GamHistosMix_mc_2022EEP8QCD_%s.root",cv,cv),"READ");
+    fr = new TFile(Form("rootfiles/%s/GamHistosRatio_%s_P8QCD_%s.root",cv,ci,cv),"RECREATE");
   }
   /*
   if (iov=="2023Cv123" || iov=="2023Cv4" || iov=="2023Cv4D" ||
@@ -209,17 +209,17 @@ void GamHistosRatios(string ver, string iov) {
   //SHOULD RETURN TO THE ABOVE HANDLING AFTER THIS ONE, WHEN EVERYTHING HAS GONE TO VERSION W4 -- cannot because of BPIX issue
   //THE TWO IF CONDITIONS BELOW ARE ONLY FOR 16.02.2024 WHEN RUNNING WITHOUT QCD AND WITHOUT L2L3RES - TODO: update this.
       if (iov=="2023Cv123" || iov=="2023Cv4") {
-        fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
-        fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023P8QCD_%s.root",cv),"READ");
-        fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE");
+        fd = new TFile(Form("rootfiles/%s/GamHistosFill_data_%s_%s.root",cv,ci,cv),"READ");
+        fm = new TFile(Form("rootfiles/%s/GamHistosMix_mc_2023P8QCD_%s.root",cv,cv),"READ");
+        fr = new TFile(Form("rootfiles/%s/GamHistosRatio_%s_P8QCD_%s.root",cv,ci,cv),"RECREATE");
         //fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8_%s.root",cv),"READ"); //NO QCD (remove later)
         //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8-noQCD_%s.root",ci,cv),"RECREATE"); //when no QCD in the mix (can remove it later)
       }
       //if (iov=="2023D") { //BPix issue (GamHistosMix_mc_2023-BPixP8QCD_w4.root) //should adjust the naming in the other programs!
       if (iov=="2023D" || iov=="2024B" || iov=="2024C") { //BPix issue, for now use this also for early 2024 data
-        fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
-        fm = new TFile(Form("rootfiles/GamHistosMix_mc_2023-BPixP8QCD_%s.root",cv),"READ");
-        fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8BPixQCD_%s.root",ci,cv),"RECREATE"); //changed name!!
+        fd = new TFile(Form("rootfiles/%s/GamHistosFill_data_%s_%s.root",cv,ci,cv),"READ");
+        fm = new TFile(Form("rootfiles/%s/GamHistosMix_mc_2023-BPixP8QCD_%s.root",cv,cv),"READ");
+        fr = new TFile(Form("rootfiles/%s/GamHistosRatio_%s_P8BPixQCD_%s.root",cv,ci,cv),"RECREATE"); //changed name!!
         //fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8-BPix_%s.root",cv),"READ"); //NO QCD (remove later)
         //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8BPix-noQCD_%s.root",ci,cv),"RECREATE"); //when no QCD in the mix (can remove it later)
       }
@@ -242,12 +242,12 @@ void GamHistosRatios(string ver, string iov) {
 		       cv, cv,cv));
     */
 
-    fd = new TFile(Form("rootfiles/GamHistosFill_data_%s_%s.root",ci,cv),"READ");
+    fd = new TFile(Form("rootfiles/%s/GamHistosFill_data_%s_%s.root",cv,ci,cv),"READ");
     //fm = new TFile(Form("files/GamHistosFill_mc_2022XP8_%s.root",cv),"READ");
     //fm = new TFile(Form("rootfiles/GamHistosFill_mc_Run3P8_%s.root",cv),"READ");
     //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8_%s.root",ci,cv),"RECREATE");
-    fm = new TFile(Form("rootfiles/GamHistosMix_mc_Run3P8QCD_%s.root",cv),"READ");
-    fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8QCD_%s.root",ci,cv),"RECREATE");
+    fm = new TFile(Form("rootfiles/%s/GamHistosMix_mc_Run3P8QCD_%s.root",cv,cv),"READ");
+    fr = new TFile(Form("rootfiles/%s/GamHistosRatio_%s_P8QCD_%s.root",cv,ci,cv),"RECREATE");
   }
 
   assert(fd && !fd->IsZombie());

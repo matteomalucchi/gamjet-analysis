@@ -16,7 +16,7 @@
 
 bool _debug = false;
 
-string version="tot_23_pnetreg_ok";
+string version="pnetreg_tot23_l2rel";
 
 // Scale EM jets (pi0->gamma+gamma) relative to prompt photons
 // Possible causes: EM shower containment, pi>gamma+gamma is a bit wider
@@ -67,29 +67,29 @@ void GamHistosMixEra(string sepoch, string sver) {
   string sqepoch = (sepoch=="2022EE"||sepoch=="Run3" ? "2022" : sepoch);//patch
   const char *qepoch = sqepoch.c_str();
   const char *ver = sver.c_str();
-  TFile *fout = new TFile(Form("rootfiles/GamHistosMix_mc_%sP8QCD_%s.root",
-			       epoch,ver),"RECREATE");
+  TFile *fout = new TFile(Form("rootfiles/%s/GamHistosMix_mc_%sP8QCD_%s.root",
+			       ver,epoch,ver),"RECREATE");
 
   TFile *fgam(0);
   TFile *fqcd(0);
 
     //loading input files, needed if-condition due to different naming of BPix files. (TO DO: adjust this in GamHistosFill, so the if gets obsolete)
     if(TString(sepoch.c_str()).Contains("2023-BPix")){
-        fgam = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8-BPix_%s.root", //needed to change this to different naming due to BPix samples.
-                                ver),"READ");			                //e.g. GamHistosFill_mc_2023P8-BPix_w4.root
+        fgam = new TFile(Form("rootfiles/%s/GamHistosFill_mc_2023P8-BPix_%s.root", //needed to change this to different naming due to BPix samples.
+                                ver, ver),"READ");			                //e.g. GamHistosFill_mc_2023P8-BPix_w4.root
         assert(fgam && !fgam->IsZombie());
-        fqcd = new TFile(Form("rootfiles/GamHistosFill_mc_2023QCD-BPix_%s.root", //GamHistosFill_mc_2023QCD-BPix_w4.root
-                                ver),"READ");
+        fqcd = new TFile(Form("rootfiles/%s/GamHistosFill_mc_2023QCD-BPix_%s.root", //GamHistosFill_mc_2023QCD-BPix_w4.root
+                                ver, ver),"READ");
         assert(fqcd && !fqcd->IsZombie());
     }
     else{ //the usual way of loading the files (i.e. no BPix era)
         //TFile *fgam = new TFile(Form("rootfiles/GamHistosFill_mc_%sP8_%s.root", //this is how it usually is (GamHistosFill_mc_2023P8_w4.root)
-        fgam = new TFile(Form("rootfiles/GamHistosFill_mc_%sP8_%s.root",
-				       epoch,ver),"READ");
+        fgam = new TFile(Form("rootfiles/%s/GamHistosFill_mc_%sP8_%s.root",
+				       ver,epoch,ver),"READ");
 	assert(fgam && !fgam->IsZombie());
 	//TFile *fqcd = new TFile(Form("rootfiles/GamHistosFill_mc_%sQCD_%s.root", //GamHistosFill_mc_2023QCD_w4.root
-        fqcd = new TFile(Form("rootfiles/GamHistosFill_mc_%sQCD_%s.root",
-				       qepoch,ver),"READ");
+        fqcd = new TFile(Form("rootfiles/%s/GamHistosFill_mc_%sQCD_%s.root",
+				       ver,qepoch,ver),"READ");
 	assert(fqcd && !fqcd->IsZombie());
     }
 
