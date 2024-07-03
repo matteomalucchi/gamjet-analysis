@@ -16,7 +16,7 @@
 #include <iostream>
 using namespace std;
 
-string version="pnetreg_tot23_l2rel";
+string version="pnetreg_23prebpix_newchangesDP";
 
 
 // Patches to input raw gamma+jet
@@ -73,7 +73,7 @@ void GamHistosRatio(string ver = version) {
 
   GamHistosRatios(ver,"2023Cv123");
   GamHistosRatios(ver,"2023Cv4");
-  GamHistosRatios(ver,"2023D");
+  // GamHistosRatios(ver,"2023D");
 
   // GamHistosRatios(ver,"2024B");
   // GamHistosRatios(ver,"2024C");

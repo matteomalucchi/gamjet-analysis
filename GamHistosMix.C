@@ -16,7 +16,7 @@
 
 bool _debug = false;
 
-string version="pnetreg_tot23_l2rel";
+string version="pnetreg_23prebpix_newchangesDP";
 
 // Scale EM jets (pi0->gamma+gamma) relative to prompt photons
 // Possible causes: EM shower containment, pi>gamma+gamma is a bit wider
@@ -54,7 +54,7 @@ void GamHistosMix() {
   //w1
 
   GamHistosMixEra("2023",version); //make this contain MC without BPix issue
-  GamHistosMixEra("2023-BPix",version); //MC accounted for BPix issue
+  // GamHistosMixEra("2023-BPix",version); //MC accounted for BPix issue
 }
 
 TF1 *_f1p(0);

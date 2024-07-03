@@ -16,7 +16,8 @@ using namespace std;
 
 #include "parsePileUpJSON.C"
 
-#define PNET_REG
+// #define PNETREG
+#define PNETREGNEUTRINO
 
 
 
@@ -25,7 +26,7 @@ bool _gh_debug100 = false;
 
 bool doGamjet = true;
 bool doGamjet2 = true;
-bool smearJets = false;
+bool smearJets = true;
 
 // Error counters
 int cntErrDR(0);
@@ -336,8 +337,14 @@ void GamHistosFill::Loop()
     fChain->SetBranchStatus("Jet_mass",1);
     fChain->SetBranchStatus("Jet_rawFactor",1);
 
-    #ifdef PNET_REG
+    #ifdef PNETREG
     cout << "USING PNET REGRESSION" << endl;
+    fChain->SetBranchStatus("Jet_PNetRegPtRawCorr", 1);
+    // fChain->SetBranchStatus("Jet_PNetRegPtRawCorrNeutrino", 1);
+    #endif
+
+    #ifdef PNETREGNEUTRINO
+    cout << "USING PNET REGRESSION NEUTRINO" << endl;
     fChain->SetBranchStatus("Jet_PNetRegPtRawCorr", 1);
     fChain->SetBranchStatus("Jet_PNetRegPtRawCorrNeutrino", 1);
     #endif
@@ -502,8 +509,10 @@ void GamHistosFill::Loop()
   //MC2023 --> added for running 2023MC with and without BPix stuff
   if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8X" || TString(ds.c_str()).Contains("Summer23MG_")) { //earlier called: Summer2023
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", ""); //23rd of Feb2024 - investigating how plots look with 2022 corrections
-    #ifdef PNET_REG
+    #ifdef PNETREG
     jec = getFJC("", "Summer23Run3_PNETREG_MC_L2Relative_AK4PUPPI", "");
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer23Run3_PNETREGNEUTRINO_MC_L2Relative_AK4PUPPI", "");
     #else
     jec = getFJC("", "Summer23Run3_V1_MC_L2Relative_AK4PUPPI", ""); //16th of Feb2024, w4, w5 and onwards
     #endif
@@ -513,8 +522,10 @@ void GamHistosFill::Loop()
   }
   if (ds=="2023P8-BPix" || ds=="2023QCD-BPix" || ds=="2023P8-BPixX" ||    ds == "Summer23MGBPix_1" || ds == "Summer23MGBPix_2" || ds == "Summer23MGBPix_3" || ds == "Summer23MGBPix_4" ) { //earlier called: Summer2023, BPix separately!!
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", ""); //23rd of Feb2024 - investigating how plots look with 2022 corrections
-    #ifdef PNET_REG
+    #ifdef PNETREG
     jec = getFJC("", "Summer23BPixRun3_PNETREG_MC_L2Relative_AK4PUPPI", "");
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer23BPixRun3_PNETREGNEUTRINO_MC_L2Relative_AK4PUPPI", "");
     #else
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", "" ); //16th of Feb2024, w4, w5 and onwards
     #endif
@@ -525,8 +536,11 @@ void GamHistosFill::Loop()
   if (ds=="2023B" || ds=="2023Cv123" || ds=="2023Cv123X") {//2023C --> no bpix issue
 	//got Winter23 corrections from here: https://github.com/cms-jet/JECDatabase/tree/master/textFiles/Winter23Prompt23_V2_MC
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023Cv123_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
-    #ifdef PNET_REG
+    #ifdef PNETREG
     jec = getFJC("", "Summer23Run3_PNETREG_MC_L2Relative_AK4PUPPI",
+      "Summer23Prompt23_Run2023Cv123_V2_DATA_L2L3Residual_AK4PFPuppi");
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer23Run3_PNETREGNEUTRINO_MC_L2Relative_AK4PUPPI",
       "Summer23Prompt23_Run2023Cv123_V2_DATA_L2L3Residual_AK4PFPuppi");
     #else
     jec = getFJC("", "Summer23Run3_V1_MC_L2Relative_AK4PUPPI",
@@ -540,8 +554,11 @@ void GamHistosFill::Loop()
   }
   if (ds=="2023Cv4" || ds=="2023Cv4X") {//2023C --> no bpix issue
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023Cv4_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
-    #ifdef PNET_REG
+    #ifdef PNETREG
     jec = getFJC("", "Summer23Run3_PNETREG_MC_L2Relative_AK4PUPPI",
+      "Summer23Prompt23_Run2023Cv4_V2_DATA_L2L3Residual_AK4PFPuppi");
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer23Run3_PNETREGNEUTRINO_MC_L2Relative_AK4PUPPI",
       "Summer23Prompt23_Run2023Cv4_V2_DATA_L2L3Residual_AK4PFPuppi");
     #else
     jec = getFJC("","Summer23Run3_V1_MC_L2Relative_AK4PUPPI",
@@ -555,8 +572,11 @@ void GamHistosFill::Loop()
   }
   if (ds=="2023D" || ds=="2023DX") { //2023D needs BPix stuff!
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
-    #ifdef PNET_REG
+    #ifdef PNETREG
     jec = getFJC("", "Summer23BPixRun3_PNETREG_MC_L2Relative_AK4PUPPI",
+      "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPuppi");
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer23BPixRun3_PNETREGNEUTRINO_MC_L2Relative_AK4PUPPI",
       "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPuppi");
     #else
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI",
@@ -1881,11 +1901,14 @@ void GamHistosFill::Loop()
 	continue;
 	//assert(idx<nJet);
       }
-      #ifdef PNET_REG
+      #ifdef PNETREG
+      double Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[idx];
+      #elif defined PNETREGNEUTRINO
       double Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[idx]*Jet_PNetRegPtRawCorrNeutrino[idx];
       #else
       double Jet_PNetRegPtRawCorrTotal = 1.;
       #endif
+
       if (Jet_PNetRegPtRawCorrTotal==0){
         Jet_PNetRegPtRawCorrTotal = 1.;
         // continue;
@@ -1967,7 +1990,9 @@ void GamHistosFill::Loop()
 	gam *= (gam.Pt()>0 ? 1 - 3.5*area/gam.Pt() : 1.);
 	rawgam = gam;
 
-  #ifdef PNET_REG
+  #ifdef PNETREG
+  double Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[iFox];
+  #elif defined PNETREGNEUTRINO
   double Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[iFox]*Jet_PNetRegPtRawCorrNeutrino[iFox];
   #else
   double Jet_PNetRegPtRawCorrTotal = 1.;
@@ -2194,7 +2219,9 @@ void GamHistosFill::Loop()
       // Redo JEC on the fly (should be no previous use of corrected jets)
       if (jec!=0) {
 
-  #ifdef PNET_REG
+  #ifdef PNETREG
+  double Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[i];
+  #elif defined PNETREGNEUTRINO
   double Jet_PNetRegPtRawCorrTotal = Jet_PNetRegPtRawCorr[i]*Jet_PNetRegPtRawCorrNeutrino[i];
   #else
   double Jet_PNetRegPtRawCorrTotal = 1.;
@@ -2226,7 +2253,7 @@ void GamHistosFill::Loop()
 	Jet_mass[i] = corr * rawJetMass;
 	Jet_rawFactor[i] = (1.0 - 1.0/corr);
 	Jet_resFactor[i] = (1.0 - 1.0/res);
-  // #ifdef PNET_REG
+  // #ifdef PNETREG
   // Jet_pt[i] = Jet_pt[i] * (1.0 - Jet_rawFactor[i])* Jet_PNetRegPtRawCorrTotal;
   // Jet_mass[i] = Jet_mass[i] * (1.0 - Jet_rawFactor[i]);
   // Jet_rawFactor[i]=0;
@@ -2234,9 +2261,9 @@ void GamHistosFill::Loop()
       }
 
       // Smear jets
-      if (smearJets) {
-	assert(false);
-      }
+  //     if (smearJets) {
+	// assert(false);
+  //     }
 
       // Check that jet is not photon and pTcorr>15 GeV
       if (Jet_pt[i]>15 && (iGam==-1 || i != Photon_jetIdx[iGam]) &&
