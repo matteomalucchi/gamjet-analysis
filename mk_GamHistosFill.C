@@ -89,7 +89,7 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
                  dataset=="2023QCDX" || dataset=="2023QCD-BPixX" || //for my test wX23
 		 dataset=="2023QCD" || dataset=="2023QCD-BPix" || //added BPix QCD MC
       TString(dataset.c_str()).Contains("Summer23MG_") ||
-      dataset=="Summer23MGBPix_1" || dataset=="Summer23MGBPix_2" || dataset=="Summer23MGBPix_3" || dataset=="Summer23MGBPix_4" );
+            TString(dataset.c_str()).Contains("Summer23MGBPix_")  );
 
 
   //cout << "Clean old shared objects and link files" << endl << flush;

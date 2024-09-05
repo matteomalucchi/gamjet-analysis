@@ -606,7 +606,7 @@ void GamHistosFill::Loop()
   if (ds=="2022EEP8" || ds=="2022EEQCD") sera = "2022EE";
   if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix" ||
   TString(ds.c_str()).Contains("Summer23MG_") ||
-    ds == "Summer23MGBPix_1" || ds == "Summer23MGBPix_2" || ds == "Summer23MGBPix_3" || ds == "Summer23MGBPix_4" ) sera = "2023"; //added 2023P8-BPix
+  TString(ds.c_str()).Contains("Summer23MGBPix_")) sera = "2023"; //added 2023P8-BPix
   //
   if (ds=="2016B"||ds=="2016C"||ds=="2016D"||ds=="2016BCD"||
       ds=="2016E"||ds=="2016F"||ds=="2016EF"||ds=="2016BCDEF") sera = "2016APV";
