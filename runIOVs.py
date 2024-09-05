@@ -22,14 +22,26 @@ IOV_list = (
         # "Summer23MGBPix_3",
         # "Summer23MGBPix_4",
     ]
-    + [file for file in os.listdir("inputfiles/") if "Summer23MG_" in file]
-    + [file for file in os.listdir("inputfiles/") if "Summer23MGBPix_" in file]
     + [
-        file
-        for file in os.listdir("inputfiles/")
-        if "2023P8" in file and "BPix" not in file
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "Summer23MG_" in file and "all" not in file
     ]
-    + [file for file in os.listdir("inputfiles/") if "2023P8-BPix" in file],
+    + [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "Summer23MGBPix_" in file and "all" not in file
+    ]
+    + [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "2023P8" in file and "BPix" not in file and "all" not in file
+    ]
+    + [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "2023P8-BPix" in file and "all" not in file
+    ],
 )
 
 res_iovs = {
@@ -37,20 +49,26 @@ res_iovs = {
     "2023Cv123": [5, 12, ""],  # [10, 0, "3-"],
     "2023Cv4": [5, 12, ""],  # [10, 0, "3-"],
     "2023D": [5, 12, ""],  # [10, 0, "3-"],
-    "2023P8-BPix": [10, 0, "3-"],
-    "2023P8": [10, 0, "3-"],
-    "Summer23MG_1": [10, 0, "3-"],
-    "Summer23MG_2": [10, 0, "3-"],
-    "Summer23MG_3": [5, 12, ""],  # [10, 0, "3-"],
-    "Summer23MG_4": [5, 12, ""],  # [10, 0, "3-"],
-    "Summer23MG_5": [5, 12, ""],  # [10, 0, "3-"],
-    "Summer23MG_6": [5, 12, ""],  # [10, 0, "3-"],
-    "Summer23MGBPix_1": [10, 0, "3-"],
-    "Summer23MGBPix_2": [10, 0, "3-"],
-    "Summer23MGBPix_3": [5, 12, ""],  # [10, 0, "3-"],
-    "Summer23MGBPix_4": [5, 12, ""],  # [10, 0, "3-"],
+    # "2023P8-BPix": [10, 0, "3-"],
+    # "2023P8": [10, 0, "3-"],
+    # "Summer23MG_1": [10, 0, "3-"],
+    # "Summer23MG_2": [10, 0, "3-"],
+    # "Summer23MG_3": [5, 12, ""],  # [10, 0, "3-"],
+    # "Summer23MG_4": [5, 12, ""],  # [10, 0, "3-"],
+    # "Summer23MG_5": [5, 12, ""],  # [10, 0, "3-"],
+    # "Summer23MG_6": [5, 12, ""],  # [10, 0, "3-"],
+    # "Summer23MGBPix_1": [10, 0, "3-"],
+    # "Summer23MGBPix_2": [10, 0, "3-"],
+    # "Summer23MGBPix_3": [5, 12, ""],  # [10, 0, "3-"],
+    # "Summer23MGBPix_4": [5, 12, ""],  # [10, 0, "3-"],
 }
-
+res_iovs.update(
+    {
+        file.replace(".txt", "").replace("mcFiles_", ""): [5, 12, ""]
+        for file in os.listdir("input_files/")
+        if ("mcFiles_" in file) and "all" not in file
+    }
+)
 parser = argparse.ArgumentParser(description="Run all IOVs")
 
 # The user can pass the IOV list, version, max number of files as an argument

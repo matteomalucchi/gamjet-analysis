@@ -48,14 +48,26 @@ MC_list_of_lists = [
     #     "Summer23MG_5",
     #     "Summer23MG_6",
     # ],
-    [file for file in os.listdir("rootfiles/" + version) if "Summer23MG_" in file],
-    [file for file in os.listdir("rootfiles/" + version) if "Summer23MGBPix_" in file],
     [
-        file
-        for file in os.listdir("rootfiles/" + version)
-        if "2023P8" in file and "BPix" not in file
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "Summer23MG_" in file and "all" not in file
     ],
-    [file for file in os.listdir("rootfiles/" + version) if "2023P8-BPix" in file],
+    [
+        file.replace(".txt", "")
+        for file in os.listdir("input_files/")
+        if "Summer23MGBPix_" in file and "all" not in file
+    ],
+    [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "2023P8" in file and "BPix" not in file and "all" not in file
+    ],
+    [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "2023P8-BPix" in file and "all" not in file
+    ],
 ]
 
 suffix_dict = {
