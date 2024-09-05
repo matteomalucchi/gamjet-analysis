@@ -507,7 +507,7 @@ void GamHistosFill::Loop()
   }
  */
   //MC2023 --> added for running 2023MC with and without BPix stuff
-  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8X" || TString(ds.c_str()).Contains("Summer23MG_")) { //earlier called: Summer2023
+  if ((TString(ds.c_str()).Contains("2023P8") && !TString(ds.c_str()).Contains("BPix") )|| ds=="2023QCD" || ds=="2023P8X" || TString(ds.c_str()).Contains("Summer23MG_")) { //earlier called: Summer2023
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", ""); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     #ifdef PNETREG
     jec = getFJC("", "Summer23Run3_PNETREG_MC_L2Relative_AK4PUPPI", "");
@@ -520,7 +520,7 @@ void GamHistosFill::Loop()
 		    //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi","");
     //assert(false); // not yet available --> use the Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi, which is available.
   }
-  if (ds=="2023P8-BPix" || ds=="2023QCD-BPix" || ds=="2023P8-BPixX" ||    ds == "Summer23MGBPix_1" || ds == "Summer23MGBPix_2" || ds == "Summer23MGBPix_3" || ds == "Summer23MGBPix_4" ) { //earlier called: Summer2023, BPix separately!!
+  if (TString(ds.c_str()).Contains("2023P8-BPix") || ds=="2023QCD-BPix" || ds=="2023P8-BPixX" ||   TString(ds.c_str()).Contains("Summer23MGBPix_") ) { //earlier called: Summer2023, BPix separately!!
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", ""); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     #ifdef PNETREG
     jec = getFJC("", "Summer23BPixRun3_PNETREG_MC_L2Relative_AK4PUPPI", "");
@@ -604,7 +604,7 @@ void GamHistosFill::Loop()
   if (ds=="2018P8" || ds=="2018QCD") sera = "2018";
   if (ds=="2022P8" || ds=="2022QCD") sera = "2022";
   if (ds=="2022EEP8" || ds=="2022EEQCD") sera = "2022EE";
-  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix" ||
+  if ((TString(ds.c_str()).Contains("2023P8") && !TString(ds.c_str()).Contains("BPix") )|| ds=="2023QCD" || TString(ds.c_str()).Contains("2023P8-BPix") || ds=="2023QCD-BPix" ||
   TString(ds.c_str()).Contains("Summer23MG_") ||
   TString(ds.c_str()).Contains("Summer23MGBPix_")) sera = "2023"; //added 2023P8-BPix
   //
@@ -619,7 +619,7 @@ void GamHistosFill::Loop()
   //
   if (ds=="2022P8" || ds=="2022QCD") sera = "2022";
   if (ds=="2022EEP8" || ds=="2022EEQCD") sera = "2022EE";
-  if (ds=="2023P8" || ds=="2023QCD" || ds=="2023P8-BPix" || ds=="2023QCD-BPix") sera = "2023"; //added 2023P8-BPix
+  if ((TString(ds.c_str()).Contains("2023P8") && !TString(ds.c_str()).Contains("BPix") ) || ds=="2023QCD" || TString(ds.c_str()).Contains("2023P8-BPix")  || ds=="2023QCD-BPix") sera = "2023"; //added 2023P8-BPix
   if (ds=="2023P8X" || ds=="2023QCDX" || ds=="2023P8-BPixX" || ds=="2023QCD-BPixX") sera = "2023"; //added for w23X and w22X
   if (ds=="2022C" || ds=="2022D") sera ="2022";
   if (ds=="2022E" || ds=="2022F" || ds=="2022G") sera = "2022EE";

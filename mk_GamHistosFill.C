@@ -80,8 +80,8 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
 		dataset=="2022P8" || //dataset=="2022QCD" ||
 		dataset=="2022EEP8" || //dataset=="2022EEQCD" ||
                 dataset=="2023P8X" || dataset=="2023P8-BPixX"|| //for my test wX23
-		dataset=="2023P8" || //);// || dataset=="2023QCD");
-  		dataset=="2023P8-BPix"); //added the BPix MC files
+		(TString(dataset.c_str()).Contains("2023P8") && !TString(dataset.c_str()).Contains("BPix") ) || //);// || dataset=="2023QCD");
+  		TString(dataset.c_str()).Contains("2023P8-BPix") ); //added the BPix MC files
 
   bool addQCD = (dataset=="2016QCD" || dataset=="2016APVQCD" ||
 		 dataset=="2017QCD" || dataset=="2018QCD" ||

@@ -4,41 +4,51 @@ import argparse
 
 version = "w11"
 
-IOV_list = [
-    # "2023Cv123",
-    # "2023Cv4",
-    # "2023D",
-    # "2023P8-BPix",
-    # "2023P8",
-    # "Summer23MG_1",
-    "Summer23MG_2",
-    # "Summer23MG_3",
-    # "Summer23MG_4",
-    # "Summer23MG_5",
-    "Summer23MG_6",
-    # "Summer23MGBPix_1",
-    # "Summer23MGBPix_2",
-    # "Summer23MGBPix_3",
-    # "Summer23MGBPix_4",
-]
+IOV_list = (
+    [
+        "2023Cv123",
+        "2023Cv4",
+        "2023D",
+        # "2023P8-BPix",
+        # "2023P8",
+        # "Summer23MG_1",
+        # "Summer23MG_2",
+        # "Summer23MG_3",
+        # "Summer23MG_4",
+        # "Summer23MG_5",
+        # "Summer23MG_6",
+        # "Summer23MGBPix_1",
+        # "Summer23MGBPix_2",
+        # "Summer23MGBPix_3",
+        # "Summer23MGBPix_4",
+    ]
+    + [file for file in os.listdir("inputfiles/") if "Summer23MG_" in file]
+    + [file for file in os.listdir("inputfiles/") if "Summer23MGBPix_" in file]
+    + [
+        file
+        for file in os.listdir("inputfiles/")
+        if "2023P8" in file and "BPix" not in file
+    ]
+    + [file for file in os.listdir("inputfiles/") if "2023P8-BPix" in file],
+)
 
 res_iovs = {
     # dataset: [memory, hours, days]
-    "2023Cv123": [5, 12, ""],#[10, 0, "3-"],
-    "2023Cv4": [5, 12, ""],#[10, 0, "3-"],
-    "2023D": [5, 12, ""],#[10, 0, "3-"],
+    "2023Cv123": [5, 12, ""],  # [10, 0, "3-"],
+    "2023Cv4": [5, 12, ""],  # [10, 0, "3-"],
+    "2023D": [5, 12, ""],  # [10, 0, "3-"],
     "2023P8-BPix": [10, 0, "3-"],
     "2023P8": [10, 0, "3-"],
     "Summer23MG_1": [10, 0, "3-"],
     "Summer23MG_2": [10, 0, "3-"],
-    "Summer23MG_3": [5, 12, ""],#[10, 0, "3-"],
-    "Summer23MG_4": [5, 12, ""],#[10, 0, "3-"],
-    "Summer23MG_5": [5, 12, ""],#[10, 0, "3-"],
-    "Summer23MG_6": [5, 12, ""],#[10, 0, "3-"],
+    "Summer23MG_3": [5, 12, ""],  # [10, 0, "3-"],
+    "Summer23MG_4": [5, 12, ""],  # [10, 0, "3-"],
+    "Summer23MG_5": [5, 12, ""],  # [10, 0, "3-"],
+    "Summer23MG_6": [5, 12, ""],  # [10, 0, "3-"],
     "Summer23MGBPix_1": [10, 0, "3-"],
     "Summer23MGBPix_2": [10, 0, "3-"],
-    "Summer23MGBPix_3": [5, 12, ""],#[10, 0, "3-"],
-    "Summer23MGBPix_4": [5, 12, ""],#[10, 0, "3-"],
+    "Summer23MGBPix_3": [5, 12, ""],  # [10, 0, "3-"],
+    "Summer23MGBPix_4": [5, 12, ""],  # [10, 0, "3-"],
 }
 
 parser = argparse.ArgumentParser(description="Run all IOVs")
