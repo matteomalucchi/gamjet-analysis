@@ -1,14 +1,17 @@
 #! /usr/bin/python
 import os
 import argparse
+import time
 
 version = "w11"
+
 
 IOV_list = (
     [
         "2023Cv123",
         "2023Cv4",
         "2023D",
+        #
         # "2023P8-BPix",
         # "2023P8",
         # "Summer23MG_1",
@@ -41,12 +44,14 @@ IOV_list = (
         file.replace(".txt", "").replace("mcFiles_", "")
         for file in os.listdir("input_files/")
         if "2023P8-BPix" in file and "all" not in file
-    ],
+    ]
 )
+
+# IOV_list=["Summer23MG_6"]
 
 res_iovs = {
     # dataset: [memory, hours, days]
-    "2023Cv123": [5, 12, ""],  # [10, 0, "3-"],
+    "2023Cv123": [3, 2, ""],  # [10, 0, "3-"],
     "2023Cv4": [5, 12, ""],  # [10, 0, "3-"],
     "2023D": [5, 12, ""],  # [10, 0, "3-"],
     # "2023P8-BPix": [10, 0, "3-"],
@@ -64,7 +69,9 @@ res_iovs = {
 }
 res_iovs.update(
     {
-        file.replace(".txt", "").replace("mcFiles_", ""): [5, 12, ""]
+        file.replace(".txt", "").replace("mcFiles_", ""): (
+            [5, 12, ""] if "BPix" not in file else [3, 2, ""]
+        )
         for file in os.listdir("input_files/")
         if ("mcFiles_" in file) and "all" not in file
     }
@@ -76,6 +83,8 @@ parser.add_argument("-i", "--IOV_list", nargs="+", default=[])
 parser.add_argument("-v", "--version", default=version)
 parser.add_argument("-l", "--local", default=False, action="store_true")
 parser.add_argument("--max_files", default=9999)
+parser.add_argument("-n", "--neutrino", default=False, action="store_true")
+parser.add_argument("-f", "--fast", default=False, action="store_true")
 args = parser.parse_args()
 
 if args.IOV_list and "all" not in args.IOV_list:
@@ -96,6 +105,67 @@ if not os.path.exists("rootfiles/" + version):
 
 if not os.path.exists("logs/" + version):
     os.makedirs("logs/" + version)
+
+
+if not args.fast:
+
+    print("Setting up PNetReg with or without neutrino")
+    # choose is pnetreg or pnetregneutrino
+    with open("GamHistosFill.C", "r") as file:
+        filedata = file.read()
+
+    if not args.neutrino:
+        if "// #define PNETREG\n" in filedata:
+            print("uncommenting PNETREG")
+            filedata = filedata.replace("// #define PNETREG\n", "#define PNETREG\n")
+        if not "// #define PNETREGNEUTRINO\n" in filedata:
+            print("commenting PNETREGNEUTRINO")
+            filedata = filedata.replace(
+                "#define PNETREGNEUTRINO\n", "// #define PNETREGNEUTRINO\n"
+            )
+    else:
+        if "// #define PNETREGNEUTRINO\n" in filedata:
+            print("uncommenting PNETREGNEUTRINO")
+            filedata = filedata.replace(
+                "// #define PNETREGNEUTRINO\n", "#define PNETREGNEUTRINO\n"
+            )
+        if not "// #define PNETREG\n" in filedata:
+            print("commenting PNETREG")
+            filedata = filedata.replace("#define PNETREG\n", "// #define PNETREG\n")
+
+    with open("GamHistosFill.C", "w") as file:
+        file.write(filedata)
+
+    time.sleep(10)
+
+    # uncomment GPU
+    with open("mk_GamHistosFill.C", "r") as file:
+        filedata = file.read()
+
+    if "// #define GPU" in filedata:
+        print("uncommenting GPU")
+        filedata = filedata.replace("// #define GPU", "#define GPU")
+
+    with open("mk_GamHistosFill.C", "w") as file:
+        file.write(filedata)
+
+    time.sleep(10)
+
+    # clean and make
+    os.system("make clean")
+    os.system("make")
+
+    # comment GPU
+    with open("mk_GamHistosFill.C", "r") as file:
+        filedata = file.read()
+
+    filedata = filedata.replace("#define GPU", "// #define GPU")
+    print("commenting GPU")
+
+    with open("mk_GamHistosFill.C", "w") as file:
+        file.write(filedata)
+    time.sleep(10)
+
 
 # os.system("rm *.so *.d *.pcm")
 # os.system("root -l -b -q mk_CondFormats.C")
