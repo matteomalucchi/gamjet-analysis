@@ -8,6 +8,7 @@ parser = argparse.ArgumentParser(description="Run all IOVs")
 # The user can pass the IOV list, version, max number of files as an argument
 # parser.add_argument("-i", '--IOV_list', nargs='+', default=IOV_input)
 parser.add_argument("-v", "--version", default=version)
+parser.add_argument("-f", "--force", default=False, action="store_true")
 args = parser.parse_args()
 
 version = args.version
@@ -54,7 +55,7 @@ MC_list_of_lists = [
         if "Summer23MG_" in file and "all" not in file
     ],
     [
-        file.replace(".txt", "")
+        file.replace(".txt", "").replace("mcFiles_", "")
         for file in os.listdir("input_files/")
         if "Summer23MGBPix_" in file and "all" not in file
     ],
@@ -71,8 +72,8 @@ MC_list_of_lists = [
 ]
 
 suffix_dict = {
-    "Summer23MG_": "2023QCD",
-    "Summer23MGBPix_": "2023QCD-BPix",
+    "Summer23MG": "2023QCD",
+    "Summer23MGBPix": "2023QCD-BPix",
     "2023P8": "2023P8",
     "2023P8-BPix": "2023P8-BPix",
 }
@@ -87,7 +88,8 @@ for IOV_list in IOV_list_of_lists:
         + IOV_list[0]
         + "_"
         + version
-        + ".root"
+        + ".root "
+        + ("-f " if args.force else "")
     )
     for iov in IOV_list:
         command = (
@@ -110,7 +112,8 @@ for MC_list in MC_list_of_lists:
         ("hadd rootfiles/" + version + "/GamHistosFill_mc_" + suffix)
         + "_"
         + version
-        + ".root"
+        + ".root "
+        + ("-f " if args.force else "")
     )
     print("\n", command)
     for mc in MC_list:

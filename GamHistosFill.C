@@ -19,6 +19,8 @@ using namespace std;
 #define PNETREG
 // #define PNETREGNEUTRINO
 
+bool CLOSURE_L2RES = false;
+bool CLOSURE_L2L3RES = true;
 
 
 bool _gh_debug = false;
@@ -538,10 +540,12 @@ void GamHistosFill::Loop()
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023Cv123_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     #ifdef PNETREG
     jec = getFJC("", "Summer23Run3_V3_MC_L2Relative_AK4PFPNet",
-      "");
+                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv123_V1_MC_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023Cv123_V1_MC_L2Residual_AK4PFPNet" : ""));
     #elif defined PNETREGNEUTRINO
     jec = getFJC("", "Summer23Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
-      "");
+                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv123_V1_MC_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023Cv123_V1_MC_L2Residual_AK4PFPNetPlusNeutrino" : ""));
     #else
     jec = getFJC("", "Summer23Run3_V1_MC_L2Relative_AK4PUPPI",
 			"Summer23Prompt23_Run2023Cv123_V2_DATA_L2L3Residual_AK4PFPuppi"); //29th of Feb2024, w7 and onwards
@@ -556,10 +560,12 @@ void GamHistosFill::Loop()
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023Cv4_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     #ifdef PNETREG
     jec = getFJC("", "Summer23Run3_V3_MC_L2Relative_AK4PFPNet",
-      "");
+                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv4_V1_MC_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023Cv4_V1_MC_L2Residual_AK4PFPNet" : ""));
     #elif defined PNETREGNEUTRINO
     jec = getFJC("", "Summer23Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
-      "");
+                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv4_V1_MC_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023Cv4_V1_MC_L2Residual_AK4PFPNetPlusNeutrino" : ""));
     #else
     jec = getFJC("","Summer23Run3_V1_MC_L2Relative_AK4PUPPI",
 			"Summer23Prompt23_Run2023Cv4_V2_DATA_L2L3Residual_AK4PFPuppi"); //29th of Feb2024, w7 and onwards
@@ -574,10 +580,12 @@ void GamHistosFill::Loop()
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     #ifdef PNETREG
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PFPNet",
-      "");
+                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023D_V1_MC_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023D_V1_MC_L2Residual_AK4PFPNet" : ""));
     #elif defined PNETREGNEUTRINO
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
-      "");
+                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023D_V1_MC_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023D_V1_MC_L2Residual_AK4PFPNetPlusNeutrino" : ""));
     #else
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI",
                         "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPuppi"); //9th of Mar2024, w8 (fixed this...)

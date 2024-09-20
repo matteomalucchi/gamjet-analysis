@@ -11,19 +11,6 @@ IOV_list = (
         "2023Cv123",
         "2023Cv4",
         "2023D",
-        #
-        # "2023P8-BPix",
-        # "2023P8",
-        # "Summer23MG_1",
-        # "Summer23MG_2",
-        # "Summer23MG_3",
-        # "Summer23MG_4",
-        # "Summer23MG_5",
-        # "Summer23MG_6",
-        # "Summer23MGBPix_1",
-        # "Summer23MGBPix_2",
-        # "Summer23MGBPix_3",
-        # "Summer23MGBPix_4",
     ]
     + [
         file.replace(".txt", "").replace("mcFiles_", "")
@@ -47,7 +34,11 @@ IOV_list = (
     ]
 )
 
-# IOV_list=["Summer23MG_6"]
+IOV_list = [
+    file.replace(".txt", "").replace("mcFiles_", "")
+    for file in os.listdir("input_files/")
+    if "2023P8" in file and "BPix" not in file and "all" not in file
+]
 
 res_iovs = {
     # dataset: [memory, hours, days]
@@ -70,7 +61,7 @@ res_iovs = {
 res_iovs.update(
     {
         file.replace(".txt", "").replace("mcFiles_", ""): (
-            [5, 12, ""] if "BPix" not in file else [3, 2, ""]
+            [5, 4, ""] if "BPix" not in file else [3, 2, ""]
         )
         for file in os.listdir("input_files/")
         if ("mcFiles_" in file) and "all" not in file
