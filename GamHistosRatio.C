@@ -16,7 +16,7 @@
 #include <iostream>
 using namespace std;
 
-string version = "mc_truth_below15_pnetreg";
+string version = "mc_truth_below15_pnetregneutrino_l2l3resclosure";
 
 
 // Patches to input raw gamma+jet

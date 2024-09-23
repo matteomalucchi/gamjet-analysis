@@ -25,4 +25,4 @@ for file_name in ["GamHistosMix", "GamHistosRatio"]:
     with open(f"{file_name}.C", "w") as file:
         file.write(filedata)
 
-    os.system(f"root -l -b {file_name}.C+g")
+    os.system(f"root -q -l -b {file_name}.C+g")

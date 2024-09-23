@@ -16,7 +16,7 @@
 
 bool _debug = false;
 
-string version = "mc_truth_below15_pnetreg";
+string version = "mc_truth_below15_pnetregneutrino_l2l3resclosure";
 
 // Scale EM jets (pi0->gamma+gamma) relative to prompt photons
 // Possible causes: EM shower containment, pi>gamma+gamma is a bit wider
