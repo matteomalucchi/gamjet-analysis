@@ -16,7 +16,7 @@
 
 bool _debug = false;
 
-string version = "mc_truth_below15_pnetregneutrino_l2l3resclosure";
+string version = "mc_truth_below15_2022_pnetregneutrino";
 
 // Scale EM jets (pi0->gamma+gamma) relative to prompt photons
 // Possible causes: EM shower containment, pi>gamma+gamma is a bit wider
@@ -45,16 +45,17 @@ void GamHistosMix() {
   */
 
   // v27->v29->v30->v31
-  /*
-  GamHistosMixEra("2022","v32");
-  GamHistosMixEra("2022EE","v32");
-  GamHistosMixEra("Run3","v32");
-  */
+
+  // GamHistosMixEra("Run3","v32");
+
 
   //w1
 
-  GamHistosMixEra("2023",version); //make this contain MC without BPix issue
-  GamHistosMixEra("2023-BPix",version); //MC accounted for BPix issue
+  GamHistosMixEra("2022",version);
+  GamHistosMixEra("2022EE",version);
+
+  // GamHistosMixEra("2023",version); //make this contain MC without BPix issue
+  // GamHistosMixEra("2023-BPix",version); //MC accounted for BPix issue
 }
 
 TF1 *_f1p(0);

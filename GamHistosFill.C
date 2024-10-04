@@ -20,7 +20,7 @@ using namespace std;
 #define PNETREGNEUTRINO
 
 bool CLOSURE_L2RES = false;
-bool CLOSURE_L2L3RES = true;
+bool CLOSURE_L2L3RES = false;
 
 
 bool _gh_debug = false;
@@ -470,36 +470,98 @@ void GamHistosFill::Loop()
   // FactorizedJetCorrector for redoing JEC on the fly.
   //2022
   if (ds=="2022C") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer22Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer22Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #else
     jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI",
 		 //"Run22CD-22Sep2023_DATA_L2L3Residual_AK4PFPuppi");
 		 "Summer22-22Sep2023_Run2022CD_V3_DATA_L2L3Residual_AK4PFPuppi");
+    #endif
   }
   if (ds=="2022D") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer22Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer22Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #else
     jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI",
 		 //"Run22CD-22Sep2023_DATA_L2L3Residual_AK4PFPuppi");
 		 "Summer22-22Sep2023_Run2022CD_V3_DATA_L2L3Residual_AK4PFPuppi");
+    #endif
   }
   if (ds=="2022E") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer22EE-22Sep2023_Run2022E_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer22EE-22Sep2023_Run2022E_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer22EE-22Sep2023_Run2022E_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer22EE-22Sep2023_Run2022E_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #else
     jec = getFJC("", "Summer22EEVetoRun3_V1_MC_L2Relative_AK4PUPPI",
 		 //"Run22E-22Sep2023_DATA_L2L3Residual_AK4PFPuppi");
 		 "Summer22EE-22Sep2023_Run2022E_V3_DATA_L2L3Residual_AK4PFPuppi");
+    #endif
   }
   if (ds=="2022F") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022F_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer22EEPrompt22_Run2022F_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022F_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer22EEPrompt22_Run2022F_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #else
     jec = getFJC("", "Summer22EEVetoRun3_V1_MC_L2Relative_AK4PUPPI",
 		 //"Run22F-Prompt_DATA_L2L3Residual_AK4PFPuppi");
 		 "Summer22EEPrompt22_Run2022F_V3_DATA_L2L3Residual_AK4PFPuppi");
+    #endif
   }
   if (ds=="2022G") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022G_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer22EEPrompt22_Run2022G_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022G_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer22EEPrompt22_Run2022G_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #else
     jec = getFJC("", "Summer22EEVetoRun3_V1_MC_L2Relative_AK4PUPPI",
 		 //"Run22G-Prompt_DATA_L2L3Residual_AK4PFPuppi");
 		 "Summer22EEPrompt22_Run2022G_V3_DATA_L2L3Residual_AK4PFPuppi");
+    #endif
   }
   //22/23 MC
-  if (ds=="2022P8" || ds=="2022QCD") {
+  if (ds=="2022P8" || ds=="2022QCD" || TString(ds.c_str()).Contains("Summer22MG_") || TString(ds.c_str()).Contains("2022P8")) {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer22Run3_V3_MC_L2Relative_AK4PFPNet", "");
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer22Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino", "");
+    #else
     jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI","");
+    #endif
   }
-  if (ds=="2022EEP8" || ds=="2022EEQCD") {
+  if (ds=="2022EEP8" || ds=="2022EEQCD" || TString(ds.c_str()).Contains("Summer22EEMG_") || TString(ds.c_str()).Contains("2022EEP8")) {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNet", "");
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino", "");
+    #else
     jec = getFJC("", "Summer22EEVetoRun3_V1_MC_L2Relative_AK4PUPPI", "");
+    #endif
   }
  /*
   if (dataset=="Summer23") { //includes thus both BPix corrected ones and the ones without it
@@ -625,8 +687,8 @@ void GamHistosFill::Loop()
       ds=="2018D"||ds=="2018D1"||ds=="2018D2"||ds=="2018D3"||ds=="2018D4")
     sera = "2018";
   //
-  if (ds=="2022P8" || ds=="2022QCD") sera = "2022";
-  if (ds=="2022EEP8" || ds=="2022EEQCD") sera = "2022EE";
+  if (ds=="2022P8" || ds=="2022QCD" || TString(ds.c_str()).Contains("Summer22MG_") || TString(ds.c_str()).Contains("2022P8")) sera = "2022";
+  if (ds=="2022EEP8" || ds=="2022EEQCD" || TString(ds.c_str()).Contains("Summer22EEMG_") || TString(ds.c_str()).Contains("2022EEP8")) sera = "2022EE";
   if ((TString(ds.c_str()).Contains("2023P8") && TString(ds.c_str()).Contains("BPix") ==false) || ds=="2023QCD" || TString(ds.c_str()).Contains("2023P8-BPix")  || ds=="2023QCD-BPix") sera = "2023"; //added 2023P8-BPix
   if (ds=="2023P8X" || ds=="2023QCDX" || ds=="2023P8-BPixX" || ds=="2023QCD-BPixX") sera = "2023"; //added for w23X and w22X
   if (ds=="2022C" || ds=="2022D") sera ="2022";
@@ -671,17 +733,19 @@ void GamHistosFill::Loop()
     fjv = new TFile("files/hotjets-UL17_v2.root","READ");
   if (TString(ds.c_str()).Contains("2018"))
     fjv = new TFile("files/hotjets-UL18.root","READ");
-  if (TString(ds.c_str()).Contains("2022")) {
+  if (TString(ds.c_str()).Contains("22")) {
     if (TString(ds.c_str()).Contains("2022C") ||
 	TString(ds.c_str()).Contains("2022D") ||
 	TString(ds.c_str()).Contains("2022P8") ||
-      	TString(ds.c_str()).Contains("2022QCD"))
+      	TString(ds.c_str()).Contains("2022QCD") ||
+      	TString(ds.c_str()).Contains("Summer22MG"))
       fjv = new TFile("files/jetveto2022CD.root","READ");
     if (TString(ds.c_str()).Contains("2022E") || // incl. EEP8
 	TString(ds.c_str()).Contains("2022F") ||
 	TString(ds.c_str()).Contains("2022G") ||
       	TString(ds.c_str()).Contains("2022EEP8") ||
-	TString(ds.c_str()).Contains("2022EEQCD") )
+	TString(ds.c_str()).Contains("2022EEQCD") ||
+      	TString(ds.c_str()).Contains("Summer22EEMG"))
       fjv = new TFile("files/jetveto2022EFG.root","READ");
   }
   if (TString(ds.c_str()).Contains("23")) {
@@ -724,7 +788,7 @@ void GamHistosFill::Loop()
     h2jv = (TH2D*)fjv->Get("h2hot_ul17_plus_hep17_plus_hbpw89");
   if (TString(ds.c_str()).Contains("2018"))
     h2jv = (TH2D*)fjv->Get("h2hot_ul18_plus_hem1516_and_hbp2m1");
-  if (TString(ds.c_str()).Contains("2022") ||
+  if (TString(ds.c_str()).Contains("22") ||
       TString(ds.c_str()).Contains("23") ||
       TString(ds.c_str()).Contains("2024"))
     h2jv = (TH2D*)fjv->Get("jetvetomap");

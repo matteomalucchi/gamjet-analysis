@@ -6,7 +6,7 @@ version = "tot_23_pnetreg_ok"
 parser = argparse.ArgumentParser(description="Run all IOVs")
 
 # The user can pass the IOV list, version, max number of files as an argument
-# parser.add_argument("-i", '--IOV_list', nargs='+', default=IOV_input)
+parser.add_argument("-i", '--IOV_list', default="all")
 parser.add_argument("-v", "--version", default=version)
 parser.add_argument("-f", "--force", default=False, action="store_true")
 args = parser.parse_args()
@@ -14,14 +14,13 @@ args = parser.parse_args()
 version = args.version
 
 # How to merge files into a bigger one. First one is the target
-# IOV_list= ['2018P8','2018A','2018B','2018C','2018D1','2018D2']
 IOV_list_of_lists = [
     #    ['2016BCDEF','2016BCD','2016EF'],
     #    ['2017BCDEF','2017B','2017C','2017D','2017E','2017F'],
     #    ['2018ABCD','2018A1','2018A2','2018B','2018C',
     #     '2018D1','2018D2','2018D3','2018D4'],
     #    ['Run2','2016BCDEF','2016FGH','2017BCDEF','2018ABCD']
-    #    ['2022CD','2022C','2022D'],
+       ['2022CD','2022C','2022D'],
     #    ['2022CDE','2022C','2022D','2022E'],
     #    ['2022FG','2022F','2022G'],
     #    ['2023Cv4D','2023Cv4','2023D'],
@@ -69,13 +68,62 @@ MC_list_of_lists = [
         for file in os.listdir("input_files/")
         if "2023P8-BPix" in file and "all" not in file
     ],
+
+    [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "Summer22MG_" in file and "all" not in file
+    ],
+    [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "Summer22EEMG_" in file and "all" not in file
+    ],
+    [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "2022P8" in file and "BPix" not in file and "all" not in file
+    ],
+    [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "2022EEP8" in file and "all" not in file
+    ],
 ]
+
+
+new_IOV_list_of_lists = []
+new_MC_list_of_lists = []
+
+for year in ["22", "23"]:
+    if args.IOV_list == year:
+        print(year)
+        for i, iov_list in enumerate(IOV_list_of_lists):
+            # print(iov_list, i)
+            if year in iov_list[0]:
+                new_IOV_list_of_lists.append(iov_list)
+        for i, iov_list in enumerate(MC_list_of_lists):
+            # print(iov_list, i)
+
+            if year in iov_list[0]:
+                new_MC_list_of_lists.append(iov_list)
+
+
+IOV_list_of_lists = new_IOV_list_of_lists
+MC_list_of_lists = new_MC_list_of_lists
+print(IOV_list_of_lists)
+print(MC_list_of_lists)
+
 
 suffix_dict = {
     "Summer23MG": "2023QCD",
     "Summer23MGBPix": "2023QCD-BPix",
     "2023P8": "2023P8",
     "2023P8-BPix": "2023P8-BPix",
+    "Summer22MG": "2022QCD",
+    "Summer22EEMG": "2022EEQCD",
+    "2022P8": "2022P8",
+    "2022EEP8": "2022EEP8",
 }
 
 
@@ -84,14 +132,14 @@ for IOV_list in IOV_list_of_lists:
     command = (
         "hadd rootfiles/"
         + version
-        + "/GamHistosFill_data_cmb_"
+        + "/GamHistosFill_data_"
         + IOV_list[0]
         + "_"
         + version
         + ".root "
         + ("-f " if args.force else "")
     )
-    for iov in IOV_list:
+    for iov in IOV_list[1:]:
         command = (
             command
             + " rootfiles/"

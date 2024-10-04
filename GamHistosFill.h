@@ -560,7 +560,8 @@ GamHistosFill::GamHistosFill(TTree *tree, int itype, string datasetname, string 
 	  ds=="2018ABCD" || ds=="2018P8" || ds=="2018QCD");
   is22 = (ds=="2022C" || ds=="2022D" || ds=="2022E" || ds=="2022F" ||
 	  ds=="2022G" || ds=="2022P8" || ds=="2022QCD" || ds=="2022EEP8" ||
-	  ds=="2022EEQCD");
+	  ds=="2022EEQCD" || TString(ds.c_str()).Contains("2022P8") || TString(ds.c_str()).Contains("Summer22MG") ||
+     TString(ds.c_str()).Contains("2022EEP8") || TString(ds.c_str()).Contains("Summer22EEMG"));
   //is22v10 = (ds=="2022F" || ds=="2022G" ||
   is22v10 = false;//(ds=="2022G");
   is23 = (ds=="2023B" || ds=="2023Cv123" || ds=="2023Cv4" || ds=="2023D" ||
@@ -572,13 +573,17 @@ GamHistosFill::GamHistosFill(TTree *tree, int itype, string datasetname, string 
   is24 = (ds=="2024B-PromptReco-v1" || ds=="2024B" || ds=="2024C" ||
           ds=="2024P8" || ds=="2024QCD"); //added these already, even though no MC for 2024 yet
   isQCD = (ds=="2016QCD" || ds=="2016QCDAPV" || ds=="2017QCD" ||
-	   ds=="2018QCD" || ds=="2022QCD" || ds=="2022EEQCD" ||
+	   ds=="2018QCD" || ds=="2022QCD" || ds=="2022EEQCD"  ||
+     TString(ds.c_str()).Contains("Summer22MG") || TString(ds.c_str()).Contains("Summer22EEMG") ||
            ds=="2023QCD" || ds=="2023QCD-BPix" ||
            ds=="2024QCD" ||  //added 2024QCD already here
            TString(ds.c_str()).Contains("Summer23MG_") ||
                 TString(dataset.c_str()).Contains("Summer23MGBPix_") );
   isMG = (ds=="2022P8" || ds=="2022EEP8" || ds=="2022QCD" || ds=="2022EEQCD" ||
-           (TString(ds.c_str()).Contains("2023P8") && TString(ds.c_str()).Contains("BPix")==false ) || ds=="2023QCD" || TString(ds.c_str()).Contains("2023P8-BPix") || ds=="2023QCD-BPix" || //); //should 2023P8 and 2023P8_BPix be added here, too? (for correct weight in HT bins)
+          TString(ds.c_str()).Contains("2022P8") || TString(ds.c_str()).Contains("Summer22MG") ||
+            TString(ds.c_str()).Contains("2022EEP8") || TString(ds.c_str()).Contains("Summer22EEMG") ||
+           (TString(ds.c_str()).Contains("2023P8") && TString(ds.c_str()).Contains("BPix")==false ) || ds=="2023QCD" ||
+           TString(ds.c_str()).Contains("2023P8-BPix") || ds=="2023QCD-BPix" || //); //should 2023P8 and 2023P8_BPix be added here, too? (for correct weight in HT bins)
            ds=="2024P8"  || //added already here
            TString(ds.c_str()).Contains("Summer23MG_") ||
                 TString(dataset.c_str()).Contains("Summer23MGBPix_") );

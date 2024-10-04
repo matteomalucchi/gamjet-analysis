@@ -32,23 +32,67 @@ IOV_list = (
         for file in os.listdir("input_files/")
         if "2023P8-BPix" in file and "all" not in file
     ]
+        + [
+        "2022C",
+        "2022D",
+        "2022E",
+        "2022F",
+        "2022G",
+    ]
+    + [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "Summer22MG_" in file and "all" not in file
+    ]
+    + [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "Summer22EEMG_" in file and "all" not in file
+    ]
+    + [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "2022P8" in file and "all" not in file
+    ]
+    + [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "2022EEP8" in file and "all" not in file
+    ]
+
 )
+
+IOV_list = ["2022F"]
 
 res_iovs = {
     # dataset: [memory, hours, days]
     "2023Cv123": [3, 2, ""],  # [10, 0, "3-"],
     "2023Cv4": [5, 12, ""],  # [10, 0, "3-"],
     "2023D": [5, 12, ""],  # [10, 0, "3-"],
+    "2022C": [5, 12, ""],
+    "2022D": [5, 12, ""],
+    "2022E": [5, 12, ""],
+    "2022F": [5, 12, ""],
+    "2022G": [5, 12, ""],
+    "2022C_ZB": [5, 12, ""],
+    "2022D_ZB": [5, 12, ""],
+    "2022E_ZB": [5, 12, ""],
+    "2022F_ZB": [5, 12, ""],
+    "2022G_ZB": [5, 12, ""],
 }
 res_iovs.update(
     {
         file.replace(".txt", "").replace("mcFiles_", ""): (
-            [5, 4, ""] if "BPix" not in file else [3, 2, ""]
+            [5, 4, ""] #if "BPix" not in file else [3, 2, ""]
         )
         for file in os.listdir("input_files/")
         if ("mcFiles_" in file) and "all" not in file
     }
 )
+
+run3_23 = [x for x in IOV_list if "23" in x]
+run3_22 = [x for x in IOV_list if "22" in x]
+
 parser = argparse.ArgumentParser(description="Run all IOVs")
 
 # The user can pass the IOV list, version, max number of files as an argument
@@ -61,9 +105,12 @@ parser.add_argument("-c", "--closure", default=False, action="store_true")
 parser.add_argument("-f", "--fast", default=False, action="store_true")
 args = parser.parse_args()
 
-if args.IOV_list and "all" not in args.IOV_list:
+if "23" in args.IOV_list:
+    IOV_list = run3_23
+elif "22" in args.IOV_list:
+    IOV_list = run3_22
+elif args.IOV_list and "all" not in args.IOV_list:
     IOV_list = args.IOV_list
-
 print("IOVs to run: ", IOV_list)
 
 

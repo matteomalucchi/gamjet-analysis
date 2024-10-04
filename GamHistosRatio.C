@@ -16,7 +16,7 @@
 #include <iostream>
 using namespace std;
 
-string version = "mc_truth_below15_pnetregneutrino_l2l3resclosure";
+string version = "mc_truth_below15_2022_pnetregneutrino";
 
 
 // Patches to input raw gamma+jet
@@ -67,13 +67,6 @@ void GamHistosRatio(string ver = version) {
   //GamHistosRatios(ver,"2023Cv123");
   //GamHistosRatios(ver,"2023Cv4");
 
-  //GamHistosRatios(ver,"2022CD");
-  //GamHistosRatios(ver,"2022E");
-  //GamHistosRatios(ver,"2022FG");
-
-  GamHistosRatios(ver,"2023Cv123");
-  GamHistosRatios(ver,"2023Cv4");
-  GamHistosRatios(ver,"2023D");
 
   // GamHistosRatios(ver,"2024B");
   // GamHistosRatios(ver,"2024C");
@@ -82,6 +75,17 @@ void GamHistosRatio(string ver = version) {
   //GamHistosRatios(ver,"2023Cv4D");
   //GamHistosRatios(ver,"Run3");
 
+
+  GamHistosRatios(ver,"2022C");
+  GamHistosRatios(ver,"2022D");
+  GamHistosRatios(ver,"2022CD");
+  GamHistosRatios(ver,"2022E");
+  GamHistosRatios(ver,"2022F");
+  GamHistosRatios(ver,"2022G");
+
+  // GamHistosRatios(ver,"2023Cv123");
+  // GamHistosRatios(ver,"2023Cv4");
+  // GamHistosRatios(ver,"2023D");
 }
 
 void GamHistosRatios(string ver, string iov) {

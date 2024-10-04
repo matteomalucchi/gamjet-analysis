@@ -77,8 +77,10 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
 
   bool addMC = (dataset=="2016P8" || dataset=="2017P8" || dataset=="2018P8" ||
 		dataset=="2016APVP8" ||
-		dataset=="2022P8" || //dataset=="2022QCD" ||
+		dataset=="2022P8" || // dataset=="2022QCD" ||
+     TString(dataset.c_str()).Contains("2022P8") ||
 		dataset=="2022EEP8" || //dataset=="2022EEQCD" ||
+     TString(dataset.c_str()).Contains("2022EEP8") ||
                 dataset=="2023P8X" || dataset=="2023P8-BPixX"|| //for my test wX23
 		(TString(dataset.c_str()).Contains("2023P8") && TString(dataset.c_str()).Contains("BPix") ==false) || //);// || dataset=="2023QCD");
   		TString(dataset.c_str()).Contains("2023P8-BPix") ); //added the BPix MC files
@@ -86,6 +88,7 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
   bool addQCD = (dataset=="2016QCD" || dataset=="2016APVQCD" ||
 		 dataset=="2017QCD" || dataset=="2018QCD" ||
 		 dataset=="2022QCD" || dataset=="2022EEQCD" ||
+     TString(dataset.c_str()).Contains("Summer22MG") || TString(dataset.c_str()).Contains("Summer22EEMG") ||
                  dataset=="2023QCDX" || dataset=="2023QCD-BPixX" || //for my test wX23
 		 dataset=="2023QCD" || dataset=="2023QCD-BPix" || //added BPix QCD MC
       TString(dataset.c_str()).Contains("Summer23MG_") ||
