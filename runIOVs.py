@@ -98,6 +98,7 @@ parser.add_argument("-v", "--version", required=True)
 parser.add_argument("-l", "--local", default=False, action="store_true", help="Run locally in the background")
 parser.add_argument("-d", "--debug", default=False, action="store_true", help="Run locally printing the log")
 parser.add_argument("--max_files", default=9999)
+parser.add_argument("-p", "--pnetreg", default=False, action="store_true")
 parser.add_argument("-n", "--neutrino", default=False, action="store_true")
 parser.add_argument("-c", "--closure", default=False, action="store_true")
 parser.add_argument("-f", "--fast", default=False, action="store_true")
@@ -125,22 +126,26 @@ if not os.path.exists("rootfiles/" + version):
 if not os.path.exists("logs/" + version):
     os.makedirs("logs/" + version)
 
-closure=args.closure
-if "closure" in version:
-    closure=True
+pnetreg = args.pnetreg
+if "pnetreg" in version:
+    pnetreg = True
 
-neutrino=args.neutrino
+neutrino = args.neutrino
 if "neutrino" in version:
-    neutrino=True
+    neutrino = True
+
+closure = args.closure
+if "closure" in version:
+    closure = True
+
 
 if not args.fast:
-    # choose is pnetreg or pnetregneutrino
+    # choose if pnetreg or pnetregneutrino
     with open("GamHistosFill.C", "r") as file:
         filedata = file.read()
 
-    if not neutrino:
+    if pnetreg and not neutrino:
         print("Setting up PNetReg without neutrino")
-
         if "// #define PNETREG\n" in filedata:
             print("uncommenting PNETREG")
             filedata = filedata.replace("// #define PNETREG\n", "#define PNETREG\n")
@@ -149,9 +154,8 @@ if not args.fast:
             filedata = filedata.replace(
                 "#define PNETREGNEUTRINO\n", "// #define PNETREGNEUTRINO\n"
             )
-    else:
+    elif pnetreg and neutrino:
         print("Setting up PNetReg with neutrino")
-
         if "// #define PNETREGNEUTRINO\n" in filedata:
             print("uncommenting PNETREGNEUTRINO")
             filedata = filedata.replace(
@@ -160,6 +164,16 @@ if not args.fast:
         if not "// #define PNETREG\n" in filedata:
             print("commenting PNETREG")
             filedata = filedata.replace("#define PNETREG\n", "// #define PNETREG\n")
+    else:
+        print("Using standard jet pT")
+        if not "// #define PNETREG\n" in filedata:
+            print("commenting PNETREG")
+            filedata = filedata.replace("#define PNETREG\n", "// #define PNETREG\n")
+        if not "// #define PNETREGNEUTRINO\n" in filedata:
+            print("commenting PNETREGNEUTRINO")
+            filedata = filedata.replace(
+                "#define PNETREGNEUTRINO\n", "// #define PNETREGNEUTRINO\n"
+            )
 
     # find line that starts with bool CLOSURE_L2L3RES
     for line in filedata.split("\n"):
