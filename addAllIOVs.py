@@ -20,14 +20,15 @@ IOV_list_of_lists = [
     #    ['2018ABCD','2018A1','2018A2','2018B','2018C',
     #     '2018D1','2018D2','2018D3','2018D4'],
     #    ['Run2','2016BCDEF','2016FGH','2017BCDEF','2018ABCD']
-       ['2022CD','2022C','2022D'],
     #    ['2022CDE','2022C','2022D','2022E'],
-    #    ['2022FG','2022F','2022G'],
     #    ['2023Cv4D','2023Cv4','2023D'],
     #    ['Run3','2022C','2022D','2022E','2022F','2022G',
     #     '2023Cv123','2023Cv4','2023D']
     # ['Run3Summer23', '2023Cv123', '2023Cv4','2023D']
     #    ['Run3', '2023Cv123', '2023Cv4','2023D']
+    #
+       ['2022CD','2022C','2022D'],
+       ['2022FG','2022F','2022G'],
 ]
 MC_list_of_lists = [
     #    ['Run2P8','2016P8','2016APVP8','2017P8','2018P8'],
@@ -48,6 +49,7 @@ MC_list_of_lists = [
     #     "Summer23MG_5",
     #     "Summer23MG_6",
     # ],
+    #
     [
         file.replace(".txt", "").replace("mcFiles_", "")
         for file in os.listdir("input_files/")
@@ -95,7 +97,7 @@ MC_list_of_lists = [
 new_IOV_list_of_lists = []
 new_MC_list_of_lists = []
 
-for year in ["22", "23"]:
+for year in ["2022", "2023"]:
     if args.IOV_list == year:
         print(year)
         for i, iov_list in enumerate(IOV_list_of_lists):
@@ -177,13 +179,3 @@ for MC_list in MC_list_of_lists:
         )
     print('"' + command + '"...')
     os.system(command)
-
-# for iov in IOV_list:
-#    print "Process GamHistFill.C for IOV "+iov
-#    os.system("ls -ltrh files/GamHistosFill_mc_"+iov+".root")
-#    os.system("ls -ltrh files/GamHistosFill_data_"+iov+".root")
-#    os.system("ls -ltrh log_"+iov+"_"+version+".txt")
-#    os.system("root -l -b -q 'mk_GamHistosFill.C(\""+iov+"\")' > log_"+iov+"_"+version+".txt &")
-#    os.system("fs flush")
-#    wait()
-#    time.sleep(sleep_time)

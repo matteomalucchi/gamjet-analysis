@@ -16,7 +16,8 @@
 #include <iostream>
 using namespace std;
 
-string version = "mc_truth_below15_2022_pnetregneutrino";
+string version = "mc_truth_below15_2022_pnetreg";
+string YEAR = "2022";
 
 
 // Patches to input raw gamma+jet
@@ -71,21 +72,24 @@ void GamHistosRatio(string ver = version) {
   // GamHistosRatios(ver,"2024B");
   // GamHistosRatios(ver,"2024C");
 
-
   //GamHistosRatios(ver,"2023Cv4D");
   //GamHistosRatios(ver,"Run3");
 
+  // GamHistosRatios(ver,"2022C");
+  // GamHistosRatios(ver,"2022D");
 
-  GamHistosRatios(ver,"2022C");
-  GamHistosRatios(ver,"2022D");
-  GamHistosRatios(ver,"2022CD");
-  GamHistosRatios(ver,"2022E");
-  GamHistosRatios(ver,"2022F");
-  GamHistosRatios(ver,"2022G");
-
-  // GamHistosRatios(ver,"2023Cv123");
-  // GamHistosRatios(ver,"2023Cv4");
-  // GamHistosRatios(ver,"2023D");
+  if (YEAR == "2023" || YEAR == "all"){
+    GamHistosRatios(ver,"2023Cv123");
+    GamHistosRatios(ver,"2023Cv4");
+    GamHistosRatios(ver,"2023D");
+  }
+  if (YEAR == "2022" || YEAR == "all"){
+    GamHistosRatios(ver,"2022CD");
+    GamHistosRatios(ver,"2022E");
+    GamHistosRatios(ver,"2022F");
+    GamHistosRatios(ver,"2022G");
+    GamHistosRatios(ver,"2022FG");
+  }
 }
 
 void GamHistosRatios(string ver, string iov) {

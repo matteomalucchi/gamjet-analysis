@@ -17,6 +17,7 @@
 bool _debug = false;
 
 string version = "mc_truth_below15_2022_pnetregneutrino";
+string YEAR = "2022";
 
 // Scale EM jets (pi0->gamma+gamma) relative to prompt photons
 // Possible causes: EM shower containment, pi>gamma+gamma is a bit wider
@@ -50,12 +51,14 @@ void GamHistosMix() {
 
 
   //w1
-
-  GamHistosMixEra("2022",version);
-  GamHistosMixEra("2022EE",version);
-
-  // GamHistosMixEra("2023",version); //make this contain MC without BPix issue
-  // GamHistosMixEra("2023-BPix",version); //MC accounted for BPix issue
+  if (YEAR == "2023" || YEAR == "all"){
+    GamHistosMixEra("2023",version); //make this contain MC without BPix issue
+    GamHistosMixEra("2023-BPix",version); //MC accounted for BPix issue
+  }
+  if (YEAR == "2022" || YEAR == "all"){
+    GamHistosMixEra("2022",version);
+    GamHistosMixEra("2022EE",version);
+  }
 }
 
 TF1 *_f1p(0);

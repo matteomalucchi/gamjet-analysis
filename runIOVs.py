@@ -3,9 +3,6 @@ import os
 import argparse
 import time
 
-version = "w11"
-
-
 IOV_list = (
     [
         "2023Cv123",
@@ -62,8 +59,9 @@ IOV_list = (
 
 )
 
-IOV_list = ["2022F"]
+# IOV_list = ["2022F"]
 
+# resources for slurm
 res_iovs = {
     # dataset: [memory, hours, days]
     "2023Cv123": [3, 2, ""],  # [10, 0, "3-"],
@@ -95,10 +93,10 @@ run3_22 = [x for x in IOV_list if "22" in x]
 
 parser = argparse.ArgumentParser(description="Run all IOVs")
 
-# The user can pass the IOV list, version, max number of files as an argument
 parser.add_argument("-i", "--IOV_list", nargs="+", default=[])
-parser.add_argument("-v", "--version", default=version)
-parser.add_argument("-l", "--local", default=False, action="store_true")
+parser.add_argument("-v", "--version", required=True)
+parser.add_argument("-l", "--local", default=False, action="store_true", help="Run locally in the background")
+parser.add_argument("-d", "--debug", default=False, action="store_true", help="Run locally printing the log")
 parser.add_argument("--max_files", default=9999)
 parser.add_argument("-n", "--neutrino", default=False, action="store_true")
 parser.add_argument("-c", "--closure", default=False, action="store_true")
@@ -228,6 +226,14 @@ for iov in IOV_list:
             + "_"
             + version
             + ".log &"
+        )
+    elif args.debug:
+        os.system(
+            "time root -l -b -q 'mk_GamHistosFill.C(\""
+            + iov
+            + '","'
+            + version
+            + "\")' "
         )
     else:
         os.system(
