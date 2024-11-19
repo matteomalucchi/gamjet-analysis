@@ -16,8 +16,8 @@
 
 bool _debug = false;
 
-string version = "mc_truth_below15_2022_pnetregneutrino";
-string YEAR = "2022";
+string version = "standardJetPt";
+string YEAR = "2023";
 
 // Scale EM jets (pi0->gamma+gamma) relative to prompt photons
 // Possible causes: EM shower containment, pi>gamma+gamma is a bit wider

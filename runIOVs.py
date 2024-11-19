@@ -59,7 +59,7 @@ IOV_list = (
 
 )
 
-# IOV_list = ["2022F"]
+# IOV_list = ["Summer22EEMG_4","Summer22EEMG_5", "Summer22EEMG_6"]
 
 # resources for slurm
 res_iovs = {
@@ -81,7 +81,7 @@ res_iovs = {
 res_iovs.update(
     {
         file.replace(".txt", "").replace("mcFiles_", ""): (
-            [5, 4, ""] #if "BPix" not in file else [3, 2, ""]
+            [6, 6, ""] #if "BPix" not in file else [3, 2, ""]
         )
         for file in os.listdir("input_files/")
         if ("mcFiles_" in file) and "all" not in file
@@ -93,7 +93,7 @@ run3_22 = [x for x in IOV_list if "22" in x]
 
 parser = argparse.ArgumentParser(description="Run all IOVs")
 
-parser.add_argument("-i", "--IOV_list", nargs="+", default=[])
+parser.add_argument("-i", "--IOV_list", required=True)
 parser.add_argument("-v", "--version", required=True)
 parser.add_argument("-l", "--local", default=False, action="store_true", help="Run locally in the background")
 parser.add_argument("-d", "--debug", default=False, action="store_true", help="Run locally printing the log")

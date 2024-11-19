@@ -16,8 +16,8 @@
 #include <iostream>
 using namespace std;
 
-string version = "mc_truth_below15_2022_pnetreg";
-string YEAR = "2022";
+string version = "standardJetPt";
+string YEAR = "2023";
 
 
 // Patches to input raw gamma+jet
