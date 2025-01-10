@@ -104,12 +104,25 @@ parser.add_argument("-c", "--closure", default=False, action="store_true")
 parser.add_argument("-f", "--fast", default=False, action="store_true")
 args = parser.parse_args()
 
-if "23" in args.IOV_list:
-    IOV_list = run3_23
-elif "22" in args.IOV_list:
-    IOV_list = run3_22
-elif args.IOV_list and "all" not in args.IOV_list:
-    IOV_list = args.IOV_list
+IOV_input = []
+if args.IOV_list:
+    if "all" in args.IOV_list:
+        IOV_input = IOV_list
+    elif "23" in args.IOV_list and args.IOV_list[0].isdigit():
+        IOV_input = run3_23
+    elif "22" in args.IOV_list and args.IOV_list[0].isdigit():
+        IOV_input = run3_22
+    else:
+        # Check that all IOVs passed are in the list
+        for iov in args.IOV_list:
+            if iov not in IOV_list:
+                print("IOV " + iov + " not in list of IOVs")
+                exit()
+            else:
+                IOV_input.append(iov)
+else:
+    print("No IOV list passed")
+    exit()
 print("IOVs to run: ", IOV_list)
 
 
@@ -224,7 +237,7 @@ if not args.fast:
     time.sleep(10)
 
 
-for iov in IOV_list:
+for iov in IOV_input:
     print("Process GamHistFill.C+g for IOV " + iov)
 
     if args.local:
