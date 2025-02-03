@@ -16,12 +16,12 @@ using namespace std;
 
 #include "parsePileUpJSON.C"
 
-// #define PNETREG
+#define PNETREG
 // #define PNETREGNEUTRINO
 
 bool CLOSURE_L2RES = false;
 bool CLOSURE_L2L3RES = false;
-bool RESCALE_MASS= false;
+bool RESCALE_MASS= true;
 
 
 bool _gh_debug = false;
@@ -1985,17 +1985,15 @@ void GamHistosFill::Loop()
       double Jet_PNetRegPtRawCorrTotal = 1.;
       #endif
 
-      if ((Jet_PNetRegPtRawCorrTotal==0) && (fabs(Jet_eta[idx])>4.7)){
+      if ((Jet_PNetRegPtRawCorrTotal<1e-6) && (fabs(Jet_eta[idx])>4.69) && !(Jet_pt[idx] * (1.0 - Jet_rawFactor[idx])<15.1)){
         Jet_PNetRegPtRawCorrTotal = 1.;
       }
-      if ((Jet_PNetRegPtRawCorrTotal==0) && (Jet_pt[idx] * (1.0 - Jet_rawFactor[idx])<15)){
+      else if ((Jet_PNetRegPtRawCorrTotal<1e-6)){
         // exit loop
         continue;
       }
 
-      // if (idx==0){
-      // cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
-      // }
+
       phoj.SetPtEtaPhiM(Jet_pt[idx]*Jet_PNetRegPtRawCorrTotal, Jet_eta[idx], Jet_phi[idx], Jet_mass[idx]* (RESCALE_MASS? Jet_PNetRegPtRawCorrTotal : 1.0));
       phoj *= (1-Jet_rawFactor[idx]);
       if (rawgam.DeltaR(phoj)<0.4) { // does not always hold in Run3
@@ -2078,16 +2076,14 @@ void GamHistosFill::Loop()
   double Jet_PNetRegPtRawCorrTotal = 1.;
   #endif
 
-  if ((Jet_PNetRegPtRawCorrTotal==0) && (fabs(Jet_eta[iFox])>4.7)){
+  if ((Jet_PNetRegPtRawCorrTotal<1e-6) && (fabs(Jet_eta[iFox])>4.69) && !(Jet_pt[iFox] * (1.0 - Jet_rawFactor[iFox])<15.1)){
     Jet_PNetRegPtRawCorrTotal = 1.;
   }
-  if ((Jet_PNetRegPtRawCorrTotal==0) && (Jet_pt[iFox] * (1.0 - Jet_rawFactor[iFox])<15.5)){
+  else if ((Jet_PNetRegPtRawCorrTotal<1e-6)){
     // exit loop
     continue;
   }
-  // if (iFox==0){
-  //     cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
-  //     }
+
 
 	fox.SetPtEtaPhiM(Jet_pt[iFox]*Jet_PNetRegPtRawCorrTotal, Jet_eta[iFox], Jet_phi[iFox],
 			 Jet_mass[iFox]* (RESCALE_MASS? Jet_PNetRegPtRawCorrTotal : 1.0));
@@ -2298,6 +2294,7 @@ void GamHistosFill::Loop()
     rawjets.SetPtEtaPhiM(0,0,0,0);
     rcjets.SetPtEtaPhiM(0,0,0,0);
     rcoffsets.SetPtEtaPhiM(0,0,0,0);
+    bool skip_event = false;
     for (int i = 0; i != nJet; ++i) {
 
       // Redo JEC on the fly (should be no previous use of corrected jets)
@@ -2311,17 +2308,19 @@ void GamHistosFill::Loop()
   double Jet_PNetRegPtRawCorrTotal = 1.;
   #endif
 
-  if ((Jet_PNetRegPtRawCorrTotal==0) && (fabs(Jet_eta[i])>4.7)){
+  if ((Jet_PNetRegPtRawCorrTotal<1e-6) && (fabs(Jet_eta[i])>4.69) && !(Jet_pt[i] * (1.0 - Jet_rawFactor[i])<15.1)){
     Jet_PNetRegPtRawCorrTotal = 1.;
   }
-  if ((Jet_PNetRegPtRawCorrTotal==0) && (Jet_pt[i] * (1.0 - Jet_rawFactor[i])<15)){
+  else if ((Jet_PNetRegPtRawCorrTotal<1e-6)){
     // exit loop
-    continue;
+    // continue;
+    if (i<1) {
+      skip_event = true;
+      break;
+    }
+    Jet_PNetRegPtRawCorrTotal=1e-5;
   }
 
-  // if (i==0){
-  //   cout << "Jet_PNetRegPtRawCorrTotal = " << Jet_PNetRegPtRawCorrTotal << endl;
-  // }
 
 	double rawJetPt = Jet_pt[i] * (1.0 - Jet_rawFactor[i])* Jet_PNetRegPtRawCorrTotal; //HERE
 	double rawJetMass = Jet_mass[i] * (1.0 - Jet_rawFactor[i])* (RESCALE_MASS? Jet_PNetRegPtRawCorrTotal : 1.0);
@@ -2405,6 +2404,11 @@ void GamHistosFill::Loop()
 	rcoffsets += (rawjet - rcjet);
       } // non-photon jet
     } // for i in nJet
+
+    if (skip_event){
+      // cout << "Skipping event " << jentry << " due to low pT of leading jet" << endl;
+      continue;
+    }
 
     // Select genjet matching leading and subleading reco jet
     int iGenJet(-1), iGenJet2(-1);

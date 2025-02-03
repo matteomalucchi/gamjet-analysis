@@ -16,8 +16,8 @@
 #include <iostream>
 using namespace std;
 
-string version = "standardJetPt";
-string YEAR = "2023";
+string version = "rescaleMass_removeCorrectEvents_removeNAN_pnetreg_mctruth15";
+string YEAR = "all";
 
 
 // Patches to input raw gamma+jet
