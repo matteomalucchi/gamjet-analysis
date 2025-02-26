@@ -473,12 +473,12 @@ void GamHistosFill::Loop()
   if (ds=="2022C") {
     #ifdef PNETREG
     jec = getFJC("", "Summer22Run3_V3_MC_L2Relative_AK4PFPNet",
-                CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2L3Residual_AK4PFPNet" :
-                (CLOSURE_L2RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2Residual_AK4PFPNet" : ""));
+                CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V2_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer22-22Sep2023_Run2022CD_V2_DATA_L2Residual_AK4PFPNet" : ""));
     #elif defined PNETREGNEUTRINO
     jec = getFJC("", "Summer22Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
-                CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
-                (CLOSURE_L2RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+                CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V2_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer22-22Sep2023_Run2022CD_V2_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
     #else
     jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI",
                 CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V3_DATA_L2L3Residual_AK4PFPuppi" :
@@ -488,12 +488,12 @@ void GamHistosFill::Loop()
   if (ds=="2022D") {
     #ifdef PNETREG
     jec = getFJC("", "Summer22Run3_V3_MC_L2Relative_AK4PFPNet",
-                CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2L3Residual_AK4PFPNet" :
-                (CLOSURE_L2RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2Residual_AK4PFPNet" : ""));
+                CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V2_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer22-22Sep2023_Run2022CD_V2_DATA_L2Residual_AK4PFPNet" : ""));
     #elif defined PNETREGNEUTRINO
     jec = getFJC("", "Summer22Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
-                CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
-                (CLOSURE_L2RES ? "Summer22-22Sep2023_Run2022CD_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+                CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V2_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer22-22Sep2023_Run2022CD_V2_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
     #else
     jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI",
                 CLOSURE_L2L3RES ? "Summer22-22Sep2023_Run2022CD_V3_DATA_L2L3Residual_AK4PFPuppi" :
@@ -503,12 +503,12 @@ void GamHistosFill::Loop()
   if (ds=="2022E") {
     #ifdef PNETREG
     jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNet",
-                CLOSURE_L2L3RES ? "Summer22EE-22Sep2023_Run2022E_V1_DATA_L2L3Residual_AK4PFPNet" :
-                (CLOSURE_L2RES ? "Summer22EE-22Sep2023_Run2022E_V1_DATA_L2Residual_AK4PFPNet" : ""));
+                CLOSURE_L2L3RES ? "Summer22EE-22Sep2023_Run2022E_V2_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer22EE-22Sep2023_Run2022E_V2_DATA_L2Residual_AK4PFPNet" : ""));
     #elif defined PNETREGNEUTRINO
     jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
-                CLOSURE_L2L3RES ? "Summer22EE-22Sep2023_Run2022E_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
-                (CLOSURE_L2RES ? "Summer22EE-22Sep2023_Run2022E_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+                CLOSURE_L2L3RES ? "Summer22EE-22Sep2023_Run2022E_V2_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer22EE-22Sep2023_Run2022E_V2_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
     #else
     jec = getFJC("", "Summer22EEVetoRun3_V1_MC_L2Relative_AK4PUPPI",
                 CLOSURE_L2L3RES ? "Summer22EE-22Sep2023_Run2022E_V3_DATA_L2L3Residual_AK4PFPuppi" :
@@ -518,12 +518,12 @@ void GamHistosFill::Loop()
   if (ds=="2022F") {
     #ifdef PNETREG
     jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNet",
-                CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022F_V1_DATA_L2L3Residual_AK4PFPNet" :
-                (CLOSURE_L2RES ? "Summer22EEPrompt22_Run2022F_V1_DATA_L2Residual_AK4PFPNet" : ""));
+                CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022F_V2_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer22EEPrompt22_Run2022F_V2_DATA_L2Residual_AK4PFPNet" : ""));
     #elif defined PNETREGNEUTRINO
     jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
-                CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022F_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
-                (CLOSURE_L2RES ? "Summer22EEPrompt22_Run2022F_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+                CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022F_V2_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer22EEPrompt22_Run2022F_V2_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
     #else
     jec = getFJC("", "Summer22EEVetoRun3_V1_MC_L2Relative_AK4PUPPI",
                 CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022F_V3_DATA_L2L3Residual_AK4PFPuppi" :
@@ -533,12 +533,12 @@ void GamHistosFill::Loop()
   if (ds=="2022G") {
     #ifdef PNETREG
     jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNet",
-                CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022G_V1_DATA_L2L3Residual_AK4PFPNet" :
-                (CLOSURE_L2RES ? "Summer22EEPrompt22_Run2022G_V1_DATA_L2Residual_AK4PFPNet" : ""));
+                CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022G_V2_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer22EEPrompt22_Run2022G_V2_DATA_L2Residual_AK4PFPNet" : ""));
     #elif defined PNETREGNEUTRINO
     jec = getFJC("", "Summer22EERun3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
-                CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022G_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
-                (CLOSURE_L2RES ? "Summer22EEPrompt22_Run2022G_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+                CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022G_V2_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer22EEPrompt22_Run2022G_V2_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
     #else
     jec = getFJC("", "Summer22EEVetoRun3_V1_MC_L2Relative_AK4PUPPI",
                 CLOSURE_L2L3RES ? "Summer22EEPrompt22_Run2022G_V3_DATA_L2L3Residual_AK4PFPuppi" :
@@ -603,12 +603,12 @@ void GamHistosFill::Loop()
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023Cv123_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     #ifdef PNETREG
     jec = getFJC("", "Summer23Run3_V3_MC_L2Relative_AK4PFPNet",
-                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv123_V1_DATA_L2L3Residual_AK4PFPNet" :
-                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023Cv123_V1_DATA_L2Residual_AK4PFPNet" : ""));
+                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv123_V2_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023Cv123_V2_DATA_L2Residual_AK4PFPNet" : ""));
     #elif defined PNETREGNEUTRINO
     jec = getFJC("", "Summer23Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
-                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv123_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
-                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023Cv123_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv123_V2_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023Cv123_V2_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
     #else
     jec = getFJC("", "Summer23Run3_V1_MC_L2Relative_AK4PUPPI",
                 CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv123_V2_DATA_L2L3Residual_AK4PFPuppi" :
@@ -624,12 +624,12 @@ void GamHistosFill::Loop()
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023Cv4_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     #ifdef PNETREG
     jec = getFJC("", "Summer23Run3_V3_MC_L2Relative_AK4PFPNet",
-                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv4_V1_DATA_L2L3Residual_AK4PFPNet" :
-                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023Cv4_V1_DATA_L2Residual_AK4PFPNet" : ""));
+                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv4_V2_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023Cv4_V2_DATA_L2Residual_AK4PFPNet" : ""));
     #elif defined PNETREGNEUTRINO
     jec = getFJC("", "Summer23Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
-                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv4_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
-                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023Cv4_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv4_V2_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023Cv4_V2_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
     #else
     jec = getFJC("","Summer23Run3_V1_MC_L2Relative_AK4PUPPI",
                 CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023Cv4_V2_DATA_L2L3Residual_AK4PFPuppi" :
@@ -645,12 +645,12 @@ void GamHistosFill::Loop()
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", "Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI"); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     #ifdef PNETREG
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PFPNet",
-                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023D_V1_DATA_L2L3Residual_AK4PFPNet" :
-                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023D_V1_DATA_L2Residual_AK4PFPNet" : ""));
+                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023D_V2_DATA_L2Residual_AK4PFPNet" : ""));
     #elif defined PNETREGNEUTRINO
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
-                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023D_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
-                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023D_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+                CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer23Prompt23_Run2023D_V2_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
     #else
     jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI",
                 CLOSURE_L2L3RES ? "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPuppi" :
