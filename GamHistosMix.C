@@ -16,8 +16,8 @@
 
 bool _debug = false;
 
-string version = "rescaleMass_removeCorrectEvents_removeNAN_pnetreg_mctruth15";
-string YEAR = "all";
+string version = "rescaleMass_removeCorrectEvents_removeNAN_pnetregneutrino_mctruth15_closure";
+string YEAR = "2023";
 
 // Scale EM jets (pi0->gamma+gamma) relative to prompt photons
 // Possible causes: EM shower containment, pi>gamma+gamma is a bit wider

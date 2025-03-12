@@ -99,12 +99,14 @@ MC_list_of_lists_year = MC_list_of_lists
 for year in ["22", "23"]:
     if year in args.IOV_list:
         print(year)
+        IOV_list_of_lists_year=[]
+        MC_list_of_lists_year=[]
         for i, iov_list in enumerate(IOV_list_of_lists):
-            # print(iov_list, i)
+            print(iov_list, i)
             if year in iov_list[0]:
                 IOV_list_of_lists_year.append(iov_list)
         for i, iov_list in enumerate(MC_list_of_lists):
-            # print(iov_list, i)
+            print(iov_list, i)
 
             if year in iov_list[0]:
                 MC_list_of_lists_year.append(iov_list)
@@ -113,9 +115,8 @@ for year in ["22", "23"]:
 IOV_list_of_lists = IOV_list_of_lists_year
 MC_list_of_lists = MC_list_of_lists_year
 
-print(IOV_list_of_lists)
-print(MC_list_of_lists)
-
+print("IOV_list_of_lists ", MC_list_of_lists_year)
+print("MC_list_of_lists", MC_list_of_lists)
 
 suffix_dict = {
     "Summer23MG": "2023QCD",
