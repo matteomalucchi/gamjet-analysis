@@ -16,8 +16,8 @@
 #include <iostream>
 using namespace std;
 
-string version = "rescaleMass_removeCorrectEvents_removeNAN_StandardPt_mctruth15_NewRunCrabSkim";
-string YEAR = "2022";
+string version = "rescaleMass_removeCorrectEvents_removeNAN_pnetreg_mctruth15_NewRunCrabSkim_closure";
+string YEAR = "22";
 
 
 // Patches to input raw gamma+jet

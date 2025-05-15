@@ -17,10 +17,10 @@ using namespace std;
 #include "parsePileUpJSON.C"
 
 // #define PNETREG
-// #define PNETREGNEUTRINO
+#define PNETREGNEUTRINO
 
 bool CLOSURE_L2RES = false;
-bool CLOSURE_L2L3RES = false;
+bool CLOSURE_L2L3RES = true;
 bool RESCALE_MASS= true;
 
 
