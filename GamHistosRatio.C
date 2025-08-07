@@ -17,7 +17,7 @@
 using namespace std;
 
 string version = "rescaleMass_removeCorrectEvents_removeNAN_pnetreg_mctruth15_NewRunCrabSkim_closure";
-string YEAR = "22";
+string YEAR = "2022";
 
 
 // Patches to input raw gamma+jet
