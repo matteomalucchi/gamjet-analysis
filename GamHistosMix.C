@@ -16,8 +16,8 @@
 
 bool _debug = false;
 
-string version = "pnetreg_v1";
-string YEAR = "24";
+string version = "upartreg_neutrino_v1";
+string YEAR = "25";
 
 // Scale EM jets (pi0->gamma+gamma) relative to prompt photons
 // Possible causes: EM shower containment, pi>gamma+gamma is a bit wider
@@ -51,6 +51,9 @@ void GamHistosMix() {
 
 
   //w1
+  if (YEAR == "2025" || YEAR == "25" || YEAR == "all"){
+    GamHistosMixEra("2025",version);
+  }
   if (YEAR == "2024" || YEAR == "24" || YEAR == "all"){
     GamHistosMixEra("2024",version);
   }

@@ -17,8 +17,8 @@
 #include <iostream>
 using namespace std;
 
-string version = "pnetreg_v1";
-string YEAR = "24";
+string version = "upartreg_neutrino_v1";
+string YEAR = "25";
 
 
 // Patches to input raw gamma+jet
@@ -78,6 +78,14 @@ void GamHistosRatio(string ver = version) {
 
   // GamHistosRatios(ver,"2022C");
   // GamHistosRatios(ver,"2022D");
+  if (YEAR == "2025" || YEAR == "25" || YEAR == "all"){
+    GamHistosRatios(ver,"2025C");
+    GamHistosRatios(ver,"2025D");
+    GamHistosRatios(ver,"2025E");
+    GamHistosRatios(ver,"2025F");
+    GamHistosRatios(ver,"2025G");
+    GamHistosRatios(ver,"2025CDEFG");
+  }
   if (YEAR == "2024" || YEAR == "24" || YEAR == "all"){
     //GamHistosRatios(ver,"2024B");
     GamHistosRatios(ver,"2024C");
@@ -243,6 +251,13 @@ void GamHistosRatios(string ver, string iov) {
 						iov=="2024B-ECALRATIO" || iov=="2024C-ECALRATIO" || iov=="2024C-ECALR-HCALDI" || iov=="2024C-ECALCC-HCALDI") {
         fd = new TFile(Form("rootfiles/%s/GamHistosFill_data_%s_%s.root",cv,ci,cv),"READ");
         fm = new TFile(Form("rootfiles/%s/GamHistosMix_mc_2024P8QCD_%s.root",cv,cv),"READ");
+        fr = new TFile(Form("rootfiles/%s/GamHistosRatio_%s_P8QCD_%s.root",cv,ci,cv),"RECREATE"); 
+        //fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8-BPix_%s.root",cv),"READ"); //NO QCD (remove later)
+        //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8BPix-noQCD_%s.root",ci,cv),"RECREATE"); //when no QCD in the mix (can remove it later)
+      }
+      if (iov=="2025C" || iov=="2025D" || iov=="2025E" || iov=="2025F" || iov=="2025G") {
+        fd = new TFile(Form("rootfiles/%s/GamHistosFill_data_%s_%s.root",cv,ci,cv),"READ");
+        fm = new TFile(Form("rootfiles/%s/GamHistosMix_mc_2025P8QCD_%s.root",cv,cv),"READ");
         fr = new TFile(Form("rootfiles/%s/GamHistosRatio_%s_P8QCD_%s.root",cv,ci,cv),"RECREATE"); 
         //fm = new TFile(Form("rootfiles/GamHistosFill_mc_2023P8-BPix_%s.root",cv),"READ"); //NO QCD (remove later)
         //fr = new TFile(Form("rootfiles/GamHistosRatio_%s_P8BPix-noQCD_%s.root",ci,cv),"RECREATE"); //when no QCD in the mix (can remove it later)

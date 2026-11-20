@@ -85,7 +85,7 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
 			dataset=="2024Fnib1" || dataset=="2024Fnib2" || dataset=="2024Fnib3" || 
       dataset=="2024F-ECALCC-HCALDI-nib1" || dataset=="2024F-ECALCC-HCALDI-nib2" || dataset=="2024F-ECALCC-HCALDI-nib3" ||
 			dataset=="2024Gnib1" || dataset=="2024Gnib2" || dataset=="2024Hnib1" || dataset=="2024Inib1" ||
-      dataset=="2025B" || dataset=="2025Cv1" || dataset=="2025Cv2" || dataset=="2025D" || dataset=="2025Dtestfile" || dataset=="2025E" || //dataset=="2025F" ||//); //
+      dataset=="2025B" || dataset=="2025Cv1" || dataset=="2025Cv2" || dataset=="2025C" || dataset=="2025D" || dataset=="2025Dtestfile" || dataset=="2025E" || dataset=="2025F" || //); //
       dataset=="2025Fv1" || dataset=="2025Fv2" || dataset=="2025G" || //added 2025G and split F to Fv1 and Fv2 on 19.10.2025, w64.
       dataset=="2025C-TrkRadDamage");
 
@@ -98,7 +98,7 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
                 dataset=="2023P8X" || dataset=="2023P8-BPixX"|| //for my test wX23
 		(TString(dataset.c_str()).Contains("2023P8") && TString(dataset.c_str()).Contains("BPix") ==false) || //);// || dataset=="2023QCD");
   		TString(dataset.c_str()).Contains("2023P8-BPix") ||
-      TString(dataset.c_str()).Contains("2024P8")
+      TString(dataset.c_str()).Contains("2024P8") || TString(dataset.c_str()).Contains("2025P8")
     ); //added the BPix MC files
 
   bool addQCD = (dataset=="2016QCD" || dataset=="2016APVQCD" ||
@@ -109,7 +109,8 @@ void mk_GamHistosFill(string dataset = "X", string version = "w12") { //using w-
 		 dataset=="2023QCD" || dataset=="2023QCD-BPix" || //added BPix QCD MC
       TString(dataset.c_str()).Contains("Summer23MG_") ||
       TString(dataset.c_str()).Contains("Summer23MGBPix_") ||
-      dataset=="2024QCD" || TString(dataset.c_str()).Contains("Summer24MG_") );
+      dataset=="2024QCD" || TString(dataset.c_str()).Contains("Summer24MG_") ||
+      dataset=="2025QCD" || TString(dataset.c_str()).Contains("Winter25MG_") );
 
 
   //cout << "Clean old shared objects and link files" << endl << flush;

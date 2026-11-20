@@ -30,6 +30,7 @@ IOV_list_of_lists = [
     #   ['2022CD','2022C','2022D'],
     #   ['2022FG','2022F','2022G'],
        ['2024CDEFGHI','2024C','2024D','2024E','2024F','2024G','2024H','2024I'],
+       ['2025CDEFG','2025C','2025D','2025E','2025F','2025G'],
 ]
 MC_list_of_lists = [
     #    ['Run2P8','2016P8','2016APVP8','2017P8','2018P8'],
@@ -51,6 +52,17 @@ MC_list_of_lists = [
     #     "Summer23MG_6",
     # ],
     #
+    [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "Winter25MG_" in file and "all" not in file
+    ],
+    [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "2025P8" in file and "all" not in file
+    ],
+
     [
         file.replace(".txt", "").replace("mcFiles_", "")
         for file in os.listdir("input_files/")
@@ -108,7 +120,7 @@ MC_list_of_lists = [
 
 IOV_list_of_lists_year = IOV_list_of_lists
 MC_list_of_lists_year = MC_list_of_lists
-for year in ["22", "23", "24"]:
+for year in ["22", "23", "24", "25"]:
     if year in args.IOV_list:
         print(year)
         IOV_list_of_lists_year=[]
@@ -131,6 +143,8 @@ print("IOV_list_of_lists ", MC_list_of_lists_year)
 print("MC_list_of_lists", MC_list_of_lists)
 
 suffix_dict = {
+    "Winter25MG": "2025QCD",
+    "2025P8": "2025P8",
     "Summer24MG": "2024QCD",
     "2024P8": "2024P8",
     "Summer23MG": "2023QCD",

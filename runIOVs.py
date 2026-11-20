@@ -5,6 +5,23 @@ import time
 
 IOV_list = (
     [
+        "2025C",
+        "2025D",
+        "2025E",
+        "2025F",
+        "2025G",
+    ]
+    + [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "Winter25MG_" in file and "all" not in file
+    ]
+    + [
+        file.replace(".txt", "").replace("mcFiles_", "")
+        for file in os.listdir("input_files/")
+        if "2025P8" in file and "all" not in file
+    ]
+    + [
         "2024C",
         "2024D",
         "2024E",
@@ -83,6 +100,11 @@ IOV_list = (
 # resources for slurm
 res_iovs = {
     # dataset: [memory, hours, days]
+    "2025C": [8, 20, ""],
+    "2025D": [8, 20, ""],
+    "2025E": [8, 20, ""],
+    "2025F": [8, 20, ""],
+    "2025G": [8, 20, ""],
     "2024C": [8, 20, ""],
     "2024D": [8, 20, ""],
     "2024E": [8, 20, ""],
@@ -114,6 +136,7 @@ res_iovs.update(
     }
 )
 
+run3_25 = [x for x in IOV_list if "25" in x]
 run3_24 = [x for x in IOV_list if "24" in x]
 run3_23 = [x for x in IOV_list if "23" in x]
 run3_22 = [x for x in IOV_list if "22" in x]
@@ -138,6 +161,8 @@ IOV_input = []
 if args.IOV_list:
     if "all" in args.IOV_list:
         IOV_input = IOV_list
+    elif "25" in args.IOV_list and args.IOV_list[0].isdigit():
+        IOV_input = run3_25
     elif "24" in args.IOV_list and args.IOV_list[0].isdigit():
         IOV_input = run3_24
     elif "23" in args.IOV_list and args.IOV_list[0].isdigit():
