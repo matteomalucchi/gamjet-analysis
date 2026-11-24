@@ -10,6 +10,8 @@
 #include "TLorentzVector.h"
 #include "TStopwatch.h"
 
+#include <TSystem.h> // Nécessaire pour gSystem
+
 #include <iostream>
 using namespace std;
 //using namespace GamHistosFill;
@@ -17,14 +19,16 @@ using namespace std;
 #include "parsePileUpJSON.C"
 
 // #define PNETREG
-#define PNETREGNEUTRINO
+// #define PNETREGNEUTRINO
+// #define UPARTREG
+#define UPARTREGNEUTRINO
 
 bool CLOSURE_L2RES = false;
-bool CLOSURE_L2L3RES = true;
+bool CLOSURE_L2L3RES = false;
 bool RESCALE_MASS= true;
 
 
-bool _gh_debug = false;
+bool _gh_debug = true;
 bool _gh_debug100 = false;
 
 bool doGamjet = true;
@@ -188,7 +192,7 @@ void GamHistosFill::Loop()
       if (!isMC) fChain->SetBranchStatus("HLT_Photon30",1);
       if (!isMC) fChain->SetBranchStatus("HLT_Photon36",1);
     }
-    if (is17 || is18 || is22 || is23 || is24) {
+    if (is17 || is18 || is22 || is23 || is24 || is25) {
       fChain->SetBranchStatus("HLT_Photon33",1);
       fChain->SetBranchStatus("HLT_Photon200",1);
     //fChain->SetBranchStatus("HLT_Photon500",1);
@@ -217,7 +221,7 @@ void GamHistosFill::Loop()
       fChain->SetBranchStatus("HLT_Photon110EB_TightID_TightIso",1);
       fChain->SetBranchStatus("HLT_Photon100EBHE10",1);
     }
-    if (is24) { //new 2024 trigger paths
+    if (is24 || is25) { //new 2024 trigger paths
       fChain->SetBranchStatus("HLT_Photon50EB_TightID_TightIso",1);
       fChain->SetBranchStatus("HLT_Photon55EB_TightID_TightIso",1);
       fChain->SetBranchStatus("HLT_Photon75EB_TightID_TightIso",1);
@@ -238,7 +242,7 @@ void GamHistosFill::Loop()
     fChain->SetBranchStatus("HLT_Photon165_R9Id90_HE10_IsoM",1);
 
     // Triggers to recover 30-60 GeV range. Efficient above 30 GeV
-    if (is17 || is18 || is22 || is23 || is24) {
+    if (is17 || is18 || is22 || is23 || is24 || is25) {
       fChain->SetBranchStatus("HLT_Photon20_HoverELoose",1);
       fChain->SetBranchStatus("HLT_Photon30_HoverELoose",1);
     }
@@ -319,7 +323,7 @@ void GamHistosFill::Loop()
     fChain->SetBranchStatus("Photon_pt",1);
     fChain->SetBranchStatus("Photon_eta",1);
     fChain->SetBranchStatus("Photon_phi",1);
-    if (!(is22||is23||is24)) fChain->SetBranchStatus("Photon_mass",1);
+    if (!(is22||is23||is24||is25)) fChain->SetBranchStatus("Photon_mass",1);
     fChain->SetBranchStatus("Photon_hoe",1);
     if (is17 && isMC && isQCD)
       fChain->SetBranchStatus("Photon_cutBasedBitmap",1);
@@ -350,6 +354,18 @@ void GamHistosFill::Loop()
     cout << "USING PNET REGRESSION NEUTRINO" << endl;
     fChain->SetBranchStatus("Jet_PNetRegPtRawCorr", 1);
     fChain->SetBranchStatus("Jet_PNetRegPtRawCorrNeutrino", 1);
+    #endif
+
+    #ifdef UPARTREG
+    cout << "USING UPART REGRESSION" << endl;
+    fChain->SetBranchStatus("Jet_UParTAK4RegPtRawCorr", 1);
+    // fChain->SetBranchStatus("Jet_UParTAK4RegPtRawCorrNeutrino", 1);
+    #endif
+
+    #ifdef UPARTREGNEUTRINO
+    cout << "USING UPART REGRESSION NEUTRINO" << endl;
+    fChain->SetBranchStatus("Jet_UParTAK4RegPtRawCorr", 1);
+    fChain->SetBranchStatus("Jet_UParTAK4RegPtRawCorrNeutrino", 1);
     #endif
 
     fChain->SetBranchStatus("Jet_area",1);
@@ -572,7 +588,7 @@ void GamHistosFill::Loop()
   }
  */
   //MC2023 --> added for running 2023MC with and without BPix stuff
-  if ((TString(ds.c_str()).Contains("2023P8") && TString(ds.c_str()).Contains("BPix") ==false)|| ds=="2023QCD" || ds=="2023P8X" || TString(ds.c_str()).Contains("Summer23MG_")) { //earlier called: Summer2023
+  if ((TString(ds.c_str()).Contains("2023P8") && TString(ds.c_str()).Contains("BPix") == false) || ds=="2023QCD" || ds=="2023P8X" || TString(ds.c_str()).Contains("Summer23MG_")) { //earlier called: Summer2023
     //jec = getFJC("", "Summer22Run3_V1_MC_L2Relative_AK4PUPPI", ""); //23rd of Feb2024 - investigating how plots look with 2022 corrections
     #ifdef PNETREG
     jec = getFJC("", "Summer23Run3_V3_MC_L2Relative_AK4PFPNet", "");
@@ -663,10 +679,341 @@ void GamHistosFill::Loop()
 		 //"Winter23Prompt23_V2_MC_L2Relative_AK4PFPuppi", ""); //old
 		 //"Summer22Prompt23_Run2023D_V3_DATA_L2L3Residual_AK4PFPUPPI"); //even older
   }
+  //MC2024 --> added for running 2024MC
+  if (TString(ds.c_str()).Contains("2024P8")|| ds=="2024QCD" || ds=="2024P8X" || TString(ds.c_str()).Contains("Summer24MG_")) {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNet", "");
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino", "");
+    #elif defined UPARTREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparT", "");
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino", "");
+    #else
+    jec = getFJC("", "Summer24Prompt24_V1_MC_L2Relative_AK4PFPuppi", ""); 
+    #endif
+
+  }
   //data2024
-  if (ds=="2024B-PromptReco-v1" || ds=="2024B" || ds=="2024C") { //2023D needs BPix stuff, use this also for 2024B prompt data (12.4.24)
+  if (ds=="2024B-PromptReco-v1") { //2023D needs BPix stuff, use this also for 2024B prompt data (12.4.24)
     jec = getFJC("", "Summer23BPixPrompt23_V1_MC_L2Relative_AK4PFPuppi", "Summer23BPixPrompt23_RunD_V1_DATA_L2L3Residual_AK4PFPuppi"); //took the official ones from: (the one with V2 was an internal one from Mikko) --> should update also for 2023 stuff above (TO DO).
     //jec = getFJC("", "Summer23BPixRun3_V3_MC_L2Relative_AK4PUPPI", "Summer23Prompt23_Run2023D_V2_DATA_L2L3Residual_AK4PFPuppi"); //9th of Mar2024, w8 (fixed this...)
+  }
+  if (ds=="2024B") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer24_Run2024B_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer24_Run2024B_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024B_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024B_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Summer24_Run2024B_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Summer24_Run2024B_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024B_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024B_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Summer24Prompt24_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Summer24_Run2024B_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Summer24_Run2024B_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
+  }
+  if (ds=="2024C") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer24_Run2024C_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer24_Run2024C_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024C_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024C_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Summer24_Run2024C_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Summer24_Run2024C_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024C_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024C_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Summer24Prompt24_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Summer24_Run2024C_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Summer24_Run2024C_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
+  }
+  if (ds=="2024D") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer24_Run2024D_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer24_Run2024D_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024D_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024D_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Summer24_Run2024D_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Summer24_Run2024D_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024D_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024D_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Summer24Prompt24_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Summer24_Run2024D_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Summer24_Run2024D_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
+  }
+  if (ds=="2024E") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer24_Run2024E_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer24_Run2024E_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024E_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024E_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Summer24_Run2024E_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Summer24_Run2024E_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024E_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024E_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Summer24Prompt24_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Summer24_Run2024E_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Summer24_Run2024E_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
+  }
+  if (ds=="2024F") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer24_Run2024F_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer24_Run2024F_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024F_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024F_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Summer24_Run2024F_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Summer24_Run2024F_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024F_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024F_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Summer24Prompt24_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Summer24_Run2024F_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Summer24_Run2024F_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
+  }
+  if (ds=="2024G") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer24_Run2024G_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer24_Run2024G_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024G_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024G_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Summer24_Run2024G_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Summer24_Run2024G_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024G_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024G_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Summer24Prompt24_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Summer24_Run2024G_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Summer24_Run2024G_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
+  }
+  if (ds=="2024H") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer24_Run2024H_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer24_Run2024H_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024H_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024H_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Summer24_Run2024H_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Summer24_Run2024H_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024H_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024H_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Summer24Prompt24_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Summer24_Run2024H_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Summer24_Run2024H_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
+  }
+  if (ds=="2024I") {
+    #ifdef PNETREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Summer24_Run2024I_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Summer24_Run2024I_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024I_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024I_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Summer24_Run2024I_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Summer24_Run2024I_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Summer24Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Summer24_Run2024I_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Summer24_Run2024I_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Summer24Prompt24_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Summer24_Run2024I_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Summer24_Run2024I_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
+  }
+
+  //MC2025 --> added for running 2025MC
+  if (TString(ds.c_str()).Contains("2025P8")|| ds=="2025QCD" || ds=="2025P8X" || TString(ds.c_str()).Contains("Winter25MG_")) {
+    #ifdef PNETREG
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFPNet", "");
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino", "");
+    #elif defined UPARTREG
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFUparT", "");
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino", "");
+    #else
+    jec = getFJC("", "Winter25Prompt25_V1_MC_L2Relative_AK4PFPuppi", ""); 
+    #endif
+
+  }
+  //data2025
+  if (ds=="2025C") {
+    #ifdef PNETREG
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Winter25_Run2025C_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Winter25_Run2025C_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Winter25_Run2025C_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Winter25_Run2025C_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Winter25_Run2025C_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Winter25_Run2025C_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Winter25_Run2025C_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Winter25_Run2025C_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Winter25Prompt25_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Winter25_Run2025C_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Winter25_Run2025C_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
+  }
+  if (ds=="2025D") {
+    #ifdef PNETREG
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Winter25_Run2025D_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Winter25_Run2025D_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Winter25_Run2025D_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Winter25_Run2025D_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Winter25_Run2025D_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Winter25_Run2025D_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Winter25_Run2025D_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Winter25_Run2025D_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Winter25Prompt25_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Winter25_Run2025D_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Winter25_Run2025D_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
+  }
+  if (ds=="2025E") {
+    #ifdef PNETREG
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Winter25_Run2025E_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Winter25_Run2025E_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Winter25_Run2025E_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Winter25_Run2025E_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Winter25_Run2025E_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Winter25_Run2025E_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Winter25_Run2025E_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Winter25_Run2025E_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Winter25Prompt25_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Winter25_Run2025E_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Winter25_Run2025E_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
+  }
+  if (ds=="2025F") {
+    #ifdef PNETREG
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Winter25_Run2025F_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Winter25_Run2025F_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Winter25_Run2025F_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Winter25_Run2025F_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Winter25_Run2025F_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Winter25_Run2025F_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Winter25_Run2025F_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Winter25_Run2025F_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Winter25Prompt25_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Winter25_Run2025F_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Winter25_Run2025F_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
+  }
+  if (ds=="2025G") {
+    #ifdef PNETREG
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFPNet",
+                CLOSURE_L2L3RES ? "Winter25_Run2025G_V1_DATA_L2L3Residual_AK4PFPNet" :
+                (CLOSURE_L2RES ? "Winter25_Run2025G_V1_DATA_L2Residual_AK4PFPNet" : ""));
+    #elif defined PNETREGNEUTRINO
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFPNetPlusNeutrino",
+                CLOSURE_L2L3RES ? "Winter25_Run2025G_V1_DATA_L2L3Residual_AK4PFPNetPlusNeutrino" :
+                (CLOSURE_L2RES ? "Winter25_Run2025G_V1_DATA_L2Residual_AK4PFPNetPlusNeutrino" : ""));
+    #elif defined UPARTREG
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFUparT",
+                CLOSURE_L2L3RES ? "Winter25_Run2025G_V1_DATA_L2L3Residual_AK4PFUparT" :
+                (CLOSURE_L2RES ? "Winter25_Run2025G_V1_DATA_L2Residual_AK4PFUparT" : ""));
+    #elif defined UPARTREGNEUTRINO
+    jec = getFJC("", "Winter25Run3_V3_MC_L2Relative_AK4PFUparTPlusNeutrino",
+                CLOSURE_L2L3RES ? "Winter25_Run2025G_V1_DATA_L2L3Residual_AK4PFUparTPlusNeutrino" :
+                (CLOSURE_L2RES ? "Winter25_Run2025G_V1_DATA_L2Residual_AK4PFUparTPlusNeutrino" : ""));
+    #else
+    jec = getFJC("", "Winter25Prompt25_V1_MC_L2Relative_AK4PFPuppi",
+                CLOSURE_L2L3RES ? "Winter25_Run2025G_V1_DATA_L2L3Residual_AK4PFPuppi" :
+                (CLOSURE_L2RES ? "Winter25_Run2025G_V1_DATA_L2Residual_AK4PFPuppi" : ""));
+    #endif
   }
   assert(jec);
 
@@ -681,6 +1028,8 @@ void GamHistosFill::Loop()
   if ((TString(ds.c_str()).Contains("2023P8") && TString(ds.c_str()).Contains("BPix")==false )|| ds=="2023QCD" || TString(ds.c_str()).Contains("2023P8-BPix") || ds=="2023QCD-BPix" ||
   TString(ds.c_str()).Contains("Summer23MG_") ||
   TString(ds.c_str()).Contains("Summer23MGBPix_")) sera = "2023"; //added 2023P8-BPix
+  if (TString(ds.c_str()).Contains("2024P8")|| ds=="2024QCD"|| TString(ds.c_str()).Contains("Summer24MG_")) sera = "2024";
+  if (TString(ds.c_str()).Contains("2025P8")|| ds=="2025QCD"|| TString(ds.c_str()).Contains("Winter25MG_")) sera = "2025";
   //
   if (ds=="2016B"||ds=="2016C"||ds=="2016D"||ds=="2016BCD"||
       ds=="2016E"||ds=="2016F"||ds=="2016EF"||ds=="2016BCDEF") sera = "2016APV";
@@ -695,11 +1044,16 @@ void GamHistosFill::Loop()
   if (ds=="2022EEP8" || ds=="2022EEQCD" || TString(ds.c_str()).Contains("Summer22EEMG_") || TString(ds.c_str()).Contains("2022EEP8")) sera = "2022EE";
   if ((TString(ds.c_str()).Contains("2023P8") && TString(ds.c_str()).Contains("BPix") ==false) || ds=="2023QCD" || TString(ds.c_str()).Contains("2023P8-BPix")  || ds=="2023QCD-BPix") sera = "2023"; //added 2023P8-BPix
   if (ds=="2023P8X" || ds=="2023QCDX" || ds=="2023P8-BPixX" || ds=="2023QCD-BPixX") sera = "2023"; //added for w23X and w22X
+  if (TString(ds.c_str()).Contains("2024P8") || ds=="2024QCD") sera = "2024";
+  if (TString(ds.c_str()).Contains("2025P8") || ds=="2025QCD") sera = "2025";
+  if (ds=="2024P8X" || ds=="2024QCDX") sera = "2024";
+  if (ds=="2025P8X" || ds=="2025QCDX") sera = "2025";
   if (ds=="2022C" || ds=="2022D") sera ="2022";
   if (ds=="2022E" || ds=="2022F" || ds=="2022G") sera = "2022EE";
   if (ds=="2023B" || ds=="2023Cv123" || ds=="2023Cv4" || ds=="2023D") sera = "2023";
   if (ds=="2023Cv123X" || ds=="2023Cv4X" || ds=="2023DX") sera = "2023";
-  if (ds=="2024B-PromptReco-v1" || ds=="2024B" || ds=="2024C") sera = "2024";
+  if (ds=="2024B-PromptReco-v1" || ds=="2024B" || ds=="2024C" || ds=="2024D" || ds=="2024E" || ds=="2024F" || ds=="2024G" || ds=="2024H" || ds=="2024I") sera = "2024";
+  if (ds=="2025C" || ds=="2025D" || ds=="2025E" || ds=="2025F" || ds=="2025G") sera = "2025";
   assert(sera!="");
 
   // Load JSON files
@@ -716,7 +1070,9 @@ void GamHistosFill::Loop()
 //for prompt data 2024B - UPDATE THIS REGULARLY
   if (TString(ds.c_str()).Contains("2024"))
     //LoadJSON("files/Collisions24_13p6TeV_378981_379355_DCSOnly_TkPx.json");
-    LoadJSON("files/Collisions24_13p6TeV_378981_379774_DCSOnly_TkPx.json");
+    LoadJSON("files/Cert_Collisions2024_378981_386951_Golden.json");
+  if (TString(ds.c_str()).Contains("2025"))
+    LoadJSON("files/Cert_Collisions2025_391658_398903_Golden.json");
 
   //Cert_Collisions2023_370354_370790_Golden.json");
 
@@ -767,12 +1123,16 @@ void GamHistosFill::Loop()
       fjv = new TFile("files/jetveto2023D.root","READ");
     }
 //for now also use jetvetomap 2023D for the new 2024B prompt reco data:
-  if (TString(ds.c_str()).Contains("2024")) {
-    if (TString(ds.c_str()).Contains("2024B-PromptReco-v1") ||
-        TString(ds.c_str()).Contains("2024B") ||
-        TString(ds.c_str()).Contains("2024C"))
-      fjv = new TFile("files/jetveto2023D.root","READ"); //update this when possible (new jetvetomap)
-  }
+  if (TString(ds.c_str()).Contains("24")) {
+    if (TString(ds.c_str()).Contains("2024B-PromptReco-v1") || TString(ds.c_str()).Contains("2024B") || TString(ds.c_str()).Contains("2024C") || TString(ds.c_str()).Contains("2024D") || TString(ds.c_str()).Contains("2024E") || TString(ds.c_str()).Contains("2024F") || TString(ds.c_str()).Contains("2024G") || TString(ds.c_str()).Contains("2024H") || TString(ds.c_str()).Contains("2024I") ||
+  TString(ds.c_str()).Contains("2024P8") ||  (TString(ds.c_str()).Contains("2024QCD")) || TString(ds.c_str()).Contains("Summer24MG"))
+      fjv = new TFile("files/jetveto2024BCDEFGHI.root","READ");
+    }
+  if (TString(ds.c_str()).Contains("25")) {
+    if (TString(ds.c_str()).Contains("2025C") || TString(ds.c_str()).Contains("2025D") || TString(ds.c_str()).Contains("2025E") || TString(ds.c_str()).Contains("2025F") || TString(ds.c_str()).Contains("2025G") ||
+  TString(ds.c_str()).Contains("2025P8") ||  (TString(ds.c_str()).Contains("2025QCD")) || TString(ds.c_str()).Contains("Winter25MG"))
+      fjv = new TFile("files/jetveto2025CDEFG_V3M.root","READ");
+    }
   if (!fjv) cout << "Jetvetomap file not found for " << ds << endl << flush;
   assert(fjv);
 
@@ -794,7 +1154,8 @@ void GamHistosFill::Loop()
     h2jv = (TH2D*)fjv->Get("h2hot_ul18_plus_hem1516_and_hbp2m1");
   if (TString(ds.c_str()).Contains("22") ||
       TString(ds.c_str()).Contains("23") ||
-      TString(ds.c_str()).Contains("2024"))
+      TString(ds.c_str()).Contains("24") ||
+      TString(ds.c_str()).Contains("25"))
     h2jv = (TH2D*)fjv->Get("jetvetomap");
   if (!h2jv) cout << "Jetvetomap histo not found for " << ds << endl << flush;
   assert(h2jv);
@@ -822,8 +1183,10 @@ void GamHistosFill::Loop()
     bthr = 0.4184; // medium
     cthr = 0.137+frac*(0.66-0.137);
   }
-  if (TString(ds.c_str()).Contains("22")  ||
-      TString(ds.c_str()).Contains("23")) {
+  if (TString(ds.c_str()).Contains("22") ||
+      TString(ds.c_str()).Contains("23") ||
+      TString(ds.c_str()).Contains("24") ||
+      TString(ds.c_str()).Contains("25")) {
     // Copy of 2018
     bthr = 0.4184;
     cthr = 0.137+frac*(0.66-0.137);
@@ -832,8 +1195,10 @@ void GamHistosFill::Loop()
   // Create histograms. Copy format from existing files from Lyon
   // Keep only histograms actually used by global fit (reprocess.C)
   TDirectory *curdir = gDirectory;
-  TFile *fout = new TFile(Form("rootfiles/%s/GamHistosFill_%s_%s_%s.root",
-             version.c_str(),
+  TString dirPathOut = Form("rootfiles/%s", version.c_str());
+  gSystem->mkdir(dirPathOut, true);
+  TFile *fout = new TFile(Form("%s/GamHistosFill_%s_%s_%s.root",
+             dirPathOut.Data(),
 			       isMC ? "mc" : "data",
 			       dataset.c_str(), version.c_str()),
 			  "RECREATE");
@@ -1734,19 +2099,19 @@ void GamHistosFill::Loop()
       // Only in (most of) 2018, and now some in 22-23
       if (b_HLT_Photon120EB_TightID_TightIso && is18) // not in 2016-17, 2018A
 	b_HLT_Photon120EB_TightID_TightIso->GetEntry(ientry);
-      if (b_HLT_Photon110EB_TightID_TightIso && (is18 || is22 || is23 || is24)) // not in 2016-17, 2018A
+      if (b_HLT_Photon110EB_TightID_TightIso && (is18 || is22 || is23 || is24 || is25)) // not in 2016-17, 2018A
 	b_HLT_Photon110EB_TightID_TightIso->GetEntry(ientry);
       if (b_HLT_Photon100EB_TightID_TightIso && is18) // not in 2016-17, 2018A
 	b_HLT_Photon100EB_TightID_TightIso->GetEntry(ientry);
 
       // Only 24
-      if (b_HLT_Photon50EB_TightID_TightIso && is24)
+      if (b_HLT_Photon50EB_TightID_TightIso && (is24 || is25))
 	b_HLT_Photon50EB_TightID_TightIso->GetEntry(ientry);
-      if (b_HLT_Photon55EB_TightID_TightIso && is24)
+      if (b_HLT_Photon55EB_TightID_TightIso && (is24 || is25))
 	b_HLT_Photon55EB_TightID_TightIso->GetEntry(ientry);
-      if (b_HLT_Photon75EB_TightID_TightIso && is24)
+      if (b_HLT_Photon75EB_TightID_TightIso && (is24 || is25))
 	b_HLT_Photon75EB_TightID_TightIso->GetEntry(ientry);
-      if (b_HLT_Photon90EB_TightID_TightIso && is24)
+      if (b_HLT_Photon90EB_TightID_TightIso && (is24 || is25))
 	b_HLT_Photon90EB_TightID_TightIso->GetEntry(ientry);
 
       // Only 22-23-24
@@ -1993,8 +2358,24 @@ void GamHistosFill::Loop()
         continue;
       }
 
+      #ifdef UPARTREG
+      double Jet_UParTAK4RegPtRawCorrTotal = Jet_UParTAK4RegPtRawCorr[idx];
+      #elif defined UPARTREGNEUTRINO
+      double Jet_UParTAK4RegPtRawCorrTotal = Jet_UParTAK4RegPtRawCorrNeutrino[idx];
+      #else
+      double Jet_UParTAK4RegPtRawCorrTotal = 1.;
+      #endif
 
-      phoj.SetPtEtaPhiM(Jet_pt[idx]*Jet_PNetRegPtRawCorrTotal, Jet_eta[idx], Jet_phi[idx], Jet_mass[idx]* (RESCALE_MASS? Jet_PNetRegPtRawCorrTotal : 1.0));
+      if ((Jet_UParTAK4RegPtRawCorrTotal<1e-6) && (fabs(Jet_eta[idx])>2.5) && !(Jet_pt[idx] * (1.0 - Jet_rawFactor[idx])<15.1)){ // No UparT regression above eta=2.5
+        Jet_UParTAK4RegPtRawCorrTotal = 1.;
+      }
+      else if ((Jet_UParTAK4RegPtRawCorrTotal<1e-6)){
+        // exit loop
+        continue;
+      }
+
+
+      phoj.SetPtEtaPhiM(Jet_pt[idx]*Jet_PNetRegPtRawCorrTotal*Jet_UParTAK4RegPtRawCorrTotal, Jet_eta[idx], Jet_phi[idx], Jet_mass[idx]* (RESCALE_MASS? Jet_PNetRegPtRawCorrTotal : 1.0)* (RESCALE_MASS? Jet_UParTAK4RegPtRawCorrTotal : 1.0));
       phoj *= (1-Jet_rawFactor[idx]);
       if (rawgam.DeltaR(phoj)<0.4) { // does not always hold in Run3
 	//phoj.Pt() >= rawgam.Pt()) { // not always true in Run3 (esp. 2022C)
@@ -2084,9 +2465,25 @@ void GamHistosFill::Loop()
     continue;
   }
 
+  #ifdef UPARTREG
+  double Jet_UParTAK4RegPtRawCorrTotal = Jet_UParTAK4RegPtRawCorr[iFox];
+  #elif defined UPARTREGNEUTRINO
+  double Jet_UParTAK4RegPtRawCorrTotal = Jet_UParTAK4RegPtRawCorr[iFox]*Jet_UParTAK4RegPtRawCorrNeutrino[iFox];
+  #else
+  double Jet_UParTAK4RegPtRawCorrTotal = 1.;
+  #endif
 
-	fox.SetPtEtaPhiM(Jet_pt[iFox]*Jet_PNetRegPtRawCorrTotal, Jet_eta[iFox], Jet_phi[iFox],
-			 Jet_mass[iFox]* (RESCALE_MASS? Jet_PNetRegPtRawCorrTotal : 1.0));
+  if ((Jet_UParTAK4RegPtRawCorrTotal<1e-6) && (fabs(Jet_eta[iFox])>2.5) && !(Jet_pt[iFox] * (1.0 - Jet_rawFactor[iFox])<15.1)){ // No UparT regression above eta=2.5
+    Jet_UParTAK4RegPtRawCorrTotal = 1.;
+  }
+  else if ((Jet_UParTAK4RegPtRawCorrTotal<1e-6)){
+    // exit loop
+    continue;
+  }
+
+
+	fox.SetPtEtaPhiM(Jet_pt[iFox]*Jet_PNetRegPtRawCorrTotal*Jet_UParTAK4RegPtRawCorrTotal, Jet_eta[iFox], Jet_phi[iFox],
+			 Jet_mass[iFox]* (RESCALE_MASS? Jet_PNetRegPtRawCorrTotal : 1.0)* (RESCALE_MASS? Jet_UParTAK4RegPtRawCorrTotal : 1.0));
 	fox *= (1-Jet_rawFactor[iFox]);
 	// Calculate L1RC correction
 	double corrl1rc(1.); // isRun3
@@ -2199,7 +2596,7 @@ void GamHistosFill::Loop()
 	 //|| (true && (itrg=1))// trigger bypass for EGamma on photonTrigs.C
 	 )) ||
        // Updated menu in 2024 with high rate isolated triggers
-       (isRun3 && (is24) &&
+       (isRun3 && (is24 || is25) &&
 	((HLT_Photon200                    && pt>=230         && (itrg=200)) ||
 	 (HLT_Photon110EB_TightID_TightIso && pt>=110&&pt<230 && (itrg=110)) ||
 	 (HLT_Photon50EB_TightID_TightIso  && pt>=50 &&pt<230 && (itrg=50))  ||
@@ -2321,9 +2718,29 @@ void GamHistosFill::Loop()
     Jet_PNetRegPtRawCorrTotal=1e-5;
   }
 
+  #ifdef UPARTREG
+  double Jet_UParTAK4RegPtRawCorrTotal = Jet_UParTAK4RegPtRawCorr[i];
+  #elif defined UPARTREGNEUTRINO
+  double Jet_UParTAK4RegPtRawCorrTotal = Jet_UParTAK4RegPtRawCorr[i]*Jet_UParTAK4RegPtRawCorrNeutrino[i];
+  #else
+  double Jet_UParTAK4RegPtRawCorrTotal = 1.;
+  #endif
 
-	double rawJetPt = Jet_pt[i] * (1.0 - Jet_rawFactor[i])* Jet_PNetRegPtRawCorrTotal; //HERE
-	double rawJetMass = Jet_mass[i] * (1.0 - Jet_rawFactor[i])* (RESCALE_MASS? Jet_PNetRegPtRawCorrTotal : 1.0);
+  if ((Jet_UParTAK4RegPtRawCorrTotal<1e-6) && (fabs(Jet_eta[i])>2.5) && !(Jet_pt[i] * (1.0 - Jet_rawFactor[i])<15.1)){
+    Jet_UParTAK4RegPtRawCorrTotal = 1.;
+  }
+  else if ((Jet_UParTAK4RegPtRawCorrTotal<1e-6)){
+    // exit loop
+    // continue;
+    if (i<1) {
+      skip_event = true;
+      break;
+    }
+    Jet_UParTAK4RegPtRawCorrTotal=1e-5;
+  }
+
+	double rawJetPt = Jet_pt[i] * (1.0 - Jet_rawFactor[i])* Jet_PNetRegPtRawCorrTotal * Jet_UParTAK4RegPtRawCorrTotal; //HERE
+	double rawJetMass = Jet_mass[i] * (1.0 - Jet_rawFactor[i])* (RESCALE_MASS? Jet_PNetRegPtRawCorrTotal : 1.0) * (RESCALE_MASS? Jet_UParTAK4RegPtRawCorrTotal : 1.0);
 	jec->setJetPt(rawJetPt);
 	jec->setJetEta(Jet_eta[i]);
 	jec->setJetPhi(Jet_phi[i]); //added this line to make BPix work (should be marked as w3)
@@ -2342,6 +2759,14 @@ void GamHistosFill::Loop()
   #ifdef PNETREG
   Jet_mass[i] = rawJetMass* (RESCALE_MASS? corr : 1.0);
   #elif defined PNETREGNEUTRINO
+  Jet_mass[i] = rawJetMass* (RESCALE_MASS? corr : 1.0);
+  #else
+  Jet_mass[i] = corr * rawJetMass;
+  #endif
+
+  #ifdef UPARTREG
+  Jet_mass[i] = rawJetMass* (RESCALE_MASS? corr : 1.0);
+  #elif defined UPARTREGNEUTRINO
   Jet_mass[i] = rawJetMass* (RESCALE_MASS? corr : 1.0);
   #else
   Jet_mass[i] = corr * rawJetMass;
@@ -3095,6 +3520,12 @@ void GamHistosFill::Loop()
         "This is not implemented yet!" << endl;
         assert(false);
       #endif
+      #ifdef UPARTREGNEUTRINO
+        cout << "The smearing requires to get the genjet associated to the reco jet.\n" <<
+        "When considering the UPART regression including neutrinos, the 4vec of the neutrinos should be added to the one of the genjet.\n" <<
+        "This is not implemented yet!" << endl;
+        assert(false);
+      #endif
     }
 
 	  double jsf = (smearJets ? Jet_CF[iJet] : 1);
@@ -3269,11 +3700,12 @@ void GamHistosFill::LoadPU() {
   cout << endl << "GamHistosFill::LoadPU" << endl << flush;
   TDirectory *curdir = gDirectory;
 
-  string eras[] =
-    {"2016P8",/*"2016APVP8",*/"2016P8APV","2017P8", "2018P8",
-     "2016QCD",/*"2016APVQCD",*/"2016QCDAPV","2017QCD", "2018QCD",
-     "2016APV","2016FGH","2017","2018",
-     "2022P8", "2022EEP8","2022QCD", "2022EEQCD"};
+  string eras[] = {"2024P8", "Summer24MG","2024C","2024D","2024E","2024F","2024G","2024H","2024I"};
+  //string eras[] =
+  //  {"2016P8",/*"2016APVP8",*/"2016P8APV","2017P8", "2018P8",
+  //   "2016QCD",/*"2016APVQCD",*/"2016QCDAPV","2017QCD", "2018QCD",
+  //   "2016APV","2016FGH","2017","2018",
+  //   "2022P8", "2022EEP8","2022QCD", "2022EEQCD"};
   //"2016BCD","2016EF","2016FGH",
   //"2017B","2017C","2017D","2017E","2017F",
   //"2018A","2018B","2018C","2018D"};
@@ -3327,12 +3759,32 @@ void GamHistosFill::LoadPU() {
   trigs["2022"].push_back("HLT_Photon110EB_TightID_TightIso");
   trigs["2022"].push_back("HLT_Photon200");
 
+  //comment out the once for which I haven't produced a pileup histogram yet
+  trigs["2024P8"].push_back("GamJet"); //photon mc
+  trigs["Summer24MG"].push_back("QCD"); //qcd mc (summer)
+
+  ////trigs["2024"].push_back("HLT_Photon30EB_TightID_TightIso");
+  trigs["2024"].push_back("HLT_Photon50EB_TightID_TightIso");
+  //trigs[puera.c_str()].push_back("HLT_Photon50EB_TightID_TightIso"); //currently run once for each era, so this (1 entry) is enough
+  //trigs[puera.c_str()].push_back("Photon50EB_TightID_TightIso"); // WORKAROUND --> NEED TO RENAME WHEN CREATIONG pu_summary_w41.root in the future (HLT missing from name)
+  // trigs[puera.c_str()].push_back("HLT_Photon50EB_TightID_TightIso");  // --> should actually work for everything (test before removing the following lines)
+  trigs["2024B"].push_back("2024B_Photon50EB_TightID_TightIso");
+  trigs["2024C"].push_back("2024C_Photon50EB_TightID_TightIso");
+  trigs["2024D"].push_back("2024D_Photon50EB_TightID_TightIso");
+  trigs["2024E"].push_back("2024E_Photon50EB_TightID_TightIso");
+  trigs["2024F"].push_back("2024F_Photon50EB_TightID_TightIso");
+  trigs["2024G"].push_back("2024G_Photon50EB_TightID_TightIso");
+  trigs["2024H"].push_back("2024H_Photon50EB_TightID_TightIso");
+  trigs["2024I"].push_back("2024I_Photon50EB_TightID_TightIso");
+
   // files/pileup.root updated with tchain.C on Hefaistos
   TFile *fmc = new TFile("files/pileup.root","READ");
+
   assert(fmc && !fmc->IsZombie());
 
   for (int i = 0; i != neras; ++i) {
     string se = eras[i]; const char *ce = se.c_str();
+    bool is2024 = (se.find("24") != string::npos);
     for (unsigned int j = 0; j != trigs[se].size(); ++j) {
       string st = trigs[se][j]; const char *ct = st.c_str();
 
@@ -3342,18 +3794,29 @@ void GamHistosFill::LoadPU() {
       else sscanf(ct,"HLT_Photon%d*",&itrg);
 
       TFile *fdt(0);
+      TFile *f2024(0);
       TH1D *h(0);
-      if (st=="mc") {
-	h = (TH1D*)fmc->Get(Form("pileup_%s",ce));
-	if (!h) cout << "Failed to find pileup_"<<ce<<endl<<flush;
-	assert(h);
-      }
+
+      if (is2024) { // Different file structure for 2024 pu histograms
+          TFile *f2024 = new TFile("pileup/2024/pileup_summary_2024_MC-and-Data.root","READ"); // file for MC + Data pu for 2024
+          assert(f2024 && !f2024->IsZombie());
+          h = (TH1D*)f2024->Get(Form("pileup_%s",ct));
+          if (!h) cout << "Failed to find pileup_"<<ct<<endl<<flush;
+          assert(h);
+      }   
       else {
-	// data files from Laura (on CERNbox)
-	fdt = new TFile(Form("pileup/%s/pu_%s.root",ce,ct),"READ");
-	assert(fdt && !fdt->IsZombie());
-	h = (TH1D*)fdt->Get("pileup");
-	assert(h);
+        if (st=="mc") {
+          h = (TH1D*)fmc->Get(Form("pileup_%s",ce));
+          if (!h) cout << "Failed to find pileup_"<<ce<<endl<<flush;
+          assert(h);
+        }
+        else {
+	        // data files from Laura (on CERNbox)
+	        fdt = new TFile(Form("pileup/%s/pu_%s.root",ce,ct),"READ");
+	        assert(fdt && !fdt->IsZombie());
+	        h = (TH1D*)fdt->Get("pileup");
+	        assert(h);
+        }
       }
       assert(h);
 
@@ -3368,6 +3831,7 @@ void GamHistosFill::LoadPU() {
 		   lumi,st=="mc" ? "events" : "fb-1");
 
       if (fdt) fdt->Close();
+      if (f2024) f2024->Close();
     } // for j in trigs
   } // for i in eras
   fmc->Close();

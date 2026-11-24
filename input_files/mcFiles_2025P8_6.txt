@@ -1,0 +1,6 @@
+/eos/cms/store/group/phys_jetmet/jdaniel/Skimmed_files_datasets/GamJet/2025/MCWinter25/GJets/date-18Nov2026_time-112917_commit-d2a337d/MC_2025_GamJet_GJ4JetsHT400to600PTG200_Skim_3of5.root
+/eos/cms/store/group/phys_jetmet/jdaniel/Skimmed_files_datasets/GamJet/2025/MCWinter25/GJets/date-18Nov2026_time-112917_commit-d2a337d/MC_2025_GamJet_GJ4JetsHT400to600PTG200_Skim_4of5.root
+/eos/cms/store/group/phys_jetmet/jdaniel/Skimmed_files_datasets/GamJet/2025/MCWinter25/GJets/date-18Nov2026_time-112917_commit-d2a337d/MC_2025_GamJet_GJ4JetsHT400to600PTG200_Skim_5of5.root
+/eos/cms/store/group/phys_jetmet/jdaniel/Skimmed_files_datasets/GamJet/2025/MCWinter25/GJets/date-18Nov2026_time-112917_commit-d2a337d/MC_2025_GamJet_GJ4JetsHT40to100PTG10to100_Skim_1of6.root
+/eos/cms/store/group/phys_jetmet/jdaniel/Skimmed_files_datasets/GamJet/2025/MCWinter25/GJets/date-18Nov2026_time-112917_commit-d2a337d/MC_2025_GamJet_GJ4JetsHT40to100PTG10to100_Skim_2of6.root
+/eos/cms/store/group/phys_jetmet/jdaniel/Skimmed_files_datasets/GamJet/2025/MCWinter25/GJets/date-18Nov2026_time-112917_commit-d2a337d/MC_2025_GamJet_GJ4JetsHT40to100PTG10to100_Skim_3of6.root
